@@ -42,7 +42,7 @@ const inter = Inter({
 });
 
 // Use reliable dummy image URLs
-const dummyImage = const dummyImage = "https://placehold.co/1200x630/065f46/059669/png?text=Guganraj+Rengaraju%0APortfolio";
+const dummyImage = "https://placehold.co/1200x630/065f46/059669/png?text=Guganraj+Rengaraju%0APortfolio";
 
 
 const baseUrl = 'https://guganraj.site';
