@@ -10,8 +10,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Guganraj Rengaraju",
-  description: "Guganraj Rengaraju - Portfolio",
+  title: "Guganraj Rengaraju | Linux & Full-Stack Developer",
+  description: "Linux-focused developer and MCA student. Building projects, learning system administration, backend development, and open source in public.",
 };
 
 export default function RootLayout({
