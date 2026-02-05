@@ -143,7 +143,7 @@ const FeaturedWork = () => {
                                     
                                     {/* Optional button if you want to add one */}
                                     <div className="mt-2">
-                                        <Link href={"/"}>
+                                        <Link href={"https://guidra.guganraj.site/"}>
                                             <span className="inline-flex items-center text-sm font-medium text-primary hover:text-primary/80 transition-colors">
                                                 Live here
                                                 <svg 
