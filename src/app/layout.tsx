@@ -43,9 +43,7 @@ const inter = Inter({
 });
 
 // Base URL - change this in production to your actual domain
-const baseUrl = process.env.NODE_ENV === 'production' 
-  ? 'https://guganraj.site' 
-  : 'http://localhost:3000';
+const baseUrl = 'https://guganraj.site' 
 
 export const metadata: Metadata = {
   title: "Guganraj Rengaraju | Linux & Full-Stack Developer",
