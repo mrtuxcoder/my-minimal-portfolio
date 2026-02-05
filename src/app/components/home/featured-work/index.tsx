@@ -25,13 +25,6 @@ const FeaturedWork = () => {
           },
           {
             id: 2,
-            title: "Stock Management",
-            description: "MERN stock system with role-based access",
-            repoUrl: "https://github.com/mrtuxcoder/mern-stock-management",
-            liveUrl: null
-          },
-          {
-            id: 3,
             title: "EventHub",
             description: "Event booking system with admin CRUD operations",
             repoUrl: "https://github.com/mrtuxcoder/event-booking-management",
