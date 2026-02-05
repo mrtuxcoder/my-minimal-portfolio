@@ -30,7 +30,6 @@
 //   );
 // }
 
-
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -42,8 +41,11 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-// Base URL - change this in production to your actual domain
-const baseUrl = 'https://guganraj.site' 
+// Use reliable dummy image URLs
+const dummyImage = "https://placehold.co/1200x630/png?text=Guganraj+Rengaraju%0ALinux+Developer%0APortfolio"
+
+
+const baseUrl = 'https://guganraj.site';
 
 export const metadata: Metadata = {
   title: "Guganraj Rengaraju | Linux & Full-Stack Developer",
@@ -51,7 +53,7 @@ export const metadata: Metadata = {
   keywords: ["Linux", "Full-Stack Developer", "MCA", "Open Source", "System Administration", "Backend Development"],
   authors: [{ name: "Guganraj Rengaraju" }],
   
-  // Open Graph Metadata for Facebook, LinkedIn, etc.
+  // Open Graph Metadata
   openGraph: {
     type: "website",
     url: baseUrl,
@@ -60,7 +62,7 @@ export const metadata: Metadata = {
     siteName: "Guganraj Rengaraju Portfolio",
     images: [
       {
-        url: `${baseUrl}/images/hero-sec/user-img.png`, // Must be absolute URL
+        url: dummyImage, // Using external dummy image
         width: 1200,
         height: 630,
         alt: "Guganraj Rengaraju - Linux & Full-Stack Developer Portfolio",
@@ -71,11 +73,11 @@ export const metadata: Metadata = {
   // Twitter Card Metadata
   twitter: {
     card: "summary_large_image",
-    site: "@mrtuxcoder", // Your Twitter handle
-    creator: "@mrtuxcoder", // Your Twitter handle
+    site: "@mrtuxcoder",
+    creator: "@mrtuxcoder",
     title: "Guganraj Rengaraju | Linux & Full-Stack Developer",
     description: "Linux-focused developer and MCA student. Building projects, learning system administration, backend development, and open source in public.",
-    images: [`${baseUrl}/images/hero-sec/user-img.png`], // Must be absolute URL
+    images: [dummyImage], // Same external dummy image
   },
   
   // Additional metadata
@@ -97,12 +99,6 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
     shortcut: "/favicon.ico",
   },
-  
-  // Viewport is important for mobile
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-  },
 };
 
 export default function RootLayout({
@@ -111,27 +107,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <head>
-        {/* Additional meta tags for better link previews */}
-        <meta property="og:locale" content="en_US" />
-        <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        
-        {/* Additional social meta tags */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@mrtuxcoder" />
-        <meta name="twitter:creator" content="@mrtuxcoder" />
-        <meta name="twitter:title" content="Guganraj Rengaraju | Linux & Full-Stack Developer" />
-        <meta name="twitter:description" content="Linux-focused developer and MCA student. Building projects, learning system administration, backend development, and open source in public." />
-        <meta name="twitter:image" content={`${baseUrl}/images/hero-sec/user-img.png`} />
-        
-        {/* Additional OG tags for better compatibility */}
-        <meta property="og:title" content="Guganraj Rengaraju | Linux & Full-Stack Developer" />
-        <meta property="og:description" content="Linux-focused developer and MCA student. Building projects, learning system administration, backend development, and open source in public." />
-        <meta property="og:image" content={`${baseUrl}/images/hero-sec/user-img.png`} />
-        <meta property="og:image:alt" content="Guganraj Rengaraju - Linux & Full-Stack Developer Portfolio" />
+        {/* Remove duplicate meta tags - Next.js handles these automatically */}
+        {/* The metadata object above is sufficient */}
       </head>
       <body className={inter.className}>
         <Header/>
