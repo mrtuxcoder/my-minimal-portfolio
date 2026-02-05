@@ -54,7 +54,7 @@ const AboutMe = () => {
                         </div>
                         
                         <div className="flex flex-col gap-3">
-                            <p className="text-sm text-primary uppercase font-medium">Skills</p>
+                            <p className="text-sm tracking-[2px] text-primary uppercase font-medium">Skills</p>
                             
                             {/* Row 1 - Left to Right */}
                             <div 
