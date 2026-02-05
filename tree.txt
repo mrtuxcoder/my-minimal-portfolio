@@ -1,0 +1,76 @@
+.
+├── components.json
+├── eslint.config.mjs
+├── next.config.ts
+├── next-env.d.ts
+├── package.json
+├── package-lock.json
+├── postcss.config.mjs
+├── public
+│   └── images
+│       ├── about-me
+│       │   └── about-me-bg.svg
+│       ├── announcementbar
+│       │   └── announcementbar-bg.jpg
+│       ├── feature-work
+│       │   ├── feature-img-11.png
+│       │   └── feature-img-2.png
+│       ├── hero-sec
+│       │   ├── banner-bg-img.png
+│       │   └── user-img.jpg
+│       └── icon
+│           ├── arrow-icon.svg
+│           ├── asana-icon.svg
+│           ├── behance-icon.svg
+│           ├── dribble-icon.svg
+│           ├── github-icon.svg
+│           ├── linkedin-icon.svg
+│           ├── map-icon.svg
+│           ├── spark-icon.svg
+│           ├── tailwind-icon.svg
+│           ├── tile-arrow-icon.svg
+│           └── twitter-icon.svg
+├── README.md
+├── src
+│   ├── app
+│   │   ├── api
+│   │   │   ├── featured-work
+│   │   │   │   └── route.ts
+│   │   │   └── page-data
+│   │   │       └── route.ts
+│   │   ├── components
+│   │   │   ├── divider
+│   │   │   │   └── index.tsx
+│   │   │   ├── home
+│   │   │   │   ├── about-me
+│   │   │   │   │   └── index.tsx
+│   │   │   │   ├── education
+│   │   │   │   │   └── index.tsx
+│   │   │   │   ├── experience
+│   │   │   │   │   └── index.tsx
+│   │   │   │   ├── featured-work
+│   │   │   │   │   └── index.tsx
+│   │   │   │   ├── hero-section
+│   │   │   │   │   └── index.tsx
+│   │   │   │   └── project-overview
+│   │   │   │       └── index.tsx
+│   │   │   └── layout
+│   │   │       ├── footer
+│   │   │       │   └── index.tsx
+│   │   │       └── header
+│   │   │           ├── announcementBar.tsx
+│   │   │           └── index.tsx
+│   │   ├── favicon.ico
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── components
+│   │   └── ui
+│   │       ├── badge.tsx
+│   │       └── button.tsx
+│   └── lib
+│       └── utils.ts
+├── tree.txt
+└── tsconfig.json
+
+28 directories, 46 files
