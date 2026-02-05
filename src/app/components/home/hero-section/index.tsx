@@ -25,7 +25,7 @@ const HeroSection = () => {
             <div className="container">
                 <div className="">
                     <div className="w-full h-72">
-                        <Image src={"/images/hero-sec/banner-bg-img.png"} alt="banner-img" width={1080} height={267} className="w-full h-full object-cover" />
+                        <Image src={"/images/hero-sec/banner-bg-img.jpg"} alt="banner-img" width={1080} height={267} className="w-full h-full object-cover" />
                     </div>
                     <div className="border-x border-primary/10">
                         <div className="relative flex flex-col xs:flex-row items-center xs:items-start justify-center xs:justify-between max-w-3xl mx-auto gap-10 xs:gap-3 px-4 sm:px-7 pt-22 pb-8 sm:pb-12">
