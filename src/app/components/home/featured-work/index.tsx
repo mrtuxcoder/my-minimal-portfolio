@@ -7,17 +7,322 @@ const FeaturedWork = () => {
   const [featureWork, setFeatureWork] = useState<any>(null);
   const [additionalProjects, setAdditionalProjects] = useState<any[]>([]);
   const [scriptsVisible, setScriptsVisible] = useState(false);
+  const [scripts, setScripts] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [lastUpdated, setLastUpdated] = useState<string>("");
+  const [hoveredScript, setHoveredScript] = useState<string | null>(null);
 
-  const scripts = [
-    {
-      id: 1,
-      name: "User Monitor",
-      description: "Track logins, accounts & security",
-      repoUrl:
-        "https://github.com/mrtuxcoder/my-scripts/blob/main/user_monitor.sh",
-      icon: "👤",
-    },
-  ];
+  const GITHUB_USERNAME = "mrtuxcoder";
+  const REPO_NAME = "my-scripts";
+
+  // === CACHE HELPERS ===
+  const getCachedScripts = (): any[] => {
+    if (typeof window === 'undefined') return [];
+    
+    try {
+      const cached = localStorage.getItem('portfolio_scripts_cache');
+      const timestamp = localStorage.getItem('portfolio_scripts_timestamp');
+      
+      if (!cached || !timestamp) return [];
+      
+      const cacheAge = Date.now() - parseInt(timestamp);
+      if (cacheAge > 30 * 60 * 1000) return [];
+      
+      return JSON.parse(cached);
+    } catch {
+      return [];
+    }
+  };
+
+  const saveScriptsToCache = (scripts: any[]) => {
+    if (typeof window === 'undefined') return;
+    
+    try {
+      localStorage.setItem('portfolio_scripts_cache', JSON.stringify(scripts));
+      localStorage.setItem('portfolio_scripts_timestamp', Date.now().toString());
+    } catch (error) {
+      console.error('Error saving cache:', error);
+    }
+  };
+
+  // === EMOJI & CATEGORY HELPERS ===
+  const getEmojiByPattern = (filename: string): string => {
+    const lower = filename.toLowerCase();
+    
+    if (lower.includes('backup') || lower.includes('save') || lower.includes('archive')) return '💾';
+    if (lower.includes('clean') || lower.includes('remove') || lower.includes('delete')) return '🧹';
+    if (lower.includes('deploy') || lower.includes('launch') || lower.includes('release')) return '🚀';
+    if (lower.includes('monitor') || lower.includes('watch') || lower.includes('check')) return '👁️';
+    if (lower.includes('security') || lower.includes('audit') || lower.includes('protect')) return '🔒';
+    if (lower.includes('network') || lower.includes('ping') || lower.includes('connect')) return '🌐';
+    if (lower.includes('docker') || lower.includes('container') || lower.includes('image')) return '🐳';
+    if (lower.includes('git') || lower.includes('repo') || lower.includes('version')) return '📦';
+    if (lower.includes('cron') || lower.includes('schedule') || lower.includes('timer')) return '⏰';
+    if (lower.includes('user') || lower.includes('account') || lower.includes('login')) return '👤';
+    if (lower.includes('health') || lower.includes('status') || lower.includes('checkup')) return '🫀';
+    if (lower.includes('log') || lower.includes('report') || lower.includes('export')) return '📊';
+    if (lower.includes('system') || lower.includes('server') || lower.includes('host')) return '🖥️';
+    if (lower.includes('ssl') || lower.includes('cert') || lower.includes('tls')) return '🔐';
+    if (lower.includes('disk') || lower.includes('storage') || lower.includes('space')) return '💿';
+    if (lower.includes('service') || lower.includes('daemon') || lower.includes('process')) return '⚙️';
+    
+    return '🔧'; // Default fallback
+  };
+
+  const getCategoryByPattern = (filename: string): string => {
+    const lower = filename.toLowerCase();
+    
+    if (lower.includes('backup') || lower.includes('save') || lower.includes('archive')) return 'Backup';
+    if (lower.includes('clean') || lower.includes('remove') || lower.includes('delete')) return 'Maintenance';
+    if (lower.includes('deploy') || lower.includes('launch') || lower.includes('release')) return 'Deployment';
+    if (lower.includes('monitor') || lower.includes('watch') || lower.includes('check')) return 'Monitoring';
+    if (lower.includes('security') || lower.includes('audit') || lower.includes('protect')) return 'Security';
+    if (lower.includes('network') || lower.includes('ping') || lower.includes('connect')) return 'Network';
+    if (lower.includes('docker') || lower.includes('container') || lower.includes('image')) return 'Docker';
+    if (lower.includes('git') || lower.includes('repo') || lower.includes('version')) return 'Git';
+    if (lower.includes('cron') || lower.includes('schedule') || lower.includes('timer')) return 'Automation';
+    if (lower.includes('user') || lower.includes('account') || lower.includes('login')) return 'User Management';
+    if (lower.includes('health') || lower.includes('status') || lower.includes('checkup')) return 'Health';
+    if (lower.includes('log') || lower.includes('report') || lower.includes('export')) return 'Logging';
+    if (lower.includes('system') || lower.includes('server') || lower.includes('host')) return 'System';
+    if (lower.includes('ssl') || lower.includes('cert') || lower.includes('tls')) return 'SSL';
+    if (lower.includes('disk') || lower.includes('storage') || lower.includes('space')) return 'Storage';
+    
+    return 'Utility';
+  };
+
+  // === GITHUB INTEGRATION ===
+  const parseReadmeTags = (markdown: string): Record<string, string[]> => {
+    const tags: Record<string, string[]> = {};
+    
+    if (!markdown) return tags;
+    
+    // Find any markdown table
+    const tableRegex = /\|([^\n|]+(?:\|[^\n|]+)+)\|/g;
+    const tables = [];
+    let match;
+    
+    while ((match = tableRegex.exec(markdown)) !== null) {
+      tables.push(match[1].trim());
+    }
+    
+    if (tables.length === 0) {
+      console.log('No tables found in README');
+      return tags;
+    }
+    
+    // Find the table with "Filename" header
+    let targetTable = '';
+    for (const table of tables) {
+      if (table.toLowerCase().includes('filename')) {
+        targetTable = table;
+        break;
+      }
+    }
+    
+    if (!targetTable) {
+      console.log('No table with "Filename" header found');
+      return tags;
+    }
+    
+    // Split table into rows
+    const rows = targetTable.split('\n').filter(row => row.trim() !== '');
+    
+    if (rows.length < 2) return tags;
+    
+    // Find Tags column index (last column)
+    const headers = rows[0].split('|').map(h => h.trim().toLowerCase());
+    const tagsIndex = headers.length - 1; // Tags is last column
+    
+    console.log('Tags column index:', tagsIndex);
+    
+    // Parse each data row
+    for (let i = 1; i < rows.length; i++) {
+      const row = rows[i];
+      const cells = row.split('|').map(cell => cell.trim());
+      
+      if (cells.length > tagsIndex) {
+        const filename = cells[0] || '';
+        const tagsStr = cells[tagsIndex] || '';
+        
+        if (filename && tagsStr) {
+          // Parse tags (comma-separated)
+          const parsedTags = tagsStr.split(',').map(tag => tag.trim()).filter(tag => tag);
+          tags[filename] = parsedTags;
+          console.log(`Parsed tags for ${filename}:`, parsedTags);
+        }
+      }
+    }
+    
+    return tags;
+  };
+
+  const fetchGitHubScripts = async (): Promise<any[]> => {
+    try {
+      console.log('=== FETCHING FROM GITHUB ===');
+      
+      const [readmeResponse, filesResponse] = await Promise.all([
+        fetch(`https://raw.githubusercontent.com/${GITHUB_USERNAME}/${REPO_NAME}/main/README.md`),
+        fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/`)
+      ]);
+
+      if (!readmeResponse.ok || !filesResponse.ok) {
+        throw new Error('GitHub fetch failed');
+      }
+
+      const [readmeText, filesData] = await Promise.all([
+        readmeResponse.text(),
+        filesResponse.json()
+      ]);
+
+      const tagsData = parseReadmeTags(readmeText);
+      
+      console.log('=== TAGS EXTRACTED ===');
+      console.log('Files with tags:', Object.keys(tagsData));
+      
+      const scriptExtensions = ['.sh', '.bash', '.js', '.py', '.rb', '.php', '.pl', '.zsh'];
+      const githubScripts = filesData
+        .filter((item: any) => 
+          item.type === 'file' && 
+          scriptExtensions.some(ext => item.name.toLowerCase().endsWith(ext))
+        )
+        .map((item: any) => {
+          const nameWithoutExt = item.name.replace(/\.[^/.]+$/, '');
+          const displayName = nameWithoutExt.replace(/_/g, ' ');
+          
+          // Get tags from README table if available
+          const tags = tagsData[item.name] || [];
+          const hasTags = tags.length > 0;
+          
+          // Auto-detect emoji and category based on filename
+          const emoji = getEmojiByPattern(item.name);
+          const category = getCategoryByPattern(item.name);
+          
+          console.log(`\n📄 ${item.name}:`);
+          console.log(`   Emoji: ${emoji} (auto-detected)`);
+          console.log(`   Category: ${category} (auto-detected)`);
+          console.log(`   Tags: ${tags.length > 0 ? tags.join(', ') : 'none'}`);
+          console.log(`   Has tags in README? ${hasTags ? 'YES' : 'NO'}`);
+          
+          return {
+            name: displayName,
+            originalName: displayName,
+            shortName: displayName.length > 15 ? displayName.substring(0, 12) + '..' : displayName,
+            filename: item.name,
+            emoji: emoji,
+            category: category,
+            description: `${displayName} script${tags.length > 0 ? ' - ' + tags.join(', ') : ''}`,
+            tags: tags,
+            repoUrl: item.html_url,
+            needsScroll: displayName.length > 15,
+            nameLength: displayName.length,
+            fromTable: hasTags // Mark as "from table" if it has tags in README
+          };
+        });
+
+      console.log('=== FINAL SCRIPTS ===');
+      githubScripts.forEach((script : any) => {
+        console.log(`${script.filename}: ${script.emoji} ${script.fromTable ? '✓ HAS TAGS' : '⚡ AUTO'}`);
+      });
+
+      return githubScripts;
+    } catch (error) {
+      console.error('GitHub fetch failed:', error);
+      return [];
+    }
+  };
+
+  // === TEST FUNCTION ===
+  const testParsing = async () => {
+    console.log('=== TESTING README PARSING ===');
+    
+    try {
+      const response = await fetch(`https://raw.githubusercontent.com/${GITHUB_USERNAME}/${REPO_NAME}/main/README.md`);
+      const text = await response.text();
+      
+      // Show the exact content around the table
+      console.log('=== RAW README EXCERPT ===');
+      const lines = text.split('\n');
+      for (let i = 0; i < Math.min(lines.length, 30); i++) {
+        if (lines[i].includes('|')) {
+          console.log(`Line ${i + 1}: "${lines[i]}"`);
+        }
+      }
+      
+      const tags = parseReadmeTags(text);
+      console.log('=== PARSED TAGS ===');
+      console.log('Total files with tags:', Object.keys(tags).length);
+      
+      Object.entries(tags).forEach(([filename, fileTags]: [string, string[]]) => {
+        console.log(`  "${filename}": ${fileTags.join(', ')}`);
+      });
+      
+    } catch (error) {
+      console.error('Test failed:', error);
+    }
+  };
+
+  // === MAIN LOADING ===
+  const loadScripts = async (forceRefresh = false) => {
+    setIsLoading(true);
+    
+    try {
+      let scriptsToDisplay: any[] = [];
+      
+      // Try cache first
+      if (!forceRefresh) {
+        scriptsToDisplay = getCachedScripts();
+        if (scriptsToDisplay.length > 0) {
+          console.log('Loaded from cache:', scriptsToDisplay.length, 'scripts');
+        }
+      }
+      
+      // Fetch from GitHub if needed
+      if (forceRefresh || scriptsToDisplay.length === 0) {
+        console.log('Fetching fresh from GitHub...');
+        const githubScripts = await fetchGitHubScripts();
+        if (githubScripts.length > 0) {
+          scriptsToDisplay = githubScripts;
+          saveScriptsToCache(githubScripts);
+          console.log('Saved to cache:', githubScripts.length, 'scripts');
+        }
+      }
+      
+      // Fallback if empty
+      if (scriptsToDisplay.length === 0) {
+        console.log('Using fallback scripts');
+        scriptsToDisplay = [
+          {
+            name: "User Monitor",
+            shortName: "User Monitor",
+            filename: "user_monitor.sh",
+            emoji: "👁️",
+            category: "Security",
+            description: "Real-time user login monitoring and security auditing",
+            tags: ["monitoring", "security", "users"],
+            repoUrl: "https://github.com/mrtuxcoder/my-scripts/blob/main/user_monitor.sh",
+            needsScroll: false,
+            nameLength: 11,
+            fromTable: true
+          }
+        ];
+      }
+      
+      setScripts(scriptsToDisplay);
+      setLastUpdated(new Date().toLocaleTimeString());
+      
+      console.log('✅ Scripts loaded:', scriptsToDisplay.length);
+      
+    } catch (error) {
+      console.error('Failed to load scripts:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadScripts();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -132,28 +437,81 @@ const FeaturedWork = () => {
             ))}
           </div>
 
-          {/* Scripts Section - Right Side Rectangle Grid */}
+          {/* Scripts Section */}
           <div className="border-t border-primary/10 py-6 sm:py-8 lg:py-12">
             <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-              {/* Left Content - Consistent sizing */}
+              {/* Left Content */}
               <div className="lg:w-[40%] flex flex-col">
                 <div className="space-y-4 sm:space-y-5">
-                  <h3 className="text-2xl sm:text-3xl lg:text-[2rem] font-bold leading-snug lg:leading-tight">
-                    Linux Automation Toolkit
-                  </h3>
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-2xl sm:text-3xl lg:text-[2rem] font-bold leading-snug lg:leading-tight">
+                      Linux Automation Toolkit
+                    </h3>
+                    
+                    {/* Refresh Button */}
+                    {/* <button
+                      onClick={() => loadScripts(true)}
+                      disabled={isLoading}
+                      className="p-2 text-gray-500 dark:text-gray-400 hover:text-primary transition-colors"
+                      title="Refresh from GitHub"
+                    >
+                      {isLoading ? (
+                        <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                        </svg>
+                      ) : (
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                      )}
+                    </button> */}
+                  </div>
 
-                  {/* Fixed height container for text content */}
+                  {/* Stats & Debug */}
+                  <div className="flex flex-col gap-3">
+                    <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+                      <span className="flex items-center gap-1">
+                        <span className="text-lg">📊</span>
+                        {scripts.length} scripts
+                      </span>
+                      {lastUpdated && (
+                        <span className="flex items-center gap-1">
+                          <span className="text-lg">⏱️</span>
+                          Updated {lastUpdated}
+                        </span>
+                      )}
+                    </div>
+                    
+                    {/* Debug Buttons */}
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => {
+                          console.log('=== CURRENT SCRIPTS ===');
+                          scripts.forEach(script => {
+                            console.log(`${script.filename}: ${script.emoji} ${script.fromTable ? '✓ HAS TAGS' : '⚡ AUTO'}`);
+                          });
+                        }}
+                        className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded hover:bg-gray-200 dark:hover:bg-gray-700"
+                      >
+                        Debug Scripts
+                      </button>
+                      <button
+                        onClick={testParsing}
+                        className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded hover:bg-gray-200 dark:hover:bg-gray-700"
+                      >
+                        Test README
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Description */}
                   <div className="min-h-[100px] sm:min-h-[130px]">
                     <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
                       {scriptsVisible ? (
                         <>
-                          Real-world Bash automation scripts built during my
-                          Linux system administration training. Focused on
-                          monitoring, user auditing, logging, and system-level
-                          operations.
-                          <span className="mt-3 block text-sm text-primary">
-                            Each script is documented and available on GitHub.
-                          </span>
+                          Real-world Bash automation scripts automatically fetched from GitHub.
+                    
                         </>
                       ) : (
                         "Practical Linux automation tools designed for system reliability, monitoring, and administrative workflows."
@@ -205,10 +563,10 @@ const FeaturedWork = () => {
                 </div>
               </div>
 
-              {/* Right Side - Enhanced Grid Container */}
+              {/* Right Side Grid */}
               <div className="lg:w-[60%]">
-                <div className="relative w-full min-h-[400px] bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-                  {/* Grid Header - Fixed height */}
+                <div className="relative w-full h-[420px] bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                  {/* Grid Header */}
                   <div className="p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-800/50">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
@@ -218,7 +576,7 @@ const FeaturedWork = () => {
                             scripts/
                           </h4>
                           <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                            {scripts.length} files • Click to view source
+                            {isLoading ? 'Fetching from GitHub...' : `${scripts.length} files • Click to view source`}
                           </p>
                         </div>
                       </div>
@@ -237,85 +595,162 @@ const FeaturedWork = () => {
                     </div>
                   </div>
 
-                  {/* Main Grid Area - Consistent aspect ratios */}
-<div className="p-4 sm:p-6">
-  <div className={`${scriptsVisible ? 'h-[300px] overflow-y-auto' : 'h-auto'} pr-2`}>
-    {scriptsVisible ? (
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3 auto-rows-fr">
-        {scripts.map((script) => (
-          <Link
-            key={script.id}
-            href={script.repoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative flex flex-col items-center justify-center p-2 sm:p-4 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-md transition-all duration-200 min-h-[100px] sm:min-h-[120px]"
-          >
-            {/* External link indicator */}
-            <div className="absolute top-2 right-2 sm:top-3 sm:right-3 opacity-0 group-hover:opacity-100 transition-opacity">
-              <svg
-                className="w-3 h-3 sm:w-4 sm:h-4 text-primary"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                />
-              </svg>
-            </div>
+                  {/* Main Grid Area */}
+                  <div className="p-4 sm:p-6 h-[calc(400px-8rem)] overflow-hidden">
+                    <div className={`${scriptsVisible ? 'h-full overflow-y-auto pr-2' : 'h-full'}`}>
+                      {isLoading ? (
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 auto-rows-fr">
+                          {Array.from({ length: 8 }).map((_, i) => (
+                            <div
+                              key={i}
+                              className="flex flex-col items-center justify-center p-4 rounded-lg bg-gray-100/50 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 h-[140px] animate-pulse"
+                            >
+                              <div className="w-12 h-12 bg-gray-300 dark:bg-gray-700 rounded-full mb-3"></div>
+                              <div className="w-20 h-3 bg-gray-300 dark:bg-gray-700 rounded-full mb-2"></div>
+                              <div className="w-16 h-2 bg-gray-200 dark:bg-gray-600 rounded-full"></div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : scriptsVisible ? (
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 auto-rows-fr">
+                          {scripts.map((script, index) => (
+                            <div
+                              key={`${script.filename}-${index}`}
+                              className="relative h-[140px]"
+                              onMouseEnter={() => setHoveredScript(script.filename)}
+                              onMouseLeave={() => setHoveredScript(null)}
+                            >
+                              {/* Tooltip */}
+                              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10 group-hover:block hidden">
+                                <div className="font-medium mb-1 max-w-[180px] truncate">{script.description}</div>
+                                <div className="text-gray-300 text-[10px]">
+                                  {script.category} • {script.fromTable ? 'Has tags in README' : 'Auto-detected'}
+                                  {script.tags && script.tags.length > 0 && (
+                                    <div className="mt-1">
+                                      Tags: {script.tags.join(', ')}
+                                    </div>
+                                  )}
+                                </div>
+                                <div className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1">
+                                  <div className="w-2 h-2 bg-gray-900 rotate-45"></div>
+                                </div>
+                              </div>
 
-            <div className="text-2xl sm:text-3xl mb-1.5 sm:mb-3 group-hover:scale-110 transition-transform">
-              {script.icon}
-            </div>
+                              <Link
+                                href={script.repoUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group flex flex-col items-center justify-center p-4 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-md transition-all duration-200 h-full"
+                              >
+                                {/* Source Indicator */}
+                                <div className={`absolute top-2 left-2 px-1.5 py-0.5 text-[8px] font-medium rounded-full ${
+                                  script.fromTable 
+                                    ? 'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300' 
+                                    : 'bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300'
+                                }`}>
+                                  {script.fromTable ? '✓' : '⚡'}
+                                </div>
 
-            <div className="text-center w-full px-1">
-              <h5 className="text-xs sm:text-sm font-medium text-gray-800 dark:text-gray-200 mb-0.5 sm:mb-1 line-clamp-1">
-                {script.name}
-              </h5>
-              <p className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 line-clamp-2 leading-tight">
-                {script.description}
-              </p>
-            </div>
-          </Link>
-        ))}
-      </div>
-    ) : (
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <div
-            key={i}
-            className="flex flex-col items-center justify-center p-2 sm:p-4 rounded-lg bg-gray-100/50 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 h-[100px] sm:h-[120px]"
-          >
-            <div className="text-2xl sm:text-3xl mb-1.5 sm:mb-3 opacity-40">
-              {["📁", "📄", "⚙️", "🔧", "📦", "🖥️"][i % 6]}
-            </div>
-            <div className="w-12 h-1.5 sm:w-16 sm:h-2 bg-gray-300 dark:bg-gray-700 rounded-full mb-1.5 sm:mb-2 animate-pulse"></div>
-            <div className="w-8 h-1 sm:w-12 sm:h-1.5 bg-gray-200 dark:bg-gray-600 rounded-full animate-pulse"></div>
-          </div>
-        ))}
-      </div>
-    )}
-  </div>
-</div>
+                                {/* External Link */}
+                                <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                  <svg
+                                    className="w-3 h-3 text-primary"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth={2}
+                                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                    />
+                                  </svg>
+                                </div>
 
-                  {/* Grid Footer - Consistent with header */}
+                                {/* Emoji */}
+                                <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-200">
+                                  {script.emoji}
+                                </div>
+
+                                {/* Script Name */}
+                                <div className="w-full text-center overflow-hidden">
+                                  <div className={`text-sm font-medium text-gray-800 dark:text-gray-200 mb-2 ${script.needsScroll ? 'relative inline-block max-w-full' : ''}`}>
+                                    {script.needsScroll ? (
+                                      <div className="relative overflow-hidden whitespace-nowrap">
+                                        <span 
+                                          className={`inline-block ${hoveredScript === script.filename ? 'animate-marquee' : ''}`}
+                                          style={{
+                                            animationDuration: `${script.nameLength * 0.15}s`,
+                                            paddingLeft: hoveredScript === script.filename ? '100%' : '0'
+                                          }}
+                                        >
+                                          {script.originalName}
+                                        </span>
+                                        {hoveredScript !== script.filename && (
+                                          <span className="opacity-100">{script.shortName}</span>
+                                        )}
+                                      </div>
+                                    ) : (
+                                      <span className="block truncate">{script.name}</span>
+                                    )}
+                                  </div>
+
+                                  {/* Category Badge */}
+                                  <span className="inline-block px-2 py-1 text-[10px] font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded">
+                                    {script.category}
+                                  </span>
+                                </div>
+
+                                {/* Scroll Hint */}
+                                {script.needsScroll && (
+                                  <div className="absolute bottom-1 text-[8px] text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    ↕ hover to scroll
+                                  </div>
+                                )}
+                              </Link>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 auto-rows-fr">
+                          {Array.from({ length: 8 }).map((_, i) => (
+                            <div
+                              key={i}
+                              className="flex flex-col items-center justify-center p-4 rounded-lg bg-gray-100/50 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 h-[140px]"
+                            >
+                              <div className="text-3xl mb-3 opacity-30">
+                                {["⚙️", "🔧", "📦", "🖥️", "📁", "📄", "🔒", "🌐"][i % 8]}
+                              </div>
+                              <div className="w-20 h-3 bg-gray-300 dark:bg-gray-700 rounded-full mb-2 animate-pulse"></div>
+                              <div className="w-16 h-2 bg-gray-200 dark:bg-gray-600 rounded-full animate-pulse"></div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Grid Footer */}
                   <div className="p-4 sm:p-6 border-t border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-800/50">
                     <div className="flex items-center justify-between">
                       <div className="text-xs text-gray-500 dark:text-gray-400">
-                        {scriptsVisible ? (
+                        {isLoading ? (
+                          <span className="flex items-center gap-2">
+                            <span className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></span>
+                            Fetching from GitHub...
+                          </span>
+                        ) : scriptsVisible ? (
                           <span className="flex items-center gap-2">
                             <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                            Scripts loaded
+                            {scripts.length} scripts loaded
                           </span>
                         ) : (
                           "Click 'Explore Scripts' to view"
                         )}
                       </div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400 font-medium">
-                        {scripts.length} items
+                      <div className="text-xs text-gray-500 dark:text-gray-400">
+                        {scripts.filter(s => s.fromTable).length} with tags
                       </div>
                     </div>
                   </div>
@@ -324,7 +759,7 @@ const FeaturedWork = () => {
             </div>
           </div>
 
-          {/* Minimal Additional Projects Section */}
+          {/* Additional Projects */}
           <div className="border-t border-primary/10 py-8 sm:py-12">
             <div className="max-w-3xl mx-auto px-4 sm:px-7">
               <h3 className="text-base font-medium text-gray-500 dark:text-gray-400 mb-6 uppercase tracking-wider">
@@ -346,7 +781,7 @@ const FeaturedWork = () => {
                           <span className="text-xs text-gray-500 dark:text-gray-400">
                             •
                           </span>
-                          <p className="text-sm text-gray-600 dark:text-gray-gray-400 flex-1">
+                          <p className="text-sm text-gray-600 dark:text-gray-400 flex-1">
                             {project.description}
                           </p>
                         </div>
@@ -394,6 +829,22 @@ const FeaturedWork = () => {
           </div>
         </div>
       </div>
+      
+      {/* CSS Animation */}
+      <style jsx>{`
+        @keyframes marquee {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-100%);
+          }
+        }
+        .animate-marquee {
+          animation: marquee linear infinite;
+          animation-play-state: running;
+        }
+      `}</style>
     </section>
   );
 };
