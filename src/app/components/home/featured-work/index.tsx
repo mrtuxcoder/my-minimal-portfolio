@@ -232,36 +232,7 @@ const FeaturedWork = () => {
     }
   };
 
-  // === TEST FUNCTION ===
-  const testParsing = async () => {
-    console.log('=== TESTING README PARSING ===');
-    
-    try {
-      const response = await fetch(`https://raw.githubusercontent.com/${GITHUB_USERNAME}/${REPO_NAME}/main/README.md`);
-      const text = await response.text();
-      
-      // Show the exact content around the table
-      console.log('=== RAW README EXCERPT ===');
-      const lines = text.split('\n');
-      for (let i = 0; i < Math.min(lines.length, 30); i++) {
-        if (lines[i].includes('|')) {
-          console.log(`Line ${i + 1}: "${lines[i]}"`);
-        }
-      }
-      
-      const tags = parseReadmeTags(text);
-      console.log('=== PARSED TAGS ===');
-      console.log('Total files with tags:', Object.keys(tags).length);
-      
-      Object.entries(tags).forEach(([filename, fileTags]: [string, string[]]) => {
-        console.log(`  "${filename}": ${fileTags.join(', ')}`);
-      });
-      
-    } catch (error) {
-      console.error('Test failed:', error);
-    }
-  };
-
+  
   // === MAIN LOADING ===
   const loadScripts = async (forceRefresh = false) => {
     setIsLoading(true);
@@ -483,26 +454,6 @@ const FeaturedWork = () => {
                       )}
                     </div>
                     
-                    {/* Debug Buttons */}
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => {
-                          console.log('=== CURRENT SCRIPTS ===');
-                          scripts.forEach(script => {
-                            console.log(`${script.filename}: ${script.emoji} ${script.fromTable ? '✓ HAS TAGS' : '⚡ AUTO'}`);
-                          });
-                        }}
-                        className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded hover:bg-gray-200 dark:hover:bg-gray-700"
-                      >
-                        Debug Scripts
-                      </button>
-                      <button
-                        onClick={testParsing}
-                        className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded hover:bg-gray-200 dark:hover:bg-gray-700"
-                      >
-                        Test README
-                      </button>
-                    </div>
                   </div>
 
                   {/* Description */}
