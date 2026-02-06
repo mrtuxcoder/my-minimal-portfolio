@@ -238,79 +238,68 @@ const FeaturedWork = () => {
                   </div>
 
                   {/* Main Grid Area - Consistent aspect ratios */}
-                  <div className="p-4 sm:p-6">
-                    <div className="h-[300px] overflow-y-auto pr-2">
-                      {scriptsVisible ? (
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 auto-rows-fr">
-                          {scripts.map((script) => (
-                            <Link
-                              key={script.id}
-                              href={script.repoUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="group relative flex flex-col items-center justify-center p-4 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-md transition-all duration-200 min-h-[120px]"
-                            >
-                              {/* External link indicator */}
-                              <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <svg
-                                  className="w-4 h-4 text-primary"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                                  />
-                                </svg>
-                              </div>
+<div className="p-4 sm:p-6">
+  <div className={`${scriptsVisible ? 'h-[300px] overflow-y-auto' : 'h-auto'} pr-2`}>
+    {scriptsVisible ? (
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3 auto-rows-fr">
+        {scripts.map((script) => (
+          <Link
+            key={script.id}
+            href={script.repoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative flex flex-col items-center justify-center p-2 sm:p-4 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-md transition-all duration-200 min-h-[100px] sm:min-h-[120px]"
+          >
+            {/* External link indicator */}
+            <div className="absolute top-2 right-2 sm:top-3 sm:right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+              <svg
+                className="w-3 h-3 sm:w-4 sm:h-4 text-primary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                />
+              </svg>
+            </div>
 
-                              <div className="text-3xl mb-3 group-hover:scale-110 transition-transform">
-                                {script.icon}
-                              </div>
+            <div className="text-2xl sm:text-3xl mb-1.5 sm:mb-3 group-hover:scale-110 transition-transform">
+              {script.icon}
+            </div>
 
-                              <div className="text-center w-full">
-                                <h5 className="text-sm font-medium text-gray-800 dark:text-gray-200 mb-1 line-clamp-1">
-                                  {script.name}
-                                </h5>
-                                <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2">
-                                  {script.description}
-                                </p>
-                              </div>
-                            </Link>
-                          ))}
-                        </div>
-                      ) : (
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 auto-rows-fr">
-                          {Array.from({ length: 8 }).map((_, i) => (
-                            <div
-                              key={i}
-                              className="flex flex-col items-center justify-center p-4 rounded-lg bg-gray-100/50 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 min-h-[120px]"
-                            >
-                              <div className="text-3xl mb-3 opacity-40">
-                                {
-                                  [
-                                    "📁",
-                                    "📄",
-                                    "⚙️",
-                                    "🔧",
-                                    "📦",
-                                    "🖥️",
-                                    "🗄️",
-                                    "🔍",
-                                  ][i % 8]
-                                }
-                              </div>
-                              <div className="w-16 h-2 bg-gray-300 dark:bg-gray-700 rounded-full mb-2 animate-pulse"></div>
-                              <div className="w-12 h-1.5 bg-gray-200 dark:bg-gray-600 rounded-full animate-pulse"></div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </div>
+            <div className="text-center w-full px-1">
+              <h5 className="text-xs sm:text-sm font-medium text-gray-800 dark:text-gray-200 mb-0.5 sm:mb-1 line-clamp-1">
+                {script.name}
+              </h5>
+              <p className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 line-clamp-2 leading-tight">
+                {script.description}
+              </p>
+            </div>
+          </Link>
+        ))}
+      </div>
+    ) : (
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div
+            key={i}
+            className="flex flex-col items-center justify-center p-2 sm:p-4 rounded-lg bg-gray-100/50 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 h-[100px] sm:h-[120px]"
+          >
+            <div className="text-2xl sm:text-3xl mb-1.5 sm:mb-3 opacity-40">
+              {["📁", "📄", "⚙️", "🔧", "📦", "🖥️"][i % 6]}
+            </div>
+            <div className="w-12 h-1.5 sm:w-16 sm:h-2 bg-gray-300 dark:bg-gray-700 rounded-full mb-1.5 sm:mb-2 animate-pulse"></div>
+            <div className="w-8 h-1 sm:w-12 sm:h-1.5 bg-gray-200 dark:bg-gray-600 rounded-full animate-pulse"></div>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</div>
 
                   {/* Grid Footer - Consistent with header */}
                   <div className="p-4 sm:p-6 border-t border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-800/50">
