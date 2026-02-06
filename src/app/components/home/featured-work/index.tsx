@@ -185,7 +185,7 @@ const FeaturedWork = () => {
                     <span className="mr-2 text-lg">
                       {scriptsVisible ? "📂" : "📁"}
                     </span>
-                    {scriptsVisible ? "Hide Scripts" : "Explore Scripts"}
+                    {scriptsVisible ? "Hide" : "Explore"}
                   </button>
 
                   <Link
