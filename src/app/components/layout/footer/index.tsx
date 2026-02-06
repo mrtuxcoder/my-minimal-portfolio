@@ -1,75 +1,14 @@
-"use client";
-
 import Link from "next/link"
-import { useEffect, useState } from "react"
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
-    const [visitCount, setVisitCount] = useState<number>(0);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-
-    useEffect(() => {
-        const trackAndGetVisits = async () => {
-            try {
-                // First, track this visit (increment the counter)
-                const postResponse = await fetch('/api/visits', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-                
-                if (!postResponse.ok) {
-                    throw new Error(`Failed to track visit: ${postResponse.status}`);
-                }
-                
-                // Then get the updated count
-                const getResponse = await fetch('/api/visits');
-                
-                if (!getResponse.ok) {
-                    throw new Error(`Failed to get count: ${getResponse.status}`);
-                }
-                
-                const data = await getResponse.json();
-                setVisitCount(data.count);
-            } catch (error) {
-                console.error('Error tracking visits:', error);
-                setError('Unable to load visit count');
-                setVisitCount(0);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        trackAndGetVisits();
-    }, []);
-
+    
     return (
         <footer className="-translate-y-[1px] bg-white dark:bg-gray-900 border-t border-primary/10">
             <div className="container">
                 <div className="border-x border-primary/10">
                     <div className="max-w-3xl mx-auto px-4 sm:px-7 py-6 md:py-8">
                         <div className="text-center space-y-4">
-                            {/* Global Visit Counter */}
-                            <div className="flex items-center justify-center gap-2">
-                                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                                <p className="text-sm text-gray-600 dark:text-gray-400">
-                                    {isLoading ? (
-                                        <span className="inline-flex items-center gap-1">
-                                            <span className="inline-block w-4 h-4 border-2 border-gray-300 border-t-primary rounded-full animate-spin"></span>
-                                            Counting visitors...
-                                        </span>
-                                    ) : error ? (
-                                        <span className="text-red-500">{error}</span>
-                                    ) : (
-                                        <span>
-                                            <span className="font-semibold text-primary">{visitCount.toLocaleString()}</span> visits worldwide
-                                        </span>
-                                    )}
-                                </p>
-                            </div>
-
                             {/* Copyright */}
                             <p className="text-sm text-gray-600 dark:text-gray-400">
                                 © {currentYear} Guganraj Rengaraju, All rights reserved.
