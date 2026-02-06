@@ -177,7 +177,7 @@ const FeaturedWork = () => {
                   </div>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-4 mt-4">
+                <div className="flex items-center gap-4 mt-4">
                   <button
                     onClick={() => setScriptsVisible(!scriptsVisible)}
                     className="inline-flex items-center px-5 py-2.5 text-sm font-medium text-white bg-primary hover:bg-primary/90 rounded-lg transition-all duration-300 hover:scale-[1.02]"
