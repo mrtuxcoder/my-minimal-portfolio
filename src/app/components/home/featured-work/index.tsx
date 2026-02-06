@@ -19,10 +19,6 @@ const FeaturedWork = () => {
     },
   ];
 
-  // Always show 8 items (real + placeholders) to maintain layout
-  const totalItemsToShow = 8;
-  const emptySlots = Math.max(0, totalItemsToShow - scripts.length);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -137,66 +133,63 @@ const FeaturedWork = () => {
           </div>
 
           {/* Scripts Section - Right Side Rectangle Grid */}
-          <div className="border-t border-primary/10">
-            <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 p-4 sm:p-6 lg:p-8">
-              {/* Left Content */}
-              <div className="lg:w-[42%] flex flex-col justify-center gap-4 sm:gap-5">
-                <div className="flex flex-col gap-3 sm:gap-4">
-                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight">
+          <div className="border-t border-primary/10 py-6 sm:py-8 lg:py-12">
+            <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+              {/* Left Content - Consistent sizing */}
+              <div className="lg:w-[40%] flex flex-col">
+                <div className="space-y-4 sm:space-y-5">
+                  <h3 className="text-2xl sm:text-3xl lg:text-[2rem] font-bold leading-snug lg:leading-tight">
                     Linux Automation Toolkit
                   </h3>
 
-                  <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                    {scriptsVisible ? (
-                      <>
-                        <span className="sm:hidden">
-                          {/* Mobile short version when visible */}
-                          Bash automation scripts for system monitoring and
-                          auditing.
-                        </span>
-                        <span className="hidden sm:inline">
-                          {/* Desktop full version */}
+                  {/* Fixed height container for text content */}
+                  <div className="min-h-[100px] sm:min-h-[130px]">
+                    <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                      {scriptsVisible ? (
+                        <>
                           Real-world Bash automation scripts built during my
                           Linux system administration training. Focused on
                           monitoring, user auditing, logging, and system-level
                           operations.
-                        </span>
-                        <span className="block mt-2 text-sm text-primary">
-                          Each script is documented and available on GitHub.
-                        </span>
-                      </>
-                    ) : (
-                      "Practical Linux automation tools designed for system reliability, monitoring, and administrative workflows."
-                    )}
-                  </p>
+                          <span className="mt-3 block text-sm text-primary">
+                            Each script is documented and available on GitHub.
+                          </span>
+                        </>
+                      ) : (
+                        "Practical Linux automation tools designed for system reliability, monitoring, and administrative workflows."
+                      )}
+                    </p>
+                  </div>
 
                   <div className="mt-2">
-                    <p className="text-sm sm:text-base text-primary font-medium">
+                    <p className="text-sm text-primary font-medium tracking-wide">
                       Bash • Linux Administration • Automation
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 mt-4">
+                <div className="grid grid-cols-2 gap-3 mt-6 sm:mt-8 max-w-md">
                   <button
                     onClick={() => setScriptsVisible(!scriptsVisible)}
-                    className="inline-flex items-center px-5 py-2 text-sm font-medium text-white bg-primary hover:bg-primary/90 rounded-lg transition-all duration-300 hover:scale-[1.02]"
+                    className="inline-flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium text-white bg-primary hover:bg-primary/90 rounded-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
                   >
-                    <span className="mr-2 text-lg">
+                    <span className="text-lg">
                       {scriptsVisible ? "📂" : "📁"}
                     </span>
-                    {scriptsVisible ? "Hide" : "Explore"}
+                    <span className="whitespace-nowrap">
+                      {scriptsVisible ? "Hide Scripts" : "Explore Scripts"}
+                    </span>
                   </button>
 
                   <Link
                     href="https://github.com/mrtuxcoder/my-scripts"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center text-sm text-gray-600 dark:text-gray-400 hover:text-primary transition-colors"
+                    className="inline-flex items-center justify-center gap-2 px-4 py-3 text-sm text-gray-600 dark:text-gray-400 hover:text-primary transition-colors border border-gray-300 dark:border-gray-600 rounded-lg hover:border-primary/50"
                   >
-                    View Repository
+                    <span className="whitespace-nowrap">View Repository</span>
                     <svg
-                      className="ml-2 w-4 h-4"
+                      className="w-4 h-4"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -212,51 +205,53 @@ const FeaturedWork = () => {
                 </div>
               </div>
 
-              {/* Right Side Rectangle Grid - FIXED HEIGHT */}
-              <div className="lg:w-[58%]">
-                <div className="relative w-full h-full min-h-[380px] bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden p-4 sm:p-6">
-                  {/* Grid Header */}
-                  <div className="flex items-center justify-between mb-4 sm:mb-6">
-                    <div className="flex items-center gap-3">
-                      <div className="text-2xl">📁</div>
-                      <div>
-                        <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                          scripts/
-                        </h4>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
-                          {scripts.length} files • Click to view source
-                        </p>
+              {/* Right Side - Enhanced Grid Container */}
+              <div className="lg:w-[60%]">
+                <div className="relative w-full min-h-[400px] bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                  {/* Grid Header - Fixed height */}
+                  <div className="p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-800/50">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="text-2xl">📁</div>
+                        <div>
+                          <h4 className="text-base font-semibold text-gray-800 dark:text-gray-200">
+                            scripts/
+                          </h4>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                            {scripts.length} files • Click to view source
+                          </p>
+                        </div>
                       </div>
-                    </div>
 
-                    <div className="flex items-center gap-2">
-                      <span
-                        className={`px-2 py-1 text-xs rounded-full ${
-                          scriptsVisible
-                            ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
-                            : "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400"
-                        }`}
-                      >
-                        {scriptsVisible ? "Visible" : "Hidden"}
-                      </span>
+                      <div className="flex items-center gap-2">
+                        <span
+                          className={`px-2.5 py-1 text-xs font-medium rounded-full ${
+                            scriptsVisible
+                              ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
+                              : "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400"
+                          }`}
+                        >
+                          {scriptsVisible ? "Visible" : "Hidden"}
+                        </span>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Main Grid Area - Fixed height with consistent content */}
-                  <div className="min-h-[280px] h-[280px] overflow-y-auto pr-2">
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                      {/* Always show scripts when visible */}
+                  {/* Main Grid Area - Consistent aspect ratios */}
+                  <div className="p-4 sm:p-6">
+                    <div className="h-[300px] overflow-y-auto pr-2">
                       {scriptsVisible ? (
-                        <>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 auto-rows-fr">
                           {scripts.map((script) => (
                             <Link
                               key={script.id}
                               href={script.repoUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="group/script relative flex flex-col items-center p-4 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                              className="group relative flex flex-col items-center justify-center p-4 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-md transition-all duration-200 min-h-[120px]"
                             >
-                              <div className="absolute top-2 right-2 opacity-0 group-hover/script:opacity-100 transition-opacity">
+                              {/* External link indicator */}
+                              <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
                                 <svg
                                   className="w-4 h-4 text-primary"
                                   fill="none"
@@ -272,11 +267,11 @@ const FeaturedWork = () => {
                                 </svg>
                               </div>
 
-                              <div className="text-3xl mb-3 transform group-hover/script:scale-110 transition-transform">
+                              <div className="text-3xl mb-3 group-hover:scale-110 transition-transform">
                                 {script.icon}
                               </div>
 
-                              <div className="text-center">
+                              <div className="text-center w-full">
                                 <h5 className="text-sm font-medium text-gray-800 dark:text-gray-200 mb-1 line-clamp-1">
                                   {script.name}
                                 </h5>
@@ -286,64 +281,53 @@ const FeaturedWork = () => {
                               </div>
                             </Link>
                           ))}
-
-                          {/* Empty placeholder slots to maintain layout */}
-                          {Array.from({ length: emptySlots }).map((_, i) => (
+                        </div>
+                      ) : (
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 auto-rows-fr">
+                          {Array.from({ length: 8 }).map((_, i) => (
                             <div
-                              key={`empty-${i}`}
-                              className="flex flex-col items-center justify-center p-4 rounded-lg bg-white/30 dark:bg-gray-800/30 border border-gray-200/50 dark:border-gray-700/50"
+                              key={i}
+                              className="flex flex-col items-center justify-center p-4 rounded-lg bg-gray-100/50 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 min-h-[120px]"
                             >
                               <div className="text-3xl mb-3 opacity-40">
-                                {["📁", "📄", "⚙️", "🔧"][i % 4]}
+                                {
+                                  [
+                                    "📁",
+                                    "📄",
+                                    "⚙️",
+                                    "🔧",
+                                    "📦",
+                                    "🖥️",
+                                    "🗄️",
+                                    "🔍",
+                                  ][i % 8]
+                                }
                               </div>
-                              <div className="w-16 h-2 bg-gray-200 dark:bg-gray-700 rounded-full mb-2 opacity-50"></div>
-                              <div className="w-12 h-1.5 bg-gray-100 dark:bg-gray-600 rounded-full opacity-30"></div>
+                              <div className="w-16 h-2 bg-gray-300 dark:bg-gray-700 rounded-full mb-2 animate-pulse"></div>
+                              <div className="w-12 h-1.5 bg-gray-200 dark:bg-gray-600 rounded-full animate-pulse"></div>
                             </div>
                           ))}
-                        </>
-                      ) : (
-                        /* Hidden state - show all placeholders */
-                        Array.from({ length: totalItemsToShow }).map((_, i) => (
-                          <div
-                            key={i}
-                            className="flex flex-col items-center justify-center p-4 rounded-lg bg-gray-100/50 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50"
-                          >
-                            <div className="text-3xl mb-3 opacity-60">
-                              {
-                                [
-                                  "📁",
-                                  "📄",
-                                  "⚙️",
-                                  "🔧",
-                                  "📦",
-                                  "🖥️",
-                                  "🗄️",
-                                  "🔍",
-                                ][i % 8]
-                              }
-                            </div>
-                            <div className="w-16 h-2 bg-gray-300 dark:bg-gray-700 rounded-full mb-2"></div>
-                            <div className="w-12 h-1.5 bg-gray-200 dark:bg-gray-600 rounded-full"></div>
-                          </div>
-                        ))
+                        </div>
                       )}
                     </div>
                   </div>
 
-                  {/* Grid Footer */}
-                  <div className="mt-4 sm:mt-6 pt-4 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between">
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
-                      {scriptsVisible ? (
-                        <span className="flex items-center gap-1">
-                          <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                          Scripts loaded
-                        </span>
-                      ) : (
-                        "Click 'Explore Scripts' to view"
-                      )}
-                    </div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
-                      {scripts.length} items
+                  {/* Grid Footer - Consistent with header */}
+                  <div className="p-4 sm:p-6 border-t border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-800/50">
+                    <div className="flex items-center justify-between">
+                      <div className="text-xs text-gray-500 dark:text-gray-400">
+                        {scriptsVisible ? (
+                          <span className="flex items-center gap-2">
+                            <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                            Scripts loaded
+                          </span>
+                        ) : (
+                          "Click 'Explore Scripts' to view"
+                        )}
+                      </div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+                        {scripts.length} items
+                      </div>
                     </div>
                   </div>
                 </div>
