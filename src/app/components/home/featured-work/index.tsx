@@ -750,7 +750,6 @@ const FeaturedWork = () => {
                         )}
                       </div>
                       <div className="text-xs text-gray-500 dark:text-gray-400">
-                        {scripts.filter(s => s.fromTable).length} with tags
                       </div>
                     </div>
                   </div>
