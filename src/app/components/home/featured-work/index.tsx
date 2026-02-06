@@ -19,6 +19,10 @@ const FeaturedWork = () => {
     },
   ];
 
+  // Always show 8 items (real + placeholders) to maintain layout
+  const totalItemsToShow = 8;
+  const emptySlots = Math.max(0, totalItemsToShow - scripts.length);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -145,9 +149,18 @@ const FeaturedWork = () => {
                   <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
                     {scriptsVisible ? (
                       <>
-                        Real-world Bash automation scripts built during my Linux
-                        system administration training. Focused on monitoring,
-                        user auditing, logging, and system-level operations.
+                        <span className="sm:hidden">
+                          {/* Mobile short version when visible */}
+                          Bash automation scripts for system monitoring and
+                          auditing.
+                        </span>
+                        <span className="hidden sm:inline">
+                          {/* Desktop full version */}
+                          Real-world Bash automation scripts built during my
+                          Linux system administration training. Focused on
+                          monitoring, user auditing, logging, and system-level
+                          operations.
+                        </span>
                         <span className="block mt-2 text-sm text-primary">
                           Each script is documented and available on GitHub.
                         </span>
@@ -199,7 +212,7 @@ const FeaturedWork = () => {
                 </div>
               </div>
 
-              {/* Right Side Rectangle Grid */}
+              {/* Right Side Rectangle Grid - FIXED HEIGHT */}
               <div className="lg:w-[58%]">
                 <div className="relative w-full h-full min-h-[380px] bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden p-4 sm:p-6">
                   {/* Grid Header */}
@@ -229,52 +242,68 @@ const FeaturedWork = () => {
                     </div>
                   </div>
 
-                  {/* Main Grid Area */}
-                  <div className="h-[280px] overflow-y-auto pr-2">
-                    {scriptsVisible ? (
-                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                        {scripts.map((script) => (
-                          <Link
-                            key={script.id}
-                            href={script.repoUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group/script relative flex flex-col items-center p-4 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-                          >
-                            <div className="absolute top-2 right-2 opacity-0 group-hover/script:opacity-100 transition-opacity">
-                              <svg
-                                className="w-4 h-4 text-primary"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                                />
-                              </svg>
-                            </div>
+                  {/* Main Grid Area - Fixed height with consistent content */}
+                  <div className="min-h-[280px] h-[280px] overflow-y-auto pr-2">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                      {/* Always show scripts when visible */}
+                      {scriptsVisible ? (
+                        <>
+                          {scripts.map((script) => (
+                            <Link
+                              key={script.id}
+                              href={script.repoUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="group/script relative flex flex-col items-center p-4 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                            >
+                              <div className="absolute top-2 right-2 opacity-0 group-hover/script:opacity-100 transition-opacity">
+                                <svg
+                                  className="w-4 h-4 text-primary"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                  />
+                                </svg>
+                              </div>
 
-                            <div className="text-3xl mb-3 transform group-hover/script:scale-110 transition-transform">
-                              {script.icon}
-                            </div>
+                              <div className="text-3xl mb-3 transform group-hover/script:scale-110 transition-transform">
+                                {script.icon}
+                              </div>
 
-                            <div className="text-center">
-                              <h5 className="text-sm font-medium text-gray-800 dark:text-gray-200 mb-1 line-clamp-1">
-                                {script.name}
-                              </h5>
-                              <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2">
-                                {script.description}
-                              </p>
+                              <div className="text-center">
+                                <h5 className="text-sm font-medium text-gray-800 dark:text-gray-200 mb-1 line-clamp-1">
+                                  {script.name}
+                                </h5>
+                                <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2">
+                                  {script.description}
+                                </p>
+                              </div>
+                            </Link>
+                          ))}
+
+                          {/* Empty placeholder slots to maintain layout */}
+                          {Array.from({ length: emptySlots }).map((_, i) => (
+                            <div
+                              key={`empty-${i}`}
+                              className="flex flex-col items-center justify-center p-4 rounded-lg bg-white/30 dark:bg-gray-800/30 border border-gray-200/50 dark:border-gray-700/50"
+                            >
+                              <div className="text-3xl mb-3 opacity-40">
+                                {["📁", "📄", "⚙️", "🔧"][i % 4]}
+                              </div>
+                              <div className="w-16 h-2 bg-gray-200 dark:bg-gray-700 rounded-full mb-2 opacity-50"></div>
+                              <div className="w-12 h-1.5 bg-gray-100 dark:bg-gray-600 rounded-full opacity-30"></div>
                             </div>
-                          </Link>
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                        {Array.from({ length: 8 }).map((_, i) => (
+                          ))}
+                        </>
+                      ) : (
+                        /* Hidden state - show all placeholders */
+                        Array.from({ length: totalItemsToShow }).map((_, i) => (
                           <div
                             key={i}
                             className="flex flex-col items-center justify-center p-4 rounded-lg bg-gray-100/50 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50"
@@ -296,9 +325,9 @@ const FeaturedWork = () => {
                             <div className="w-16 h-2 bg-gray-300 dark:bg-gray-700 rounded-full mb-2"></div>
                             <div className="w-12 h-1.5 bg-gray-200 dark:bg-gray-600 rounded-full"></div>
                           </div>
-                        ))}
-                      </div>
-                    )}
+                        ))
+                      )}
+                    </div>
                   </div>
 
                   {/* Grid Footer */}
