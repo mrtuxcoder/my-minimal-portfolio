@@ -57,7 +57,7 @@ const Experience = () => {
                                             {/* Organization display with blue color */}
                                             {value?.organization && (
                                                 <div className="flex items-center">
-                                                    <span className="text-blue-600 dark:text-blue-400 font-medium text-base">
+                                                    <span className="text-violet-700 font-normal text-base">
                                                         {value.organization}
                                                     </span>
                                                 </div>

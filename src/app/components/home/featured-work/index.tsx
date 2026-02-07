@@ -469,9 +469,8 @@ const FeaturedWork = () => {
                       )}
                     </p>
                   </div>
-
                   <div className="mt-2">
-                    <p className="text-sm text-primary font-medium tracking-wide">
+                     <p className="text-sm text-violet-700 font-normal tracking-wide">
                       Bash • Linux Administration • Automation
                     </p>
                   </div>

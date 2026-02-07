@@ -43,7 +43,7 @@ const AboutMe = () => {
 
                             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] leading-relaxed">
                                 Hey, I'm Guganraj - an MCA student focused on
-                                <span className="bg-[linear-gradient(90deg,_rgba(243,202,77,0.4)_0%,_rgba(243,202,77,0.05)_100%)]">
+                                <span className="bg-[linear-gradient(90deg,_rgba(168,85,247,0.4)_0%,_rgba(236,72,153,0.05)_100%)]">
                                     &nbsp; Linux systems and backend development
                                 </span>, building reliable tools and learning how systems work under the hood.
                             </h2>
