@@ -14,8 +14,6 @@ const baseUrl = 'https://guganraj.site';
 // Use YOUR favicon as OG image (since you have it in multiple sizes)
 const ogImage = `${baseUrl}/images/favicon/web-app-manifest-512x512.png`; // Use the 512x512 version for OG
 
-// Fallback placeholder (in case your image isn't accessible yet)
-const dummyImage = "https://placehold.co/1200x630/065f46/059669/png?text=Guganraj+Rengaraju%0APortfolio";
 
 // Use your favicon if accessible, otherwise use placeholder
 const ogImageUrl = ogImage; // Try your favicon first
@@ -81,8 +79,8 @@ export const metadata: Metadata = {
       { url: "/images/favicon/web-app-manifest-512x512.png", sizes: "512x512", type: "image/png" },
       
       // Standard sizes
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "images/favicon/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "images/favicon/favicon-16x16.png", sizes: "16x16", type: "image/png" },
     ],
     
     // Apple devices
@@ -98,7 +96,7 @@ export const metadata: Metadata = {
   manifest: "/images/favicon/site.webmanifest",
   
   // Theme colors
-  themeColor: "#065f46", // Match your green theme
+  themeColor: "#da77e7", // Match your green theme
   appleWebApp: {
     capable: true,
     title: "Guganraj Portfolio",
