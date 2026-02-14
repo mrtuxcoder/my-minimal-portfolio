@@ -34,8 +34,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: ogImageUrl, // Using your favicon as OG image
-        width: 512, // Your favicon is 512x512
-        height: 512,
+        width: 1200, 
+        height: 630,
         alt: "Guganraj Rengaraju - Linux & Full-Stack Developer Portfolio",
       },
     ],
