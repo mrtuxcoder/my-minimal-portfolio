@@ -5,18 +5,23 @@ import { useState } from "react";
 
 const AboutMe = () => {
     const servicesBadge = [
-        "Linux Fundamentals",
+        "Linux",
         "RHCSA-Level Linux Administration",
-        "Bash Scripting (Basics)",
-        "System Commands & Troubleshooting",
-        "JavaScript (Core Concepts)",
-        "Node.js & Express",
+        "Bash Scripting",
+        "Troubleshooting",
+        "JavaScript (ES6+)",
+        "Node.js",
+        "Express.js",
         "REST API Design",
-        "JWT Authentication (Basics)",
-        "MongoDB & Mongoose",
+        "JWT Authentication",
+        "MongoDB",
+        "Mongoose",
         "API Testing with Postman",
         "Git & GitHub",
-        "Problem Solving & Debugging"
+        "Problem Solving",
+        "Debugging",
+        "Open Source Contribution",
+        "Object-Oriented Programming"
     ];
 
     const [pausedRows, setPausedRows] = useState<number[]>([]);
