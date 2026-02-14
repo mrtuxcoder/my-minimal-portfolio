@@ -12,7 +12,7 @@ const inter = Inter({
 const baseUrl = 'https://guganraj.site';
 
 // Use YOUR favicon as OG image (since you have it in multiple sizes)
-const ogImage = `${baseUrl}/images/favicon/web-app-manifest-512x512.png`; // Use the 512x512 version for OG
+const ogImage = `${baseUrl}/images/favicon/OG.jpg`; // Use the 1200x630 version for OG
 
 
 // Use your favicon if accessible, otherwise use placeholder
