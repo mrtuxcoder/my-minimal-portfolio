@@ -17,9 +17,9 @@ const DevOps = () => {
                                     Azure VM – Infrastructure Setup
                                 </span>
                             </div>
-                            <h5 className="text-secondary font-normal text-lg">
+                             <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
                                 Provisioned and configured a Linux VM on Microsoft Azure using SSH key authentication and custom networking settings. Set up secure remote access and prepared the environment for backend deployment and cloud-based testing.
-                            </h5>
+                            </p>
                         </div>
                     </div>
                 </div>
