@@ -10,9 +10,9 @@ const experienceData = [
     startYear: "Feb 2026",
     endYear: "Feb 2026",
     bulletPoints: [
-        "Designed and developed a responsive business website tailored to client requirements",
+        "Designed and developed a production-ready responsive business website aligned with client requirements.",
         "Handled full deployment lifecycle including hosting configuration, domain setup, and production release",
-        "Optimized performance and structured content for SEO and scalability",
+        "Implemented performance optimizations and SEO-focused content structure to improve discoverability and scalability.",
         "Communicated directly with client to gather requirements, iterate on feedback, and deliver final product",
         "Successfully delivered live project and received first freelance payment as a student developer"
     ],
