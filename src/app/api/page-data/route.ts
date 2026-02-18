@@ -1,6 +1,24 @@
 import { NextResponse } from "next/server";
 
 const experienceData = [
+
+    {
+    icon: "/images/icon/tailwind-icon.svg",
+    role: "Freelance Full Stack Developer",
+    location: "Tamil Nadu, India",
+    organization: "SAP CONSERV",
+    startYear: "Feb 2026",
+    endYear: "Feb 2026",
+    bulletPoints: [
+        "Designed and developed a responsive business website tailored to client requirements",
+        "Handled full deployment lifecycle including hosting configuration, domain setup, and production release",
+        "Optimized performance and structured content for SEO and scalability",
+        "Communicated directly with client to gather requirements, iterate on feedback, and deliver final product",
+        "Successfully delivered live project and received first freelance payment as a student developer"
+    ],
+     websitelink: [
+    "https://www.sapconserv.com/"]
+},
  {
     icon: "/images/icon/tailwind-icon.svg",
     role: "Full Stack Development Intern",

@@ -79,6 +79,28 @@ const Experience = () => {
                                         </ul>
 
                                         {/* Links section - optional with icons */}
+                                        {value?.websitelink && value.websitelink.length > 0 && (
+                                            <div className="mt-4 flex flex-col gap-2">
+                                                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                                                    <ExternalLink className="w-4 h-4" />
+                                                    <span className="font-medium">Website:</span>
+                                                </div>
+                                                <div className="flex flex-wrap gap-3">
+                                                    {value.websitelink.map((link: string, linkIndex: number) => (
+                                                        <a
+                                                            key={linkIndex}
+                                                            href={link}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors px-3 py-1.5 bg-primary/5 hover:bg-primary/10 rounded-lg border border-primary/10"
+                                                        >
+                                                            <span>Visit site</span>
+                                                            <ExternalLink className="w-3 h-3" />
+                                                        </a>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
                                         {value?.links && value.links.length > 0 && (
                                             <div className="mt-4 flex flex-col gap-2">
                                                 <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">

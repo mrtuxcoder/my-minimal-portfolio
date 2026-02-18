@@ -384,7 +384,7 @@ const FeaturedWork = () => {
                     </div>
                   </div>
                   <div className="mt-2">
-                    <Link href={"https://guidra.guganraj.site/"}>
+                    {/* <Link href={"https://guidra.guganraj.site/"}>
                       <span className="inline-flex items-center text-sm font-medium text-primary hover:text-primary/80 transition-colors">
                         Live here
                         <svg
@@ -401,7 +401,7 @@ const FeaturedWork = () => {
                           />
                         </svg>
                       </span>
-                    </Link>
+                    </Link> */}
                   </div>
                 </div>
               </div>
