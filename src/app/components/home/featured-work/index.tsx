@@ -384,7 +384,7 @@ const FeaturedWork = () => {
                     </div>
                   </div>
                   <div className="mt-2">
-                    <Link href={"https://guidra.vercel.app/"}>
+                    <Link href={"https://guidra.tech"}>
                       <span className="inline-flex items-center text-sm font-medium text-primary hover:text-primary/80 transition-colors">
                         Live here
                         <svg

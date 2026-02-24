@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "./components/layout/header";
@@ -95,13 +95,15 @@ export const metadata: Metadata = {
   // Web App Manifest for PWA
   manifest: "/images/favicon/site.webmanifest",
   
-  // Theme colors
-  themeColor: "#da77e7", // Match your green theme
   appleWebApp: {
     capable: true,
     title: "Guganraj Portfolio",
     statusBarStyle: "black-translucent",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#da77e7",
 };
 
 export default function RootLayout({
