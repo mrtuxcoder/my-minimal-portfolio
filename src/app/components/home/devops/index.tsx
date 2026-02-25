@@ -9,7 +9,7 @@ const DevOps = () => {
                 <div className="border-x border-primary/10 bg-[url('/images/about-me/about-me-bg.svg')] bg-cover bg-center bg-no-repeat">
                     <div className="flex flex-col max-w-3xl mx-auto py-10 px-4 sm:px-7">
                         <div className="flex flex-col xs:flex-row gap-5 items-center justify-between">
-                            <p className="text-sm tracking-[2px] text-primary uppercase font-medium">Case Studies</p>
+                            <p className="text-sm tracking-[2px] text-primary uppercase font-medium">Case Study</p>
                         </div>
                     </div>
 
@@ -21,13 +21,13 @@ const DevOps = () => {
                                         href={{
                                             pathname: "/case-study",
                                             query: {
-                                                title: "VPS Production Deployment: Guidra Backend Case Study",
+                                                title: "End-to-End Deployment of Guidra Backend on Azure VM",
                                             },
                                         }}
                                         className="group inline-flex items-center gap-2"
                                     >
                                         <span className="text-violet-700 font-normal text-base">
-                                            VPS Production Deployment: Guidra Backend Case Study
+                                            End-to-End Deployment of Guidra Backend on Azure VM
                                         </span>
                                         <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
                                     </Link>

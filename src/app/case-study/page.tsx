@@ -7,7 +7,7 @@ type CaseStudyPageProps = {
 const CaseStudyPage = async ({ searchParams }: CaseStudyPageProps) => {
   const params = await searchParams;
   const title =
-    params?.title || "GUIDRA BACKEND: Production Deployment Case Study";
+    params?.title || "End-to-End Deployment of Guidra Backend on Azure VM";
 
   return (
     <main>

@@ -5,6 +5,7 @@ import Experience from "./components/home/experience"
 import FeaturedWork from "./components/home/featured-work"
 import HeroSection from "./components/home/hero-section"
 import DevOps from "./components/home/devops"
+import TechnicalActivities from "./components/home/technical-activities"
 
 const page = () => {
   return (
@@ -15,9 +16,11 @@ const page = () => {
       <Divider/>
       <FeaturedWork/>
       <Divider/>
+      <Experience/>
+      <Divider/>
       <DevOps/>
       <Divider/>
-      <Experience/>
+      <TechnicalActivities/>
       <Divider/>
       <Education/>
       <Divider/>
