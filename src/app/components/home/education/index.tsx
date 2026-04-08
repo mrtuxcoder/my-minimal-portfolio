@@ -38,19 +38,25 @@ const Education = () => {
                                         className={`relative flex flex-col sm:flex-row sm:items-start gap-4 ${index !== educationData.length - 1 ? "mb-8 sm:mb-16" : ""
                                             }`}
                                     >
-                                        <div className="relative pl-8 sm:pl-0 sm:w-64 sm:text-right sm:pr-16">
-                                            <p className="ml-2.5 sm:ml-0 text-base font-normal sm:mb-0 leading-relaxed">
+                                        <div className="hidden sm:block relative sm:w-64 sm:text-right sm:pr-16">
+                                            <p className="text-base font-normal sm:mb-0 leading-relaxed">
                                                 {item.date}
                                             </p>
 
                                             {/* Bullet Point */}
-                                            <div className="absolute left-1.5 sm:left-auto sm:-right-3 top-0 z-10 p-1.5 border border-primary/10 rounded-full bg-white">
+                                            <div className="absolute sm:-right-3 top-0 z-10 p-1.5 border border-primary/10 rounded-full bg-white">
                                                 <div className="w-3 h-3 bg-primary rounded-full" />
                                             </div>
                                         </div>
 
                                         <div className="flex flex-col gap-2 flex-1 sm:pl-16 ml-2 sm:ml-0">
                                             <h5 className="font-semibold">{item.title}</h5>
+                                            <div className="flex sm:hidden items-center gap-2 text-sm leading-relaxed text-primary/80">
+                                                <span className="inline-flex shrink-0 p-1 border border-primary/10 rounded-full bg-white">
+                                                    <span className="w-2.5 h-2.5 bg-primary rounded-full" />
+                                                </span>
+                                                <span>{item.date}</span>
+                                            </div>
                                             <p className="text-primary">{item.subtitle}</p>
                                         </div>
                                     </div>

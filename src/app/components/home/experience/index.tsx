@@ -55,7 +55,7 @@ const Experience = () => {
                                                     </div>
                                                     <div className="ml-auto flex items-center gap-3 shrink-0">
                                                         {hasDuration && (
-                                                            <div className="flex items-center gap-2.5 border border-primary/10 rounded-lg py-1.5 px-3">
+                                                            <div className="hidden sm:flex items-center gap-2.5 border border-primary/10 rounded-lg py-1.5 px-3">
                                                                 <div className={`w-4 h-2 rounded-sm ${value?.endYear == "Present" ? 'bg-primary' : 'bg-primary/10'} `} />
                                                                 <p className="text-sm xs:text-base text-primary">
                                                                     {value.startYear} – {value.endYear}
@@ -66,6 +66,16 @@ const Experience = () => {
                                                         <ChevronDown className={`w-5 h-5 text-primary transition-transform ${isOpen ? 'rotate-180' : ''}`} />
                                                     </div>
                                                 </div>
+
+                                                {hasDuration && (
+                                                    <div className="sm:hidden ml-6 inline-flex items-center gap-2.5 border border-primary/10 rounded-lg py-1.5 px-3 w-fit">
+                                                        <div className={`w-4 h-2 rounded-sm ${value?.endYear == "Present" ? 'bg-primary' : 'bg-primary/10'} `} />
+                                                        <p className="text-sm xs:text-base text-primary">
+                                                            {value.startYear} – {value.endYear}
+                                                            {value?.location && ` · ${value?.location}`}
+                                                        </p>
+                                                    </div>
+                                                )}
 
                                                 {value?.organization && (
                                                     <div className="flex items-center">
