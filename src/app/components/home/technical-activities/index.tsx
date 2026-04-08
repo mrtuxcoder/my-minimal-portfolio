@@ -1,4 +1,13 @@
 const TechnicalActivities = () => {
+    const openSourceLinks = [
+        "https://github.com/se7engoodfellas/zenmix/pull/39",
+        "https://github.com/se7engoodfellas/zenmix/pull/38",
+        "https://github.com/se7engoodfellas/zenmix/pull/21"
+    ];
+    const studyNotionLinks = [
+        "https://github.com/BoddepallyVenkatesh06/Study-Notion-LMS/pull/6"
+    ];
+
     return (
         <section>
             <div className="container">
@@ -36,6 +45,76 @@ const TechnicalActivities = () => {
                                         Helped monitor lab environment and quiz evaluation
                                     </li>
                                 </ul>
+                            </div>
+
+                            <div className="flex flex-col gap-5 border-dashed border-t border-primary/10 pt-8 sm:pt-10 mt-8 sm:mt-10">
+                                <h5>Open Source Contribution - zenmix (GitHub)</h5>
+
+                                <ul className="space-y-2">
+                                    <li className="flex items-start gap-2 text-base font-normal text-secondary">
+                                        <span className="w-2.5 h-2.5 text-secondary">•</span>
+                                        Submitted multiple pull requests focused on UI improvements and theming
+                                    </li>
+                                    <li className="flex items-start gap-2 text-base font-normal text-secondary">
+                                        <span className="w-2.5 h-2.5 text-secondary">•</span>
+                                        Worked on light/dark mode behavior and visual consistency
+                                    </li>
+                                    <li className="flex items-start gap-2 text-base font-normal text-secondary">
+                                        <span className="w-2.5 h-2.5 text-secondary">•</span>
+                                        Collaborated with the maintainer through code reviews and feedback
+                                    </li>
+                                    <li className="flex items-start gap-2 text-base font-normal text-secondary">
+                                        <span className="w-2.5 h-2.5 text-secondary">•</span>
+                                        Had several contributions merged into the main codebase
+                                    </li>
+                                </ul>
+
+                                <div className="flex flex-wrap gap-3">
+                                    {openSourceLinks.map((link, index) => (
+                                        <a
+                                            key={link}
+                                            href={link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors px-3 py-1.5 bg-primary/5 hover:bg-primary/10 rounded-lg border border-primary/10"
+                                        >
+                                            <span>PR #{index + 1}</span>
+                                        </a>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col gap-5 border-dashed border-t border-primary/10 pt-8 sm:pt-10 mt-8 sm:mt-10">
+                                <h5>Open Source Contribution - Study-Notion LMS (GitHub)</h5>
+
+                                <ul className="space-y-2">
+                                    <li className="flex items-start gap-2 text-base font-normal text-secondary">
+                                        <span className="w-2.5 h-2.5 text-secondary">•</span>
+                                        Identified and fixed documentation issues in an open-source LMS project
+                                    </li>
+                                    <li className="flex items-start gap-2 text-base font-normal text-secondary">
+                                        <span className="w-2.5 h-2.5 text-secondary">•</span>
+                                        Created and submitted a pull request that was successfully merged
+                                    </li>
+                                    <li className="flex items-start gap-2 text-base font-normal text-secondary">
+                                        <span className="w-2.5 h-2.5 text-secondary">•</span>
+                                        Gained hands-on experience with GitHub workflows (forking, branching, PR)
+                                    </li>
+                                </ul>
+
+                                <div className="flex flex-wrap gap-3">
+                                    {studyNotionLinks.map((link, index) => (
+                                        <a
+                                            key={link}
+                                            href={link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors px-3 py-1.5 bg-primary/5 hover:bg-primary/10 rounded-lg border border-primary/10"
+                                        >
+                                            <span>PR #{index + 1}</span>
+                                        </a>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>

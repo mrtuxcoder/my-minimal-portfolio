@@ -13,9 +13,7 @@ const ProjectOverview = () => {
                 if (!res.ok) throw new Error('Failed to fetch')
                 const data = await res.json()
                 setProjectData(data?.projectOverview)
-            } catch (error) {
-                console.error('Error fetching services:', error)
-            }
+            } catch {}
         }
 
         fetchData()

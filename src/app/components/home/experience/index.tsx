@@ -1,10 +1,10 @@
 "use client";
-import Image from "next/image"
 import { useEffect, useState } from "react";
-import { ExternalLink, GitPullRequest } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
 const Experience = () => {
     const [experienceData, setExperienceData] = useState<any>(null);
+    const [openIndex, setOpenIndex] = useState<number | null>(0);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -13,9 +13,7 @@ const Experience = () => {
                 if (!res.ok) throw new Error('Failed to fetch')
                 const data = await res.json()
                 setExperienceData(data?.experienceData)
-            } catch (error) {
-                console.error('Error fetching services:', error)
-            }
+            } catch {}
         }
 
         fetchData()
@@ -31,96 +29,119 @@ const Experience = () => {
                         </div>
                     </div>
                     <div className="border-t border-primary/10">
-                        <div className="flex flex-col max-w-3xl mx-auto px-4 sm:px-7 py-9 md:py-16 ">
+                        <div className="flex flex-col max-w-3xl mx-auto px-4 sm:px-7 py-9 md:py-16">
                             {experienceData?.map((value: any, index: any) => {
                                 const hasDuration = value?.startYear && value?.endYear;
+                                const isOpen = openIndex === index;
+                                const accordionId = `experience-panel-${index}`;
+                                const summary = value?.bulletPoints?.[0];
                                 
                                 return (
                                     <div
                                         key={index}
                                         className="flex flex-col gap-5 border-dashed border-b border-primary/10 last:border-b-0 pt-8 sm:pt-10 pb-8 sm:pb-10 first:pt-0 last:pb-0">
-                                        <Image src={value?.icon} alt="icon" width={32} height={19} />
-                                        <div className="flex flex-col gap-4">
-                                            <div className="flex flex-wrap gap-5 items-center justify-between">
-                                                <h5>{value?.role}</h5>
-                                                {hasDuration && (
-                                                    <div className="flex items-center gap-2.5 border border-primary/10 rounded-lg py-1.5 px-3">
-                                                        <div className={`w-4 h-2 rounded-sm ${value?.endYear == "Present" ? 'bg-primary' : 'bg-primary/10'} `} />
-                                                        <p className="text-sm xs:text-base text-primary">
-                                                            {value.startYear} – {value.endYear} 
-                                                            {value?.location && ` · ${value?.location}`}
-                                                        </p>
+                                        <button
+                                            type="button"
+                                            className="w-full text-left"
+                                            onClick={() => setOpenIndex(isOpen ? null : index)}
+                                            aria-expanded={isOpen}
+                                            aria-controls={accordionId}
+                                        >
+                                            <div className="flex flex-col gap-4">
+                                                <div className="flex items-start gap-4">
+                                                    <div className="flex items-center gap-4 min-w-0">
+                                                        <span className="w-2.5 h-2.5 rounded-full bg-primary/60 shrink-0" />
+                                                        <h5>{value?.role}</h5>
+                                                    </div>
+                                                    <div className="ml-auto flex items-center gap-3 shrink-0">
+                                                        {hasDuration && (
+                                                            <div className="flex items-center gap-2.5 border border-primary/10 rounded-lg py-1.5 px-3">
+                                                                <div className={`w-4 h-2 rounded-sm ${value?.endYear == "Present" ? 'bg-primary' : 'bg-primary/10'} `} />
+                                                                <p className="text-sm xs:text-base text-primary">
+                                                                    {value.startYear} – {value.endYear}
+                                                                    {value?.location && ` · ${value?.location}`}
+                                                                </p>
+                                                            </div>
+                                                        )}
+                                                        <ChevronDown className={`w-5 h-5 text-primary transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+                                                    </div>
+                                                </div>
+
+                                                {value?.organization && (
+                                                    <div className="flex items-center">
+                                                        <span className="text-violet-700 font-normal text-base">
+                                                            {value.organization}
+                                                        </span>
                                                     </div>
                                                 )}
-                                            </div>
-                                            
-                                            {/* Organization display with blue color */}
-                                            {value?.organization && (
-                                                <div className="flex items-center">
-                                                    <span className="text-violet-700 font-normal text-base">
-                                                        {value.organization}
-                                                    </span>
-                                                </div>
-                                            )}
-                                        </div>
-                                        
-                                        <ul className="space-y-2">
-                                            {value?.bulletPoints?.map((point: any, pointIndex: any) => {
-                                                return (
-                                                    <li
-                                                        key={pointIndex}
-                                                        className="flex items-start gap-2 text-base font-normal text-secondary"
-                                                    >
-                                                        <span className="w-2.5 h-2.5 text-secondary">•</span>
-                                                        {point}
-                                                    </li>
-                                                );
-                                            })}
-                                        </ul>
 
-                                        {/* Links section - optional with icons */}
-                                        {value?.websitelink && value.websitelink.length > 0 && (
-                                            <div className="mt-4 flex flex-col gap-2">
-                                                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                                                    <ExternalLink className="w-4 h-4" />
-                                                    <span className="font-medium">Website:</span>
-                                                </div>
-                                                <div className="flex flex-wrap gap-3">
-                                                    {value.websitelink.map((link: string, linkIndex: number) => (
-                                                        <a
-                                                            key={linkIndex}
-                                                            href={link}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                            className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors px-3 py-1.5 bg-primary/5 hover:bg-primary/10 rounded-lg border border-primary/10"
-                                                        >
-                                                            <span>Visit site</span>
-                                                            <ExternalLink className="w-3 h-3" />
-                                                        </a>
-                                                    ))}
-                                                </div>
+                                                {!isOpen && summary && (
+                                                    <p className="text-base font-normal text-secondary truncate">
+                                                        {summary}
+                                                    </p>
+                                                )}
                                             </div>
-                                        )}
-                                        {value?.links && value.links.length > 0 && (
-                                            <div className="mt-4 flex flex-col gap-2">
-                                                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                                                    <GitPullRequest className="w-4 h-4" />
-                                                    <span className="font-medium">Pull Requests:</span>
-                                                </div>
-                                                <div className="flex flex-wrap gap-3">
-                                                    {value.links.map((link: string, linkIndex: number) => (
-                                                        <a
-                                                            key={linkIndex}
-                                                            href={link}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                            className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors px-3 py-1.5 bg-primary/5 hover:bg-primary/10 rounded-lg border border-primary/10"
-                                                        >
-                                                            <span>PR #{linkIndex + 1}</span>
-                                                            <ExternalLink className="w-3 h-3" />
-                                                        </a>
-                                                    ))}
-                                                </div>
+                                        </button>
+
+                                        {isOpen && (
+                                            <div id={accordionId} className="flex flex-col gap-5">
+                                                <ul className="space-y-2">
+                                                    {value?.bulletPoints?.map((point: any, pointIndex: any) => {
+                                                        return (
+                                                            <li
+                                                                key={pointIndex}
+                                                                className="flex items-start gap-2 text-base font-normal text-secondary"
+                                                            >
+                                                                <span className="w-2.5 h-2.5 text-secondary">•</span>
+                                                                {point}
+                                                            </li>
+                                                        );
+                                                    })}
+                                                </ul>
+
+                                                {/* Links section - optional with icons */}
+                                                {value?.websitelink && value.websitelink.length > 0 && (
+                                                    <div className="mt-4 flex flex-col gap-2">
+                                                        <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                                                            <span className="w-1.5 h-1.5 rounded-full bg-gray-500" />
+                                                            <span className="font-medium">Website:</span>
+                                                        </div>
+                                                        <div className="flex flex-wrap gap-3">
+                                                            {value.websitelink.map((link: string, linkIndex: number) => (
+                                                                <a
+                                                                    key={linkIndex}
+                                                                    href={link}
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors px-3 py-1.5 bg-primary/5 hover:bg-primary/10 rounded-lg border border-primary/10"
+                                                                >
+                                                                    <span>Visit site</span>
+                                                                </a>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                )}
+                                                {value?.links && value.links.length > 0 && (
+                                                    <div className="mt-4 flex flex-col gap-2">
+                                                        <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                                                            <span className="w-1.5 h-1.5 rounded-full bg-gray-500" />
+                                                            <span className="font-medium">Pull Requests:</span>
+                                                        </div>
+                                                        <div className="flex flex-wrap gap-3">
+                                                            {value.links.map((link: string, linkIndex: number) => (
+                                                                <a
+                                                                    key={linkIndex}
+                                                                    href={link}
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors px-3 py-1.5 bg-primary/5 hover:bg-primary/10 rounded-lg border border-primary/10"
+                                                                >
+                                                                    <span>PR #{linkIndex + 1}</span>
+                                                                </a>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                )}
                                             </div>
                                         )}
                                     </div>

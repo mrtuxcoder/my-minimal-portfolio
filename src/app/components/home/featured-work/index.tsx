@@ -40,9 +40,7 @@ const FeaturedWork = () => {
     try {
       localStorage.setItem('portfolio_scripts_cache', JSON.stringify(scripts));
       localStorage.setItem('portfolio_scripts_timestamp', Date.now().toString());
-    } catch (error) {
-      console.error('Error saving cache:', error);
-    }
+    } catch {}
   };
 
   // === EMOJI & CATEGORY HELPERS ===
@@ -107,7 +105,6 @@ const FeaturedWork = () => {
     }
     
     if (tables.length === 0) {
-      console.log('No tables found in README');
       return tags;
     }
     
@@ -121,7 +118,6 @@ const FeaturedWork = () => {
     }
     
     if (!targetTable) {
-      console.log('No table with "Filename" header found');
       return tags;
     }
     
@@ -133,8 +129,6 @@ const FeaturedWork = () => {
     // Find Tags column index (last column)
     const headers = rows[0].split('|').map(h => h.trim().toLowerCase());
     const tagsIndex = headers.length - 1; // Tags is last column
-    
-    console.log('Tags column index:', tagsIndex);
     
     // Parse each data row
     for (let i = 1; i < rows.length; i++) {
@@ -149,7 +143,6 @@ const FeaturedWork = () => {
           // Parse tags (comma-separated)
           const parsedTags = tagsStr.split(',').map(tag => tag.trim()).filter(tag => tag);
           tags[filename] = parsedTags;
-          console.log(`Parsed tags for ${filename}:`, parsedTags);
         }
       }
     }
@@ -159,8 +152,6 @@ const FeaturedWork = () => {
 
   const fetchGitHubScripts = async (): Promise<any[]> => {
     try {
-      console.log('=== FETCHING FROM GITHUB ===');
-      
       const [readmeResponse, filesResponse] = await Promise.all([
         fetch(`https://raw.githubusercontent.com/${GITHUB_USERNAME}/${REPO_NAME}/main/README.md`),
         fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/`)
@@ -176,9 +167,6 @@ const FeaturedWork = () => {
       ]);
 
       const tagsData = parseReadmeTags(readmeText);
-      
-      console.log('=== TAGS EXTRACTED ===');
-      console.log('Files with tags:', Object.keys(tagsData));
       
       const scriptExtensions = ['.sh', '.bash', '.js', '.py', '.rb', '.php', '.pl', '.zsh'];
       const githubScripts = filesData
@@ -198,12 +186,6 @@ const FeaturedWork = () => {
           const emoji = getEmojiByPattern(item.name);
           const category = getCategoryByPattern(item.name);
           
-          console.log(`\n📄 ${item.name}:`);
-          console.log(`   Emoji: ${emoji} (auto-detected)`);
-          console.log(`   Category: ${category} (auto-detected)`);
-          console.log(`   Tags: ${tags.length > 0 ? tags.join(', ') : 'none'}`);
-          console.log(`   Has tags in README? ${hasTags ? 'YES' : 'NO'}`);
-          
           return {
             name: displayName,
             originalName: displayName,
@@ -220,14 +202,8 @@ const FeaturedWork = () => {
           };
         });
 
-      console.log('=== FINAL SCRIPTS ===');
-      githubScripts.forEach((script : any) => {
-        console.log(`${script.filename}: ${script.emoji} ${script.fromTable ? '✓ HAS TAGS' : '⚡ AUTO'}`);
-      });
-
       return githubScripts;
-    } catch (error) {
-      console.error('GitHub fetch failed:', error);
+    } catch {
       return [];
     }
   };
@@ -243,25 +219,19 @@ const FeaturedWork = () => {
       // Try cache first
       if (!forceRefresh) {
         scriptsToDisplay = getCachedScripts();
-        if (scriptsToDisplay.length > 0) {
-          console.log('Loaded from cache:', scriptsToDisplay.length, 'scripts');
-        }
       }
       
       // Fetch from GitHub if needed
       if (forceRefresh || scriptsToDisplay.length === 0) {
-        console.log('Fetching fresh from GitHub...');
         const githubScripts = await fetchGitHubScripts();
         if (githubScripts.length > 0) {
           scriptsToDisplay = githubScripts;
           saveScriptsToCache(githubScripts);
-          console.log('Saved to cache:', githubScripts.length, 'scripts');
         }
       }
       
       // Fallback if empty
       if (scriptsToDisplay.length === 0) {
-        console.log('Using fallback scripts');
         scriptsToDisplay = [
           {
             name: "User Monitor",
@@ -281,11 +251,8 @@ const FeaturedWork = () => {
       
       setScripts(scriptsToDisplay);
       setLastUpdated(new Date().toLocaleTimeString());
-      
-      console.log('✅ Scripts loaded:', scriptsToDisplay.length);
-      
-    } catch (error) {
-      console.error('Failed to load scripts:', error);
+
+    } catch {
     } finally {
       setIsLoading(false);
     }
@@ -307,22 +274,20 @@ const FeaturedWork = () => {
           {
             id: 1,
             title: "easyList",
-            description: "Minimalist MEN stack todo app with authentication",
+            description: "Minimal MEN-stack to-do app with authentication",
             repoUrl: "https://github.com/mrtuxcoder/easyList",
             liveUrl: "https://easylist-minm.onrender.com",
           },
           {
             id: 2,
             title: "EventHub",
-            description: "Event booking system with admin CRUD operations",
+            description: "Event booking system with admin CRUD capabilities",
             repoUrl: "https://github.com/mrtuxcoder/event-booking-management",
             liveUrl: "https://george1518.github.io/event-booking-management/",
           },
         ];
         setAdditionalProjects(extraProjects);
-      } catch (error) {
-        console.error("Error fetching services:", error);
-      }
+      } catch {}
     };
 
     fetchData();
@@ -336,7 +301,7 @@ const FeaturedWork = () => {
           <div className="flex flex-col max-w-3xl mx-auto py-10 px-4 sm:px-7">
             <div className="flex flex-col xs:flex-row gap-5 items-center justify-between">
               <p className="text-sm tracking-[2px] text-primary uppercase font-medium">
-                Featured work
+                Featured Work
               </p>
             </div>
           </div>
@@ -346,62 +311,171 @@ const FeaturedWork = () => {
             {featureWork?.map((value: any, index: number) => (
               <div
                 key={index}
-                className={`group flex flex-col lg:flex-row gap-6 sm:gap-8 p-4 sm:p-6 lg:p-8 ${
-                  index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
-                }`}
+                className="px-2 py-3 sm:p-4 lg:p-6"
               >
-                <div className="lg:w-[58%] overflow-hidden">
-                  <Link href={"/"}>
-                    <Image
-                      src={
-                        value?.image ||
-                        "/images/feature-work/feature-img-11.png"
-                      }
-                      alt={value?.title || "Featured work image"}
-                      width={800}
-                      height={500}
-                      className="w-full h-auto object-cover group-hover:scale-105 transition-all duration-500 ease-in-out"
-                    />
-                  </Link>
-                </div>
+                <div className="rounded-2xl bg-[linear-gradient(180deg,rgba(120,119,198,0.06)_0%,rgba(255,255,255,0)_45%)] p-3 sm:p-5 lg:p-6">
+                  <div className="grid grid-cols-1 lg:grid-cols-4 lg:grid-rows-4 gap-4 sm:gap-5">
 
-                <div className="lg:w-[42%] flex flex-col justify-center gap-4 sm:gap-5 lg:pl-8">
-                  <div className="flex flex-col gap-3 sm:gap-4">
-                    <Link href={"/"}>
-                      <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight">
-                        {value?.title || "Guidra"}
-                      </h3>
-                    </Link>
-                    <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                      {value?.description ||
-                        "Developed a modern brand identity and a responsive web experience tailored for a professional cleaning company, focused on clarity and usability."}
-                    </p>
-                    <div className="mt-2">
-                      <p className="text-sm sm:text-base text-primary font-medium">
-                        {value?.roles?.join(", ") ||
-                          "UX Designer, Framer Designer"}
-                      </p>
+                    {/* Top Left - Image */}
+                    <div className="order-2 lg:order-1 lg:col-span-2 lg:row-span-2">
+                      <div className="w-full border border-primary/10 rounded-xl p-1.5 bg-background/90">
+                        <Link href={"/"}>
+                          <div className="relative overflow-hidden rounded-lg aspect-[5/4]">
+                            <Image
+                              src={value?.image || "/images/feature-work/feature-img-11.png"}
+                              alt={value?.title || "Featured work image"}
+                              width={500}
+                              height={400}
+                              className="w-full h-full object-cover hover:scale-105 transition-all duration-500 ease-in-out"
+                            />
+                          </div>
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                  <div className="mt-2">
-                    <Link href={"https://guidra.tech"}>
-                      <span className="inline-flex items-center text-sm font-medium text-primary hover:text-primary/80 transition-colors">
-                        Live here
-                        <svg
-                          className="ml-2 w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
+
+                    {/* Top Right - Title and Description */}
+                    <div className="flex flex-col gap-4 order-1 lg:order-2 lg:col-span-2 lg:row-span-2 justify-center">
+                      <div className="flex flex-col gap-2.5">
+                        <Link
+                          href={{
+                            pathname: "/case-study",
+                            query: {
+                              title: value?.caseStudyTitle || "End-to-End Deployment of Guidra Backend on Azure VM",
+                            },
+                          }}
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M17 8l4 4m0 0l-4 4m4-4H3"
-                          />
-                        </svg>
-                      </span>
-                    </Link>
+                          <h3 className="text-2xl sm:text-3xl lg:text-[2rem] font-bold leading-tight hover:text-primary/80 transition-colors">
+                            {value?.title || "Guidra"}
+                          </h3>
+                        </Link>
+
+                        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+                          {value?.description ||
+                            "Developed a modern brand identity and a responsive web experience tailored for a professional cleaning company, focused on clarity and usability."}
+                        </p>
+
+                        <a
+                          href="https://www.guidra.tech"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex w-fit items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+                        >
+                          Visit Site
+                          <svg
+                            className="w-4 h-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                            />
+                          </svg>
+                        </a>
+
+                        <div className="flex flex-wrap gap-2 pt-1">
+                          {[
+                            ...(value?.roles?.filter((role: string) => !/mongo/i.test(role)) ?? []),
+                            "Express.js",
+                            "REST API",
+                            "MUI",
+                            "OAuth",
+                            "Mongoose",
+                            "Mermaid",
+                            "JWT",
+                            "Groq",
+                            "Gemini",
+                            "Hugging Face",
+                            "Docker",
+                            "Nginx",
+                            "PM2",
+                            "Azure VM",
+                            "HTTPS",
+                            "UFW",
+                            "Fail2ban",
+                          ].map((item, itemIndex) => (
+                            <span
+                              key={`${item}-${itemIndex}`}
+                              className="text-xs text-primary font-medium border border-primary/20 rounded-full px-2.5 py-1"
+                            >
+                              {item}
+                            </span>
+                          ))}
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                    {/* Bottom Left - Highlights */}
+                    <div className="order-3 lg:order-3 lg:col-span-2 lg:row-span-2">
+                      <div className="border border-primary/10 rounded-xl p-3.5 sm:p-4 bg-background/80 h-full">
+                        <p className="text-xs font-semibold text-primary mb-3 uppercase tracking-[1px]">Highlights</p>
+                        <ul className="space-y-1.5">
+                          {[
+                            "Structured AI learning platform (not a chatbot)",
+                            "Multi-model AI fallback system for reliability",
+                            "Content caching to reduce API usage and latency",
+                            "Google OAuth + JWT-based authentication",
+                            "User progress tracking with quizzes",
+                            "AI-generated lessons (concept -> example -> exercise)",
+                            "Mind map visualization using Mermaid",
+                            "Dockerized backend deployed on Azure VM",
+                            "NGINX reverse proxy with SSL + PM2 process management",
+                            "Built for scalability and real-world usage",
+                          ].map((item, itemIndex) => (
+                            <li key={itemIndex} className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300">
+                              <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary/70 shrink-0" />
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Bottom Right - Deployment and Case Study */}
+                    <div className="flex flex-col gap-4 order-4 lg:order-4 lg:col-span-2 lg:row-span-2 justify-center items-center">
+                      {value?.deployment?.length > 0 && (
+                        <div className="w-full max-w-xl border border-primary/10 rounded-xl p-3.5 sm:p-4 bg-background/80">
+                          <p className="text-xs font-semibold text-primary mb-3 uppercase tracking-[1px]">Deployment</p>
+                          <ul className="space-y-1.5">
+                            {value.deployment.map((item: string, itemIndex: number) => (
+                              <li key={itemIndex} className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300">
+                                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary/70 shrink-0" />
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      <Link
+                        className="w-full max-w-xl"
+                        href={{
+                          pathname: "/case-study",
+                          query: {
+                            title: value?.caseStudyTitle || "End-to-End Deployment of Guidra Backend on Azure VM",
+                          },
+                        }}
+                      >
+                        <div className="rounded-lg border border-primary/10 p-3.5 sm:p-4 bg-[repeating-linear-gradient(180deg,rgba(148,163,184,0.08)_0px,rgba(148,163,184,0.08)_1px,transparent_1px,transparent_28px)] hover:border-primary/30 transition-colors">
+                          <p className="text-[11px] tracking-[2px] text-primary uppercase font-semibold">Case Study</p>
+                          <p className="mt-1 text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                            Deployment notes and production setup summary.
+                          </p>
+                          <div className="mt-2.5 flex items-center justify-between">
+                            <span className="text-xs text-gray-500">10 min read</span>
+                            <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                          </div>
+                        </div>
+                      </Link>
+
+                    </div>
                   </div>
                 </div>
               </div>
@@ -526,7 +600,7 @@ const FeaturedWork = () => {
                             scripts/
                           </h4>
                           <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                            {isLoading ? 'Fetching from GitHub...' : `${scripts.length} files • Click to view source`}
+                            {isLoading ? 'Fetching from GitHub...' : `${scripts.length} files • Click to view source files`}
                           </p>
                         </div>
                       </div>
@@ -696,7 +770,7 @@ const FeaturedWork = () => {
                             {scripts.length} scripts loaded
                           </span>
                         ) : (
-                          "Click 'Explore Scripts' to view"
+                          'Click "Explore Scripts" to view scripts'
                         )}
                       </div>
                       <div className="text-xs text-gray-500 dark:text-gray-400">
