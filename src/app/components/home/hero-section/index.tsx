@@ -27,7 +27,7 @@ const HeroSection = () => {
                     <div className="relative w-full h-56 sm:h-72 overflow-hidden">
                         <Image
                             // Query version ensures browsers and Next image optimizer fetch updated file after replacements.
-                            src="/images/hero-sec/banner-mobile.png"
+                            src="/images/hero-sec/banner.png"
                             alt="banner-img mobile"
                             fill
                             priority
@@ -35,7 +35,7 @@ const HeroSection = () => {
                             className="object-cover xs:hidden"
                         />
                         <Image
-                            src="/images/hero-sec/banner-desktop.png"
+                            src="/images/hero-sec/banner.png"
                             alt="banner-img desktop"
                             fill
                             priority
