@@ -2,6 +2,29 @@ import Image from "next/image"
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
+const bannerSrc = "/images/hero-sec/banner.gif";
+
+const BannerMedia = ({
+    alt,
+    className,
+    priority,
+}: {
+    alt: string;
+    className: string;
+    priority?: boolean;
+}) => {
+    return (
+        <img
+            src={bannerSrc}
+            alt={alt}
+            className={`absolute inset-0 h-full w-full ${className}`}
+            loading={priority ? "eager" : "lazy"}
+            decoding="async"
+            style={{ pointerEvents: "none" }}
+        />
+    );
+};
+
 const HeroSection = () => {
     const socialIcon = [
         {
@@ -25,23 +48,8 @@ const HeroSection = () => {
             <div className="container">
                 <div className="">
                     <div className="relative w-full h-56 sm:h-72 overflow-hidden">
-                        <Image
-                            // Query version ensures browsers and Next image optimizer fetch updated file after replacements.
-                            src="/images/hero-sec/banner.png"
-                            alt="banner-img mobile"
-                            fill
-                            priority
-                            sizes="(max-width: 499px) 500px, 0px"
-                            className="object-cover xs:hidden"
-                        />
-                        <Image
-                            src="/images/hero-sec/banner.png"
-                            alt="banner-img desktop"
-                            fill
-                            priority
-                            sizes="(min-width: 500px) 100vw"
-                            className="hidden object-cover xs:block"
-                        />
+                        <BannerMedia alt="banner-img mobile" priority className="object-cover xs:hidden" />
+                        <BannerMedia alt="banner-img desktop" priority className="hidden object-cover xs:block" />
                     </div>
                     <div className="border-x border-primary/10">
                         <div className="relative flex flex-col xs:flex-row items-center xs:items-start justify-center xs:justify-between max-w-3xl mx-auto gap-10 xs:gap-3 px-4 sm:px-7 pt-22 pb-8 sm:pb-12">
@@ -51,7 +59,7 @@ const HeroSection = () => {
                             </div>
                             <div className="flex flex-col gap-2 sm:gap-3 items-center text-center xs:items-start">
                                 <h1 className="pt-2 text text-3xl">Guganraj Rengaraju</h1>
-                                <p className="text-violet-700 font-normal">Backend & Linux Enthusiast</p>
+                                <p className="text-violet-700 font-normal">Junior DevOps Engineer</p>
                                 <div className="flex items-center gap-2">
                                     <Image src={"/images/icon/map-icon.svg"} alt="map-icon" width={20} height={20} />
                                     <p className="text-primary">Tamil Nadu, India</p>

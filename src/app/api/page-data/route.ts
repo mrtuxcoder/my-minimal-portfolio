@@ -9,7 +9,7 @@ const experienceData = [
     "location": "Remote, India",
     "organization": "JADEL INFO TECH",
     "startYear": "Mar 2026",
-    "endYear": "Present",
+    "endYear": "Apr 2026",
     "bulletPoints": [
         "Conducted daily online sessions teaching Web Development and Python fundamentals to remote learners",
         "Simplified complex technical concepts into structured, beginner-friendly lessons with hands-on exercises",
