@@ -52,7 +52,7 @@ const AboutMe = () => {
                                Junior DevOps Engineer with hands-on experience in
                                 <span className="bg-[linear-gradient(90deg,_rgba(168,85,247,0.4)_0%,_rgba(168,85,247,0.05)_100%)]">
                                     &nbsp;  Linux-based deployments and backend systems.
-                                </span>, Built and deployed production-ready applications using Docker, Nginx, and Azure VM, with focus on reliability, security, and performance.
+                                </span> Built and deployed production-ready applications using Docker, Nginx, and Azure VM, with focus on reliability, security, and performance.
 
                             </h2>
 
