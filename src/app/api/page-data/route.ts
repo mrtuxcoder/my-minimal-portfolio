@@ -20,6 +20,7 @@ const experienceData = [
 }
 
 
+
     ,{
     icon: "/images/icon/tailwind-icon.svg",
     role: "Freelance Developer",
