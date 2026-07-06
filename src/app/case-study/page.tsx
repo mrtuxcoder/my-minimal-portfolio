@@ -41,7 +41,7 @@ const CaseStudyPage = async ({ searchParams }: CaseStudyPageProps) => {
                     <li>Uptime tested: 7+ days</li>
                     <li>SSL rating: A (Qualys SSL Labs)</li>
                     <li>Deployment time: less than 30 seconds (automated script)</li>
-                     <li>Availability: 24/7 production uptime</li>
+                    <li>Availability: verified during deployment and validation testing</li>
                   </ul>
                 </div>
               </section>
@@ -146,7 +146,7 @@ const CaseStudyPage = async ({ searchParams }: CaseStudyPageProps) => {
                   </table>
                 </div>
                 <p className="text-gray-700 dark:text-gray-300">
-                  <span className="font-medium">Key Incident:</span> Self-inflicted SSH ban led to Azure emergency recovery—validated both fail2ban functionality and cloud provider fallback mechanisms.
+                  <span className="font-medium">Key Incident:</span> Self-inflicted SSH ban led to Azure emergency recovery-validated both fail2ban functionality and cloud provider fallback mechanisms.
                 </p>
               </section>
 
@@ -249,7 +249,7 @@ pm2 restart guidra-api --update-env`}
                 </pre>
 
                 <p className="text-gray-700 dark:text-gray-300">
-                  <span className="font-medium">CI/CD Philosophy:</span> Manual trigger with automation—balance of control and efficiency for solo development.
+                  <span className="font-medium">CI/CD Philosophy:</span> Manual trigger with automation-balance of control and efficiency for solo development.
                 </p>
 
    <p className="text-gray-700 dark:text-gray-300">
@@ -313,40 +313,19 @@ pm2 restart guidra-api --update-env`}
               </section>
 
               <section className="space-y-4 border-t border-primary/10 pt-8">
-                <h2 className="text-2xl font-semibold">Live System</h2>
+                <h2 className="text-2xl font-semibold">Hosted Domains</h2>
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                  These endpoints were previously hosted as part of the deployment. They are shown here as deployment references rather than active live services.
+                </p>
                 <div className="space-y-3 text-gray-700 dark:text-gray-300">
                   <p>
-                    <span className="font-medium">Frontend:</span>{" "}
-                    <a
-                      href="https://guidra.tech"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-primary hover:underline"
-                    >
-                      https://guidra.tech
-                    </a>
+                    <span className="font-medium">Frontend:</span> previously hosted at https://guidra.tech
                   </p>
                   <p>
-                    <span className="font-medium">Backend API:</span>{" "}
-                    <a
-                      href="https://api.guidra.tech"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-primary hover:underline"
-                    >
-                      https://api.guidra.tech
-                    </a>
+                    <span className="font-medium">Backend API:</span> previously hosted at https://api.guidra.tech
                   </p>
                   <p>
-                    <span className="font-medium">Health Endpoint:</span>{" "}
-                    <a
-                      href="https://api.guidra.tech/health"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-primary hover:underline"
-                    >
-                      https://api.guidra.tech/health
-                    </a>
+                    <span className="font-medium">Health Endpoint:</span> previously hosted at https://api.guidra.tech/health
                   </p>
                 </div>
               </section>
@@ -354,7 +333,7 @@ pm2 restart guidra-api --update-env`}
               <section className="space-y-4 border-t border-primary/10 pt-8">
                 <h2 className="text-2xl font-semibold">9. Conclusion</h2>
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                  This deployment transformed a fresh Azure VM into a production-tested backend deployment hosting the Guidra API. The implementation encompasses security hardening, reverse proxy configuration, SSL termination, process management, and cloud database integration—all providing a reliable and maintainable production environment.
+                  This deployment transformed a fresh Azure VM into a production-tested backend environment that hosted the Guidra API on custom domains during the deployment period. The implementation encompasses security hardening, reverse proxy configuration, SSL termination, process management, and cloud database integration-all providing a reliable and maintainable production setup.
                 </p>
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                   The experience provided invaluable hands-on learning in system administration, networking, and DevOps that textbooks cannot replicate. From recovering from self-inflicted SSH bans to debugging Nginx listen directives, each challenge reinforced practical engineering skills.
