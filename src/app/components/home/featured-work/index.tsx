@@ -251,11 +251,13 @@ const FeaturedWork = () => {
 
           {/* Case Studies */}
           <div className="border-t border-primary/10">
-            <div className="max-w-3xl mx-auto px-4 py-8 sm:px-7 sm:py-10 lg:py-8">
-              <h3 className="text-sm tracking-[2px] text-primary uppercase font-medium mb-6">
+               <div className="flex flex-col max-w-3xl mx-auto py-10 px-4 sm:px-7">
+            <div className="flex flex-col xs:flex-row gap-5 items-center justify-between">
+              <p className="text-sm tracking-[2px] text-primary uppercase font-medium">
                 Case Studies
-              </h3>
+              </p>
             </div>
+          </div>
 
             <div className="border-t border-primary/10">
               <div className="max-w-5xl mx-auto px-4 py-8 sm:px-7 sm:py-10 lg:py-8">
@@ -269,10 +271,10 @@ const FeaturedWork = () => {
                 >
                   <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
                     <div className="flex-1">
-                      <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                      <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
                         End-to-End Deployment of Guidra Backend on Azure VM
-                      </h4>
-                      <p className="text-base text-secondary flex-1 leading-relaxed">
+                      </h3>
+                      <p className="text-xs text-base text-secondary flex-1 leading-relaxed">
                         Production deployment with Nginx, PM2, Azure VM, SSL, and security hardening
                       </p>
                     </div>
@@ -293,10 +295,10 @@ const FeaturedWork = () => {
                 >
                   <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
                     <div className="flex-1">
-                      <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                      <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
                         From Code to Containers: Chronicle Homelab Deployment
-                      </h4>
-                      <p className="text-base text-secondary flex-1 leading-relaxed">
+                      </h3>
+                      <p className="text-xs text-base text-secondary flex-1 leading-relaxed">
                         Containerization, CI/CD, Docker networking, Nginx, GitHub Actions, GHCR, Tailscale, and homelab deployment
                       </p>
                     </div>
@@ -314,11 +316,13 @@ const FeaturedWork = () => {
 
           {/* Other Projects */}
           <div className="border-t border-primary/10">
-            <div className="max-w-3xl mx-auto px-4 py-8 sm:px-7 sm:py-10 lg:py-8">
-              <h3 className="text-sm tracking-[2px] text-primary uppercase font-medium mb-6">
+               <div className="flex flex-col max-w-3xl mx-auto py-10 px-4 sm:px-7">
+            <div className="flex flex-col xs:flex-row gap-5 items-center justify-between">
+              <p className="text-sm tracking-[2px] text-primary uppercase font-medium">
                 Other Projects
-              </h3>
+              </p>
             </div>
+          </div>
 
             <div className="border-t border-primary/10">
               <div className="max-w-5xl mx-auto px-4 py-8 sm:px-7 sm:py-10 lg:py-8">
@@ -335,9 +339,9 @@ const FeaturedWork = () => {
                             {project.title}
                           </h4>
                           <span className="hidden sm:inline text-xs text-gray-500 dark:text-gray-400">
-                            •
+                  
                           </span>
-                          <p className="text-base text-secondary flex-1 leading-relaxed">
+                          <p className="text-xs text-secondary flex-1 leading-relaxed">
                             {project.description}
                           </p>
                         </div>
