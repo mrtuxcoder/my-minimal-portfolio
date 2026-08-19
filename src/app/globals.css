@@ -81,7 +81,7 @@ body {
   }
 
   h5 {
-    @apply text-base sm:text-lg font-medium text-primary
+    @apply text-lg font-medium text-primary;
   }
 
   h6 {

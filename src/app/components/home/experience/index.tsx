@@ -23,19 +23,19 @@ const Experience = () => {
         <section>
             <div className="container">
                 <div className="border-x border-primary/10">
-                    <div className="flex flex-col max-w-3xl mx-auto py-10 px-4 sm:px-7">
+                    <div className="flex flex-col max-w-3xl mx-auto py-10 sm:py-8 px-4 sm:px-7">
                         <div className="flex flex-col xs:flex-row gap-5 items-center justify-between">
                             <p className="text-sm tracking-[2px] text-primary uppercase font-medium">Experience</p>
                         </div>
                     </div>
                     <div className="border-t border-primary/10">
-                        <div className="flex flex-col max-w-3xl mx-auto px-4 sm:px-7 py-9 md:py-16">
+                        <div className="flex flex-col max-w-5xl mx-auto px-4 sm:px-7 py-9 md:py-10">
                             {experienceData?.map((value: any, index: any) => {
                                 const hasDuration = value?.startYear && value?.endYear;
                                 const isOpen = openIndex === index;
                                 const accordionId = `experience-panel-${index}`;
                                 const summary = value?.bulletPoints?.[0];
-                                
+
                                 return (
                                     <div
                                         key={index}
@@ -50,8 +50,8 @@ const Experience = () => {
                                             <div className="flex flex-col gap-4">
                                                 <div className="flex items-start gap-4">
                                                     <div className="flex items-center gap-4 min-w-0">
-                                                        <span className="w-2.5 h-2.5 rounded-full bg-primary/60 shrink-0" />
-                                                        <h5>{value?.role}</h5>
+                                                        <span className="hidden sm:block w-2.5 h-2.5 rounded-full bg-primary/60 shrink-0" />
+                                                        <h5 className="text-lg font-medium text-primary">{value?.role}</h5>
                                                     </div>
                                                     <div className="ml-auto flex items-center gap-3 shrink-0">
                                                         {hasDuration && (
@@ -79,7 +79,7 @@ const Experience = () => {
 
                                                 {value?.organization && (
                                                     <div className="flex items-center">
-                                                        <span className="text-violet-700 font-normal text-base">
+                                                        <span className="text-base font-normal text-secondary">
                                                             {value.organization}
                                                         </span>
                                                     </div>
@@ -102,7 +102,7 @@ const Experience = () => {
                                                                 key={pointIndex}
                                                                 className="flex items-start gap-2 text-base font-normal text-secondary"
                                                             >
-                                                                <span className="w-2.5 h-2.5 text-secondary">•</span>
+                                                                <span className="hidden sm:inline-block w-2.5 h-2.5 text-secondary">•</span>
                                                                 {point}
                                                             </li>
                                                         );

@@ -109,13 +109,13 @@ const FeaturedWork = () => {
                         },
                       }}
                     >
-                      <h3 className="text-xl sm:text-2xl font-bold leading-snug hover:text-primary/80 transition-colors">
+                      <h3 className="text-lg sm:text-xl font-semibold leading-snug hover:text-primary/80 transition-colors">
                         {project?.title}
                       </h3>
                     </Link>
 
                     {/* Description */}
-                    <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                    <p className="text-base text-secondary leading-relaxed">
                       {project?.description}
                     </p>
 
@@ -125,9 +125,9 @@ const FeaturedWork = () => {
                       {project?.highlights && project.highlights.length > 0 && (
                         <div>
                           <p className="text-xs font-semibold text-primary mb-2 uppercase tracking-[1px]">Key Features</p>
-                          <ul className="space-y-1.5">
+                          <ul className="space-y-1.5 text-base text-secondary leading-relaxed">
                             {project.highlights.map((highlight: string, hIndex: number) => (
-                              <li key={hIndex} className="flex items-start gap-2 text-xs text-gray-600 dark:text-gray-300">
+                              <li key={hIndex} className="flex items-start gap-2">
                                 <span className="mt-1.5 w-1 h-1 rounded-full bg-primary/70 shrink-0" />
                                 <span>{highlight}</span>
                               </li>
@@ -140,9 +140,9 @@ const FeaturedWork = () => {
                       {project?.deployment && project.deployment.length > 0 && (
                         <div>
                           <p className="text-xs font-semibold text-primary mb-2 uppercase tracking-[1px]">Deployment</p>
-                          <ul className="space-y-1.5">
+                          <ul className="space-y-1.5 text-base text-secondary leading-relaxed">
                             {project.deployment.map((item: string, dIndex: number) => (
-                              <li key={dIndex} className="flex items-start gap-2 text-xs text-gray-600 dark:text-gray-300">
+                              <li key={dIndex} className="flex items-start gap-2">
                                 <span className="mt-1.5 w-1 h-1 rounded-full bg-primary/70 shrink-0" />
                                 <span>{item}</span>
                               </li>
@@ -250,13 +250,16 @@ const FeaturedWork = () => {
 
 
           {/* Case Studies */}
-          <div className="border-t border-primary/10 py-8 sm:py-12">
-            <div className="max-w-3xl mx-auto px-4 sm:px-7">
+          <div className="border-t border-primary/10">
+            <div className="max-w-3xl mx-auto px-4 py-8 sm:px-7 sm:py-10 lg:py-8">
               <h3 className="text-sm tracking-[2px] text-primary uppercase font-medium mb-6">
                 Case Studies
               </h3>
+            </div>
 
-              <div className="space-y-4">
+            <div className="border-t border-primary/10">
+              <div className="max-w-5xl mx-auto px-4 py-8 sm:px-7 sm:py-10 lg:py-8">
+                <div className="space-y-4">
                 <Link
                   href={{
                     pathname: "/case-study",
@@ -269,7 +272,7 @@ const FeaturedWork = () => {
                       <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
                         End-to-End Deployment of Guidra Backend on Azure VM
                       </h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-300 flex-1 leading-relaxed">
+                      <p className="text-base text-secondary flex-1 leading-relaxed">
                         Production deployment with Nginx, PM2, Azure VM, SSL, and security hardening
                       </p>
                     </div>
@@ -293,7 +296,7 @@ const FeaturedWork = () => {
                       <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
                         From Code to Containers: Chronicle Homelab Deployment
                       </h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-300 flex-1 leading-relaxed">
+                      <p className="text-base text-secondary flex-1 leading-relaxed">
                         Containerization, CI/CD, Docker networking, Nginx, GitHub Actions, GHCR, Tailscale, and homelab deployment
                       </p>
                     </div>
@@ -304,18 +307,22 @@ const FeaturedWork = () => {
                     </div>
                   </div>
                 </Link>
+                </div>
               </div>
             </div>
           </div>
 
           {/* Other Projects */}
-          <div className="border-t border-primary/10 py-8 sm:py-12">
-            <div className="max-w-3xl mx-auto px-4 sm:px-7">
+          <div className="border-t border-primary/10">
+            <div className="max-w-3xl mx-auto px-4 py-8 sm:px-7 sm:py-10 lg:py-8">
               <h3 className="text-sm tracking-[2px] text-primary uppercase font-medium mb-6">
                 Other Projects
               </h3>
+            </div>
 
-              <div className="space-y-4">
+            <div className="border-t border-primary/10">
+              <div className="max-w-5xl mx-auto px-4 py-8 sm:px-7 sm:py-10 lg:py-8">
+                <div className="space-y-4">
                 {additionalProjects.map((project) => (
                   <div
                     key={project.id}
@@ -323,20 +330,20 @@ const FeaturedWork = () => {
                   >
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                       <div className="flex-1">
-                        <div className="flex items-center gap-3">
+                        <div className="flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:gap-3">
                           <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
                             {project.title}
                           </h4>
-                          <span className="text-xs text-gray-500 dark:text-gray-400">
+                          <span className="hidden sm:inline text-xs text-gray-500 dark:text-gray-400">
                             •
                           </span>
-                          <p className="text-sm text-gray-600 dark:text-gray-300 flex-1 leading-relaxed">
+                          <p className="text-base text-secondary flex-1 leading-relaxed">
                             {project.description}
                           </p>
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-4 mt-2 sm:mt-0">
+                      <div className="flex items-center gap-4 mt-2 sm:mt-0 sm:shrink-0">
                         <Link
                           href={project.repoUrl}
                           target="_blank"
@@ -349,36 +356,37 @@ const FeaturedWork = () => {
                     </div>
                   </div>
                 ))}
-              </div>
+                </div>
 
-              <div className="mt-8 pt-6 border-t border-gray-100 dark:border-gray-800">
-                <Link
-                  href="https://github.com/mrtuxcoder"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-gray-500 dark:text-gray-400 hover:text-primary transition-colors inline-flex items-center"
-                >
-                  View all on GitHub
-                  <svg
-                    className="ml-2 w-3 h-3"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+                <div className="mt-8 border-t border-gray-100 pt-6 dark:border-gray-800">
+                  <Link
+                    href="https://github.com/mrtuxcoder"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-gray-500 dark:text-gray-400 hover:text-primary transition-colors inline-flex items-center"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M14 5l7 7m0 0l-7 7m7-7H3"
-                    />
-                  </svg>
-                </Link>
+                    View all on GitHub
+                    <svg
+                      className="ml-2 w-3 h-3"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                      />
+                    </svg>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      
+
     </section>
   );
 };

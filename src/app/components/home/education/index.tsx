@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 const Education = () => {
     const [educationData, setEducationData] = useState<any>(null);
-    
+
         useEffect(() => {
             const fetchData = async () => {
                 try {
@@ -13,29 +13,29 @@ const Education = () => {
                     setEducationData(data?.educationData)
                 } catch {}
             }
-    
+
             fetchData()
         }, [])
-    
+
     return (
         <section>
             <div className="container">
                 <div className="border-x border-primary/10">
-                    <div className="flex flex-col max-w-3xl mx-auto py-10 px-4 sm:px-7">
+                    <div className="flex flex-col max-w-3xl mx-auto py-10 sm:py-8 px-4 sm:px-7">
                         <div className="flex flex-col xs:flex-row gap-5 items-center justify-between">
                             <p className="text-sm tracking-[2px] text-primary uppercase font-medium">Education</p>
                         </div>
                     </div>
 
                     <div className="border-t border-primary/10">
-                        <div className="relative max-w-3xl mx-auto px-4 sm:px-0 py-10">
+                        <div className="relative max-w-5xl mx-auto px-4 sm:px-7 py-10 sm:py-8">
                             <div className="hidden sm:flex absolute left-5 sm:left-[15.9rem] sm:translate-x-1/2 top-0 bottom-0 w-px bg-primary/10" />
 
                             <div className="relative">
                                 {educationData?.map((item:any, index:any) => (
                                     <div
                                         key={index}
-                                        className={`relative flex flex-col sm:flex-row sm:items-start gap-4 ${index !== educationData.length - 1 ? "mb-8 sm:mb-16" : ""
+                                        className={`relative flex flex-col sm:flex-row sm:items-start gap-4 ${index !== educationData.length - 1 ? "mb-8 sm:mb-10" : ""
                                             }`}
                                     >
                                         <div className="hidden sm:block relative sm:w-64 sm:text-right sm:pr-16">
@@ -50,14 +50,14 @@ const Education = () => {
                                         </div>
 
                                         <div className="flex flex-col gap-2 flex-1 sm:pl-16 ml-2 sm:ml-0">
-                                            <h5 className="font-semibold">{item.title}</h5>
+                                            <h5 className="text-base sm:text-lg font-semibold text-primary">{item.title}</h5>
                                             <div className="flex sm:hidden items-center gap-2 text-sm leading-relaxed text-primary/80">
-                                                <span className="inline-flex shrink-0 p-1 border border-primary/10 rounded-full bg-white">
+                                                <span className="hidden sm:inline-flex shrink-0 p-1 border border-primary/10 rounded-full bg-white">
                                                     <span className="w-2.5 h-2.5 bg-primary rounded-full" />
                                                 </span>
                                                 <span>{item.date}</span>
                                             </div>
-                                            <p className="text-primary">{item.subtitle}</p>
+                                            <p className="text-sm sm:text-base text-primary">{item.subtitle}</p>
                                         </div>
                                     </div>
                                 ))}

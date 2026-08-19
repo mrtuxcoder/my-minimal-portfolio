@@ -50,7 +50,7 @@ const AboutMe = () => {
         <section>
             <div className="container">
                 <div className="border-x border-primary/10 bg-[url('/images/about-me/about-me-bg.svg')] bg-cover bg-center bg-no-repeat">
-                    <div className="flex flex-col gap-8 max-w-5xl mx-auto px-4 sm:px-7 py-11 md:py-20">
+                    <div className="flex flex-col gap-8 max-w-5xl mx-auto px-4 sm:px-7 py-11 md:py-12">
                         <div className="flex flex-col gap-4">
                             <p className="text-sm tracking-[2px] text-primary uppercase font-medium">
                                 About Me
@@ -89,7 +89,7 @@ const AboutMe = () => {
                                                     <span>{item}</span>
 
                                                     {index !== group.items.length - 1 ? (
-                                                        <span className="text-primary/40">
+                                                        <span className="hidden sm:inline text-primary/40">
                                                             •
                                                         </span>
                                                     ) : null}

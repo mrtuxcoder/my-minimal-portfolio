@@ -1,8 +1,8 @@
 const sectionClass = "space-y-4 border-t border-primary/10 pt-8";
-const bodyClass = "text-base leading-relaxed text-secondary";
+const bodyClass = "text-sm sm:text-base leading-relaxed text-secondary";
 const listClass =
-  "list-disc pl-5 space-y-1.5 text-base leading-relaxed text-secondary";
-const headingClass = "text-xl sm:text-2xl font-semibold text-primary";
+  "list-none pl-0 sm:list-disc sm:pl-5 space-y-1.5 text-sm sm:text-base leading-relaxed text-secondary";
+const headingClass = "text-lg sm:text-xl font-semibold text-primary";
 
 const ChronicleCaseStudy = () => (
   <div className="space-y-10">
@@ -25,7 +25,7 @@ const ChronicleCaseStudy = () => (
       </p>
 
       <div>
-        <p className="mb-2 text-base font-semibold text-primary">
+        <p className="mb-2 text-sm sm:text-base font-semibold text-primary">
           Final deployment stack:
         </p>
 
@@ -171,7 +171,7 @@ Nginx :80
       <p className={bodyClass}>
         This means the browser does not need to know the internal Docker
         address of the backend. Nginx provides a single entry point while
-        Docker's internal DNS handles service discovery between containers.
+        Docker&apos;s internal DNS handles service discovery between containers.
       </p>
     </section>
 
@@ -308,7 +308,7 @@ GitHub Actions
 
       <p className={bodyClass}>
         Recreating the frontend through Docker Compose attached it to the
-        correct network. Docker's internal DNS could then resolve{" "}
+        correct network. Docker&apos;s internal DNS could then resolve{" "}
         <span className="font-semibold text-primary">backend</span>, Nginx
         started successfully, and the application became available again.
       </p>
@@ -356,7 +356,7 @@ GitHub Actions
           <span className="font-semibold text-primary">
             Docker Compose:
           </span>{" "}
-          provides a reproducible definition for how the application's
+          provides a reproducible definition for how the application&apos;s
           containers, networks, volumes, and dependencies work together.
         </li>
 
@@ -365,7 +365,7 @@ GitHub Actions
             Container networking:
           </span>{" "}
           service names such as <code>backend</code> and{" "}
-          <code>mongodb</code> can be resolved through Docker's internal DNS.
+          <code>mongodb</code> can be resolved through Docker&apos;s internal DNS.
         </li>
 
         <li>
@@ -403,7 +403,7 @@ GitHub Actions
       </ul>
     </section>
 
-    <footer className="border-t border-primary/10 pt-8 text-base leading-relaxed text-secondary">
+    <footer className="border-t border-primary/10 pt-8 text-sm sm:text-base leading-relaxed text-secondary">
       <p>
         Chronicle started as a blogging application, but the deployment
         process became the more valuable part of the project. It provided a

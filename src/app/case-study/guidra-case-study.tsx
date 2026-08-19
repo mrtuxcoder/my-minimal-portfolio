@@ -1,7 +1,7 @@
 const sectionClass = "space-y-4 border-t border-primary/10 pt-8";
-const bodyClass = "text-base leading-relaxed text-secondary";
-const listClass = "list-disc pl-5 space-y-1 text-base leading-relaxed text-secondary";
-const headingClass = "text-xl sm:text-2xl font-semibold text-primary";
+const bodyClass = "text-sm sm:text-base leading-relaxed text-secondary";
+const listClass = "list-none pl-0 sm:list-disc sm:pl-5 space-y-1 text-sm sm:text-base leading-relaxed text-secondary";
+const headingClass = "text-lg sm:text-xl font-semibold text-primary";
 
 const GuidraCaseStudy = () => (
   <div className="space-y-10">
@@ -14,7 +14,7 @@ const GuidraCaseStudy = () => (
         <span className="font-semibold text-primary">Technologies Used:</span> Azure VM (Ubuntu 24.04), Nginx, Node.js, PM2, MongoDB Atlas, Let&apos;s Encrypt
       </p>
       <div>
-        <p className="mb-2 text-base font-semibold text-primary">Key Metrics:</p>
+        <p className="mb-2 text-sm sm:text-base font-semibold text-primary">Key Metrics:</p>
         <ul className={listClass}>
           <li>API latency: ~150–230ms</li>
           <li>Memory usage: ~600MB (idle)</li>
@@ -56,21 +56,21 @@ const GuidraCaseStudy = () => (
 
     <section className={sectionClass}>
       <h2 className={headingClass}>2. Deployment Phases</h2>
-      <div className="space-y-5 text-base leading-relaxed text-secondary">
+                    <div className="space-y-5 text-sm sm:text-base leading-relaxed text-secondary">
         <div>
-          <h3 className="text-lg font-semibold text-primary">Infrastructure Foundation</h3>
+                          <h3 className="text-base sm:text-lg font-semibold text-primary">Infrastructure Foundation</h3>
           <ul className={listClass}><li>Azure VM provisioning with static public IP</li><li>SSH key authentication (password-less)</li><li>Deploy user creation (non-root)</li><li>UFW configuration (ports 22, 80, 443 only)</li></ul>
         </div>
         <div>
-          <h3 className="text-lg font-semibold text-primary">Security Implementation</h3>
+                          <h3 className="text-base sm:text-lg font-semibold text-primary">Security Implementation</h3>
           <ul className={listClass}><li>SSH hardening (/etc/ssh/sshd_config modifications)</li><li>fail2ban configuration with custom jail</li><li>Automatic security updates enabled</li><li>Azure NSG rules configured</li></ul>
         </div>
         <div>
-          <h3 className="text-lg font-semibold text-primary">Application Stack</h3>
+                          <h3 className="text-base sm:text-lg font-semibold text-primary">Application Stack</h3>
           <ul className={listClass}><li>NVM + Node.js LTS installation</li><li>PM2 process manager setup</li><li>MongoDB Atlas connection with SRV string</li><li>Environment variable management</li></ul>
         </div>
         <div>
-          <h3 className="text-lg font-semibold text-primary">Web Server Configuration</h3>
+                          <h3 className="text-base sm:text-lg font-semibold text-primary">Web Server Configuration</h3>
           <ul className={listClass}><li>Nginx reverse proxy setup</li><li>SSL certificates via Let&apos;s Encrypt</li><li>HTTP → HTTPS redirection</li><li>Custom domain configuration</li></ul>
         </div>
       </div>
@@ -114,7 +114,7 @@ const GuidraCaseStudy = () => (
       </ul>
     </section>
 
-    <footer className="border-t border-primary/10 pt-8 text-base leading-relaxed text-secondary">
+    <footer className="border-t border-primary/10 pt-8 text-sm sm:text-base leading-relaxed text-secondary">
       <p className="italic">&quot;Documentation is the difference between experience and expertise.&quot;</p>
       <p className="mt-2 font-semibold text-primary">— Guganraj Rengaraju</p>
     </footer>

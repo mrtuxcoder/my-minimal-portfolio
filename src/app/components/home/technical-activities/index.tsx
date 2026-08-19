@@ -19,57 +19,57 @@ const TechnicalActivities = () => {
                     </div>
 
                     <div className="border-t border-primary/10">
-                        <div className="flex flex-col max-w-3xl mx-auto px-4 sm:px-7 py-9 md:py-16">
-                            <div className="flex flex-col gap-5">
-                                <h5>Student Coordinator – Debugging Competition (TECHIES 8.0)</h5>
+                        <div className="flex flex-col max-w-none px-4 sm:px-7 py-8 md:py-8">
+                            <div className="flex flex-col gap-3 lg:grid lg:grid-cols-[minmax(240px,0.3fr)_minmax(0,1fr)] lg:gap-x-10 lg:gap-y-3">
+                                <h5 className="lg:col-start-1 lg:row-start-1">Student Coordinator – Debugging Competition (TECHIES 8.0)</h5>
 
-                                <ul className="space-y-2">
+                                <ul className="space-y-1 lg:col-start-2 lg:row-start-1">
                                     <li className="flex items-start gap-2 text-base font-normal text-secondary">
-                                        <span className="w-2.5 h-2.5 text-secondary">•</span>
+                                        <span className="hidden sm:inline-block w-2.5 h-2.5 text-secondary">•</span>
                                         Set up debugging programs across multiple lab systems
                                     </li>
                                     <li className="flex items-start gap-2 text-base font-normal text-secondary">
-                                        <span className="w-2.5 h-2.5 text-secondary">•</span>
+                                        <span className="hidden sm:inline-block w-2.5 h-2.5 text-secondary">•</span>
                                         Standardized file naming and folder structure for participants
                                     </li>
                                     <li className="flex items-start gap-2 text-base font-normal text-secondary">
-                                        <span className="w-2.5 h-2.5 text-secondary">•</span>
+                                        <span className="hidden sm:inline-block w-2.5 h-2.5 text-secondary">•</span>
                                         Assisted faculty during competition execution
                                     </li>
                                     <li className="flex items-start gap-2 text-base font-normal text-secondary">
-                                        <span className="w-2.5 h-2.5 text-secondary">•</span>
+                                        <span className="hidden sm:inline-block w-2.5 h-2.5 text-secondary">•</span>
                                         Guided participants on accessing and running programs
                                     </li>
                                     <li className="flex items-start gap-2 text-base font-normal text-secondary">
-                                        <span className="w-2.5 h-2.5 text-secondary">•</span>
+                                        <span className="hidden sm:inline-block w-2.5 h-2.5 text-secondary">•</span>
                                         Helped monitor lab environment and quiz evaluation
                                     </li>
                                 </ul>
                             </div>
 
-                            <div className="flex flex-col gap-5 border-dashed border-t border-primary/10 pt-8 sm:pt-10 mt-8 sm:mt-10">
-                                <h5>Open Source Contribution - zenmix (GitHub)</h5>
+                            <div className="flex flex-col gap-3 border-dashed border-t border-primary/10 pt-6 sm:pt-6 mt-6 sm:mt-6 lg:grid lg:grid-cols-[minmax(240px,0.3fr)_minmax(0,1fr)] lg:gap-x-10 lg:gap-y-3">
+                                <h5 className="lg:col-start-1 lg:row-start-1">Open Source Contribution - zenmix (GitHub)</h5>
 
-                                <ul className="space-y-2">
+                                <ul className="space-y-1 lg:col-start-2 lg:row-start-1">
                                     <li className="flex items-start gap-2 text-base font-normal text-secondary">
-                                        <span className="w-2.5 h-2.5 text-secondary">•</span>
+                                        <span className="hidden sm:inline-block w-2.5 h-2.5 text-secondary">•</span>
                                         Submitted multiple pull requests focused on UI improvements and theming
                                     </li>
                                     <li className="flex items-start gap-2 text-base font-normal text-secondary">
-                                        <span className="w-2.5 h-2.5 text-secondary">•</span>
+                                        <span className="hidden sm:inline-block w-2.5 h-2.5 text-secondary">•</span>
                                         Worked on light/dark mode behavior and visual consistency
                                     </li>
                                     <li className="flex items-start gap-2 text-base font-normal text-secondary">
-                                        <span className="w-2.5 h-2.5 text-secondary">•</span>
+                                        <span className="hidden sm:inline-block w-2.5 h-2.5 text-secondary">•</span>
                                         Collaborated with the maintainer through code reviews and feedback
                                     </li>
                                     <li className="flex items-start gap-2 text-base font-normal text-secondary">
-                                        <span className="w-2.5 h-2.5 text-secondary">•</span>
+                                        <span className="hidden sm:inline-block w-2.5 h-2.5 text-secondary">•</span>
                                         Had several contributions merged into the main codebase
                                     </li>
                                 </ul>
 
-                                <div className="flex flex-wrap gap-3">
+                                <div className="flex flex-wrap gap-3 lg:col-start-2 lg:row-start-2">
                                     {openSourceLinks.map((link, index) => (
                                         <a
                                             key={link}
@@ -84,25 +84,25 @@ const TechnicalActivities = () => {
                                 </div>
                             </div>
 
-                            <div className="flex flex-col gap-5 border-dashed border-t border-primary/10 pt-8 sm:pt-10 mt-8 sm:mt-10">
-                                <h5>Open Source Contribution - Study-Notion LMS (GitHub)</h5>
+                            <div className="flex flex-col gap-3 border-dashed border-t border-primary/10 pt-6 sm:pt-6 mt-6 sm:mt-6 lg:grid lg:grid-cols-[minmax(240px,0.3fr)_minmax(0,1fr)] lg:gap-x-10 lg:gap-y-3">
+                                <h5 className="lg:col-start-1 lg:row-start-1">Open Source Contribution - Study-Notion LMS (GitHub)</h5>
 
-                                <ul className="space-y-2">
+                                <ul className="space-y-1 lg:col-start-2 lg:row-start-1">
                                     <li className="flex items-start gap-2 text-base font-normal text-secondary">
-                                        <span className="w-2.5 h-2.5 text-secondary">•</span>
+                                        <span className="hidden sm:inline-block w-2.5 h-2.5 text-secondary">•</span>
                                         Identified and fixed documentation issues in an open-source LMS project
                                     </li>
                                     <li className="flex items-start gap-2 text-base font-normal text-secondary">
-                                        <span className="w-2.5 h-2.5 text-secondary">•</span>
+                                        <span className="hidden sm:inline-block w-2.5 h-2.5 text-secondary">•</span>
                                         Created and submitted a pull request that was successfully merged
                                     </li>
                                     <li className="flex items-start gap-2 text-base font-normal text-secondary">
-                                        <span className="w-2.5 h-2.5 text-secondary">•</span>
+                                        <span className="hidden sm:inline-block w-2.5 h-2.5 text-secondary">•</span>
                                         Gained hands-on experience with GitHub workflows (forking, branching, PR)
                                     </li>
                                 </ul>
 
-                                <div className="flex flex-wrap gap-3">
+                                <div className="flex flex-wrap gap-3 lg:col-start-2 lg:row-start-2">
                                     {studyNotionLinks.map((link, index) => (
                                         <a
                                             key={link}
