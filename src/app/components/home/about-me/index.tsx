@@ -61,7 +61,7 @@ const AboutMe = () => {
                                 <span className="bg-[linear-gradient(90deg,_rgba(168,85,247,0.4)_0%,_rgba(168,85,247,0.05)_100%)]">
                                     &nbsp; Linux-based deployments, containerized applications, and backend systems.
                                 </span>{" "}
-                                Built and deployed production-ready applications using Docker, Nginx, GitHub Actions, and Azure VM, with a focus on reliability, security, automation, and maintainable infrastructure.
+                                Built and deployed production-ready applications using Docker, Nginx, GitHub Actions, and Azure VM, .with a focus on reliability, security, automation, and practical deployment workflows.
                             </h2>
                         </div>
 
