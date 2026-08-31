@@ -12,7 +12,7 @@ const inter = Inter({
 });
 
 const baseUrl = "https://guganraj.site";
-const ogImage = `${baseUrl}/images/favicon/OG.jpg`;
+const ogImage = `${baseUrl}/images/favicon/OG.png`;
 const myPic = `${baseUrl}/images/guganraj-rengaraju.jpeg`;
 
 
