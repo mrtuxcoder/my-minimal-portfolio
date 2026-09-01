@@ -11,29 +11,27 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const baseUrl = "https://guganraj.site";
-const ogImage = `${baseUrl}/images/favicon/OG.png`;
-const myPic = `${baseUrl}/images/guganraj-rengaraju.jpeg`;
-
-
+const siteUrl = "https://guganraj.site";
+const openGraphImageUrl = `${siteUrl}/images/favicon/OG.png`;
+const profileImageUrl = `${siteUrl}/images/guganraj-rengaraju.jpeg`;
 
 const personStructuredData = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "Person",
-      "@id": `${baseUrl}/#person`,
+      "@id": `${siteUrl}/#person`,
 
       name: "Guganraj Rengaraju",
-      alternateName: ["Guganraj","mrtuxcoder"],
+      alternateName: ["Guganraj", "mrtuxcoder"],
 
-      url: baseUrl,
-      image: myPic,
+      url: siteUrl,
+      image: profileImageUrl,
 
       description:
-        "MCA student and Linux, DevOps, and systems-focused developer with hands-on experience in self-hosted deployments, Docker, Linux administration, networking, CI/CD, and full-stack application infrastructure.",
+        "Junior DevOps Engineer focused on Linux, self-hosted infrastructure, Docker, CI/CD, networking, and backend systems.",
 
-      jobTitle: "Linux & DevOps-Focused Developer",
+      jobTitle: "Junior DevOps Engineer",
 
       knowsAbout: [
         "Linux",
@@ -76,22 +74,23 @@ const personStructuredData = {
         "https://x.com/mrtuxcoder",
       ],
 
-    mainEntityOfPage: {
-  "@id": `${baseUrl}/#website`,
-},
+      mainEntityOfPage: {
+        "@id": `${siteUrl}/#website`,
+      },
     },
 
     {
       "@type": "WebSite",
-      "@id": `${baseUrl}/#website`,
+      "@id": `${siteUrl}/#website`,
 
-      url: baseUrl,
+      url: siteUrl,
       name: "Guganraj Rengaraju",
+
       description:
-        "Personal portfolio documenting Linux, DevOps, systems, infrastructure, homelab projects, and technical work.",
+        "Portfolio of Guganraj Rengaraju, a Junior DevOps Engineer focused on Linux, infrastructure, Docker, CI/CD, and backend systems.",
 
       publisher: {
-        "@id": `${baseUrl}/#person`,
+        "@id": `${siteUrl}/#person`,
       },
 
       inLanguage: "en",
@@ -100,7 +99,7 @@ const personStructuredData = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL(baseUrl),
+  metadataBase: new URL(siteUrl),
 
   title: {
     default: "Guganraj Rengaraju | Linux, DevOps & Systems",
@@ -108,13 +107,14 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Guganraj Rengaraju is an MCA student and Linux, DevOps, and systems-focused developer building and documenting self-hosted infrastructure, homelab projects, Docker deployments, CI/CD pipelines, networking, and Linux systems.",
+    "Junior DevOps Engineer focused on Linux, Docker, CI/CD, self-hosted infrastructure, and backend systems.",
 
   keywords: [
     "Guganraj Rengaraju",
     "Guganraj",
     "Linux",
     "DevOps",
+    "Junior DevOps Engineer",
     "Systems",
     "Infrastructure",
     "Linux System Administration",
@@ -123,25 +123,26 @@ export const metadata: Metadata = {
     "Nginx",
     "CI/CD",
     "GitHub Actions",
-    "GitHub Container Registry",
     "Containerization",
-    "Homelab",
     "Self Hosting",
+    "Homelab",
     "Networking",
     "Tailscale",
-    "RHCSA",
+    "Backend Development",
+    "Node.js",
+    "React",
+    "MongoDB",
     "MCA Student",
   ],
 
   authors: [
     {
       name: "Guganraj Rengaraju",
-      url: baseUrl,
+      url: siteUrl,
     },
   ],
 
   creator: "Guganraj Rengaraju",
-
   publisher: "Guganraj Rengaraju",
 
   category: "Technology",
@@ -153,20 +154,20 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: baseUrl,
+    url: siteUrl,
     siteName: "Guganraj Rengaraju",
 
     title: "Guganraj Rengaraju | Linux, DevOps & Systems",
 
     description:
-      "Linux, DevOps, and systems-focused developer building self-hosted infrastructure, homelab projects, containerized applications, CI/CD pipelines, and Linux-based systems.",
+      "Junior DevOps Engineer focused on Linux, Docker, CI/CD, self-hosted infrastructure, and backend systems.",
 
     images: [
       {
-        url: ogImage,
+        url: openGraphImageUrl,
         width: 1200,
         height: 630,
-        alt: "Guganraj Rengaraju - Linux, DevOps and Systems Portfolio",
+        alt: "Guganraj Rengaraju | Linux, DevOps & Systems",
       },
     ],
   },
@@ -177,9 +178,9 @@ export const metadata: Metadata = {
     title: "Guganraj Rengaraju | Linux, DevOps & Systems",
 
     description:
-      "Linux, DevOps, and systems-focused developer building self-hosted infrastructure, homelab projects, containers, CI/CD, and Linux systems.",
+      "Junior DevOps Engineer focused on Linux, Docker, CI/CD, self-hosted infrastructure, and backend systems.",
 
-    images: [ogImage],
+    images: [openGraphImageUrl],
   },
 
   robots: {
