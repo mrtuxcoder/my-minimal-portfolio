@@ -24,6 +24,23 @@
 .DS_Store
 *.pem
 
+# local editor and agent workspace data
+/.idea/
+/.vscode/
+/.agents/
+/.codex/
+/.mcp.json
+
+# accidental shell/user configuration files
+/.bash_profile
+/.bashrc
+/.gitconfig
+/.gitmodules
+/.profile
+/.ripgreprc
+/.zprofile
+/.zshrc
+
 # debug
 npm-debug.log*
 yarn-debug.log*
