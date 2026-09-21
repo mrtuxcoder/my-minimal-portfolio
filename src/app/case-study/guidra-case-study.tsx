@@ -79,7 +79,7 @@ const GuidraCaseStudy = () => (
     <section className={sectionClass}>
       <h2 className={headingClass}>3. Challenges &amp; Solutions</h2>
       <p className={bodyClass}>
-        <span className="font-semibold text-primary">Key Incident:</span> Self-inflicted SSH ban due to fail2ban testing led to Azure emergency recovery—validated both fail2ban functionality and cloud provider fallback mechanisms. Nginx IPv6-only binding required explicit listen 0.0.0.0:80 directive. Domain DNS propagation delays necessitated verification tools for troubleshooting.
+        <span className="font-semibold text-primary">Key Incident:</span> Self-inflicted SSH ban due to fail2ban testing led to Azure emergency recovery—validated both fail2ban functionality and cloud provider fallback mechanisms. Nginx required an explicit IPv6 wildcard binding 'listen [::]:80' for IPv6 connections. Domain DNS propagation delays necessitated verification tools for troubleshooting.
       </p>
     </section>
 

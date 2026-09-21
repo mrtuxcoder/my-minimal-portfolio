@@ -13,7 +13,7 @@ const CaseStudyPage = async ({ searchParams }: CaseStudyPageProps) => {
     params?.title || "End-to-End Deployment of Guidra Backend on Azure VM";
   const isChronicle = title.includes("Chronicle");
   const subtitle = isChronicle
-    ? "Docker → Nginx → Node.js → MongoDB → Tailscale → Homelab"
+    ? "Internet → Cloudflare → Tunnel → Homelab → Docker → Nginx"
     : "Azure VM → Nginx → Node.js → MongoDB Atlas";
 
   return (

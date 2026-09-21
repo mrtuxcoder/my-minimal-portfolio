@@ -28,11 +28,12 @@ const featureWork = [
         ],
         caseStudyTitle: "End-to-End Deployment of Guidra Backend on Azure VM",
         image: "/images/feature-work/guidra-cover.png"
-    },
-   {
+    }, 
+    {
     title: "Chronicle - Homelab Publishing Platform",
     description:
-        "A full-stack publishing platform with public reading and admin-only publishing, evolved into a practical homelab project for learning Docker, CI/CD, networking, and self-hosted deployment.",
+        "A full-stack publishing platform evolved into a practical homelab project for learning Docker, CI/CD, networking, and self-hosted deployment.",
+
     roles: [
         "React",
         "Node.js",
@@ -40,20 +41,23 @@ const featureWork = [
         "MongoDB",
         "Docker",
         "GitHub Actions",
-        "Nginx",
-        "Tailscale"
+        "Cloudflare Tunnel"
     ],
+
     highlights: [
-        "Built a full-stack publishing platform with admin-only article management and public reading",
+        "Full-stack publishing platform with admin publishing and public reading",
         "Containerized React, Node.js, and MongoDB using Docker Compose",
-        "Configured Nginx reverse proxy with Docker service networking and internal DNS",
-        "Tested container recovery and server reboot persistence on a Linux homelab"
+        "Automated Docker image builds and deployment through GitHub Actions and GHCR",
+        "Publicly exposed through Cloudflare Tunnel from a self-hosted Linux homelab"
     ],
+
     deployment: [
-        "Docker images built and published to GitHub Container Registry",
-        "Automated deployment to a self-hosted Linux homelab server",
-        "Private server access through Tailscale"
+        "Dockerized services deployed on a Linux homelab",
+        "Nginx reverse proxy with internal Docker networking",
+        "Tailscale used for private server access and deployment",
+        "Cloudflare Tunnel with cloudflared provides public HTTPS access"
     ],
+
     caseStudyTitle: "From Code to Containers: Chronicle Homelab Deployment",
     image: "/images/feature-work/chronicle-cover.png"
 }

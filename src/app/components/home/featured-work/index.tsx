@@ -165,7 +165,7 @@ const FeaturedWork = () => {
                     </div>
 
                     {/* Actions */}
-                    <div className="flex flex-wrap gap-2 pt-3 mt-auto border-t border-primary/10">
+                   <div className="flex flex-wrap items-center justify-between gap-2 pt-3 mt-auto border-t border-primary/10">
                       {/* Visit Site - for Guidra */}
                       {index === 0 && (
                         <a
@@ -299,7 +299,7 @@ const FeaturedWork = () => {
                         From Code to Containers: Chronicle Homelab Deployment
                       </h3>
                       <p className="text-xs text-base text-secondary flex-1 leading-relaxed">
-                        Containerization, CI/CD, Docker networking, Nginx, GitHub Actions, GHCR, Tailscale, and homelab deployment
+                        Containerization, CI/CD, Docker networking, Nginx, GHCR, Tailscale, Cloudflare and homelab deployment
                       </p>
                     </div>
                     <div className="flex items-center gap-4 mt-2 sm:mt-0">

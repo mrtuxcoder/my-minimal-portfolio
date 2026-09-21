@@ -1,14 +1,20 @@
 const sectionClass = "space-y-4 border-t border-primary/10 pt-8";
+
 const bodyClass = "text-sm sm:text-base leading-relaxed text-secondary";
+
 const listClass =
     "list-disc pl-5 space-y-1.5 text-sm sm:text-base leading-relaxed text-secondary";
+
 const headingClass = "text-lg sm:text-2xl font-semibold text-primary";
 
 const ChronicleCaseStudy = () => (
     <div className="space-y-10">
+
         {/* 1. Overview */}
         <section className={sectionClass}>
-            <h2 className={headingClass}>1. From Application to Deployment</h2>
+            <h2 className={headingClass}>
+                1. From Application to Deployment
+            </h2>
 
             <p className={bodyClass}>
                 Chronicle started as a full-stack blogging platform built with
@@ -37,7 +43,8 @@ const ChronicleCaseStudy = () => (
                     <li>Docker Compose for service orchestration</li>
                     <li>GitHub Actions for CI/CD</li>
                     <li>GitHub Container Registry for application images</li>
-                    <li>Tailscale for private server connectivity</li>
+                    <li>Tailscale for private server connectivity and deployment</li>
+                    <li>Cloudflare Tunnel for public HTTPS access</li>
                     <li>Docker named volume for persistent MongoDB data</li>
                 </ul>
             </div>
@@ -45,34 +52,42 @@ const ChronicleCaseStudy = () => (
 
         {/* 2. Architecture */}
         <section className={sectionClass}>
-            <h2 className={headingClass}>2. The Final Architecture</h2>
+            <h2 className={headingClass}>
+                2. The Final Architecture
+            </h2>
 
             <p className={bodyClass}>
                 The deployment is defined by a Docker Compose configuration.
-                The server runs three application services: the frontend,
-                backend, and MongoDB.
+                The Linux homelab server runs the frontend, backend, and
+                MongoDB as separate containers. Public traffic reaches the
+                homelab through Cloudflare Tunnel.
             </p>
 
             <pre className="overflow-x-auto rounded-lg border border-primary/10 bg-muted/40 p-4 text-sm leading-relaxed text-secondary">
-{`                         Docker Compose
-
-Browser
-   │
-   ▼
-frontend
-Nginx :80
-   │
-   │ /api/*
-   ▼
-backend
-Node.js :5000
-   │
-   │ mongodb:27017
-   ▼
-mongodb
-   │
-   ▼
-Docker named volume`}
+{`                         Public Internet
+                               │
+                               ▼
+                         Cloudflare
+                               │
+                      Cloudflare Tunnel
+                               │
+                               ▼
+                         cloudflared
+                               │
+                               ▼
+                        Linux Homelab
+                               │
+                        Docker Compose
+                               │
+                        ┌──────┴──────┐
+                        │             │
+                    frontend       backend
+                    Nginx :80     Node.js :5000
+                        │             │
+                        │             ▼
+                        │          MongoDB
+                        │
+                        └── /api/* → backend`}
             </pre>
 
             <div className="overflow-x-auto">
@@ -116,7 +131,9 @@ Docker named volume`}
 
         {/* 3. Docker */}
         <section className={sectionClass}>
-            <h2 className={headingClass}>3. Containerizing the Application</h2>
+            <h2 className={headingClass}>
+                3. Containerizing the Application
+            </h2>
 
             <p className={bodyClass}>
                 Instead of installing the application runtime and dependencies
@@ -149,10 +166,12 @@ Docker named volume`}
 
         {/* 4. Nginx */}
         <section className={sectionClass}>
-            <h2 className={headingClass}>4. Nginx as the Application Entry Point</h2>
+            <h2 className={headingClass}>
+                4. Nginx as the Application Entry Point
+            </h2>
 
             <p className={bodyClass}>
-                Nginx runs inside the frontend container and acts as the public
+                Nginx runs inside the frontend container and acts as the local
                 entry point for Chronicle. It serves the compiled React
                 application and forwards requests under{" "}
                 <span className="font-semibold text-primary">/api/</span> to
@@ -160,27 +179,29 @@ Docker named volume`}
             </p>
 
             <pre className="overflow-x-auto rounded-lg border border-primary/10 bg-muted/40 p-4 text-sm leading-relaxed text-secondary">
-{`Browser
-   │
-   ▼
-Nginx :80
-   │
-   ├── /       → React application
-   │
-   └── /api/*  → backend:5000`}
+{`Cloudflare Tunnel
+        │
+        ▼
+    Nginx :80
+        │
+        ├── /       → React application
+        │
+        └── /api/*  → backend:5000`}
             </pre>
 
             <p className={bodyClass}>
-                This gives the browser a single public entry point. The browser
-                does not need to know the backend container's internal address,
-                while Docker's internal DNS handles service discovery between
-                containers.
+                This gives the application a single internal entry point. The
+                browser does not need to know the backend container's internal
+                address, while Docker's internal DNS handles service discovery
+                between containers.
             </p>
         </section>
 
         {/* 5. CI/CD */}
         <section className={sectionClass}>
-            <h2 className={headingClass}>5. CI/CD with GitHub Actions</h2>
+            <h2 className={headingClass}>
+                5. CI/CD with GitHub Actions
+            </h2>
 
             <p className={bodyClass}>
                 After the Docker deployment was working, I changed the workflow
@@ -203,7 +224,7 @@ GitHub Actions
         GHCR
           │
           ▼
-    Homelab server
+   Homelab server
           │
           ├── docker compose pull
           └── docker compose up -d`}
@@ -224,27 +245,60 @@ GitHub Actions
             </p>
         </section>
 
-        {/* 6. Private access */}
+        {/* 6. Cloudflare Tunnel */}
         <section className={sectionClass}>
-            <h2 className={headingClass}>6. Private Homelab Access</h2>
+            <h2 className={headingClass}>
+                6. Public Access with Cloudflare Tunnel
+            </h2>
 
             <p className={bodyClass}>
-                Chronicle is hosted on a Linux homelab server. Tailscale
-                provides private connectivity between the server and authorized
-                devices, allowing the application and server to be accessed
-                without exposing the homelab directly to the public internet.
+                Chronicle runs on a Linux homelab server and is made publicly
+                accessible through Cloudflare Tunnel. The{" "}
+                <span className="font-semibold text-primary">cloudflared</span>{" "}
+                daemon runs on the homelab and maintains an outbound connection
+                to Cloudflare, allowing the application to be accessed from the
+                internet without directly exposing the homelab server.
+            </p>
+
+            <pre className="overflow-x-auto rounded-lg border border-primary/10 bg-muted/40 p-4 text-sm leading-relaxed text-secondary">
+{`Internet
+    │
+    ▼
+Cloudflare
+    │
+    │ Cloudflare Tunnel
+    ▼
+cloudflared
+    │
+    ▼
+Chronicle frontend :80
+    │
+    ▼
+Nginx
+    │
+    └── /api/* → backend:5000`}
+            </pre>
+
+            <p className={bodyClass}>
+                The public application is available at{" "}
+                <span className="font-semibold text-primary">
+                    chronicle.guganraj.me
+                </span>{" "}
+                through Cloudflare-managed HTTPS. The homelab does not require
+                an inbound public port to be opened for the application.
             </p>
 
             <p className={bodyClass}>
-                The private network also provides a secure path for deployment
-                access, allowing the deployment workflow to connect to the server
-                through SSH over the Tailscale network.
+                Tailscale remains separate from the public access path and is used
+                for private server connectivity and deployment access.
             </p>
         </section>
 
         {/* 7. Admin credentials */}
         <section className={sectionClass}>
-            <h2 className={headingClass}>7. Admin Credential Initialization</h2>
+            <h2 className={headingClass}>
+                7. Admin Credential Initialization
+            </h2>
 
             <p className={bodyClass}>
                 Chronicle uses an admin-only publishing model. Public visitors
@@ -273,7 +327,9 @@ GitHub Actions
 
         {/* 8. Deployment failure */}
         <section className={sectionClass}>
-            <h2 className={headingClass}>8. Debugging a Real Deployment Failure</h2>
+            <h2 className={headingClass}>
+                8. Debugging a Real Deployment Failure
+            </h2>
 
             <p className={bodyClass}>
                 One automated deployment exposed a Docker networking problem.
@@ -297,8 +353,7 @@ GitHub Actions
                 , and{" "}
                 <span className="font-semibold text-primary">
                     docker compose config
-                </span>
-                .
+                </span>.
             </p>
 
             <p className={bodyClass}>
@@ -321,7 +376,9 @@ GitHub Actions
 
         {/* 9. Recovery */}
         <section className={sectionClass}>
-            <h2 className={headingClass}>9. Deployment and Recovery Testing</h2>
+            <h2 className={headingClass}>
+                9. Deployment and Recovery Testing
+            </h2>
 
             <p className={bodyClass}>
                 After deployment was working, I tested the system beyond a normal
@@ -345,7 +402,9 @@ GitHub Actions
 
         {/* 10. Lessons */}
         <section className={sectionClass}>
-            <h2 className={headingClass}>10. What I Learned</h2>
+            <h2 className={headingClass}>
+                10. What I Learned
+            </h2>
 
             <ul className={listClass}>
                 <li>
@@ -393,6 +452,15 @@ GitHub Actions
 
                 <li>
                     <span className="font-semibold text-primary">
+                        Cloudflare Tunnel:
+                    </span>{" "}
+                    a homelab service can be made publicly accessible through an
+                    outbound tunnel without directly exposing the server to
+                    inbound internet traffic.
+                </li>
+
+                <li>
+                    <span className="font-semibold text-primary">
                         Debugging:
                     </span>{" "}
                     inspecting the actual container and network state is more
@@ -415,8 +483,8 @@ GitHub Actions
                 Chronicle started as a blogging application, but the deployment
                 process became the more valuable part of the project. It provided
                 a practical environment for understanding how application code,
-                containers, networking, CI/CD, storage, and a Linux server fit
-                together as one system.
+                containers, networking, CI/CD, storage, Cloudflare, and a Linux
+                server fit together as one system.
             </p>
         </footer>
     </div>
