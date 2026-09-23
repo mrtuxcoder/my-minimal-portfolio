@@ -37,20 +37,12 @@ const FeaturedWork = () => {
         const extraProjects = [
           {
             id: 1,
-            title: "easyList",
-            description: "Minimal MEN-stack to-do app with authentication",
-            repoUrl: "https://github.com/mrtuxcoder/easyList",
-            liveUrl: "https://easylist-minm.onrender.com",
+            title: "LANBox",
+            description: "A self-hosted private cloud for your local network.",
+            repoUrl: "https://github.com/mrtuxcoder/LANBox",
           },
           {
             id: 2,
-            title: "EventHub",
-            description: "Event booking system with admin CRUD capabilities",
-            repoUrl: "https://github.com/mrtuxcoder/event-booking-management",
-            liveUrl: "https://george1518.github.io/event-booking-management/",
-          },
-          {
-            id: 3,
             title: "Linux Automation Toolkit",
             description: "Practical Bash automation scripts for system administration, monitoring, and infrastructure workflows",
             repoUrl: "https://github.com/mrtuxcoder/my-scripts",
