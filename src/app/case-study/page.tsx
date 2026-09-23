@@ -1,5 +1,6 @@
 import ChronicleCaseStudy from "./chronicle-case-study";
 import GuidraCaseStudy from "./guidra-case-study";
+import LanBoxCaseStudy from "./lanbox-case-study";
 
 type CaseStudyPageProps = {
   searchParams: Promise<{
@@ -9,12 +10,18 @@ type CaseStudyPageProps = {
 
 const CaseStudyPage = async ({ searchParams }: CaseStudyPageProps) => {
   const params = await searchParams;
+
   const title =
     params?.title || "End-to-End Deployment of Guidra Backend on Azure VM";
+
   const isChronicle = title.includes("Chronicle");
+  const isLanBox = title.includes("LANBox");
+
   const subtitle = isChronicle
     ? "Internet → Cloudflare → Tunnel → Homelab → Docker → Nginx"
-    : "Azure VM → Nginx → Node.js → MongoDB Atlas";
+    : isLanBox
+      ? "LAN Device → Linux Server → Docker → Nginx → LANBox Backend → Filesystem"
+      : "Azure VM → Nginx → Node.js → MongoDB Atlas";
 
   return (
     <main>
@@ -26,15 +33,23 @@ const CaseStudyPage = async ({ searchParams }: CaseStudyPageProps) => {
                 <p className="text-sm font-medium uppercase tracking-[2px] text-primary">
                   Case Study
                 </p>
+
                 <h1 className="text-3xl font-bold leading-tight text-primary sm:text-4xl">
                   {title}
                 </h1>
+
                 <p className="text-base leading-relaxed text-secondary sm:text-lg">
                   {subtitle}
                 </p>
               </header>
 
-              {isChronicle ? <ChronicleCaseStudy /> : <GuidraCaseStudy />}
+              {isChronicle ? (
+                <ChronicleCaseStudy />
+              ) : isLanBox ? (
+                <LanBoxCaseStudy />
+              ) : (
+                <GuidraCaseStudy />
+              )}
             </article>
           </div>
         </div>

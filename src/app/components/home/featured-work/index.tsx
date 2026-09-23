@@ -57,7 +57,7 @@ const FeaturedWork = () => {
           },
         ];
         setAdditionalProjects(extraProjects);
-      } catch {}
+      } catch { }
     };
 
     fetchData();
@@ -165,7 +165,7 @@ const FeaturedWork = () => {
                     </div>
 
                     {/* Actions */}
-                   <div className="flex flex-wrap items-center justify-between gap-2 pt-3 mt-auto border-t border-primary/10">
+                    <div className="flex flex-wrap items-center justify-between gap-2 pt-3 mt-auto border-t border-primary/10">
                       {/* Visit Site - for Guidra */}
                       {index === 0 && (
                         <a
@@ -251,64 +251,92 @@ const FeaturedWork = () => {
 
           {/* Case Studies */}
           <div className="border-t border-primary/10">
-               <div className="flex flex-col max-w-3xl mx-auto py-10 px-4 sm:px-7">
-            <div className="flex flex-col xs:flex-row gap-5 items-center justify-between">
-              <p className="text-sm tracking-[2px] text-primary uppercase font-medium">
-                Case Studies
-              </p>
+            <div className="flex flex-col max-w-3xl mx-auto py-10 px-4 sm:px-7">
+              <div className="flex flex-col xs:flex-row gap-5 items-center justify-between">
+                <p className="text-sm tracking-[2px] text-primary uppercase font-medium">
+                  Case Studies
+                </p>
+              </div>
             </div>
-          </div>
 
             <div className="border-t border-primary/10">
               <div className="max-w-5xl mx-auto px-4 py-8 sm:px-7 sm:py-10 lg:py-8">
                 <div className="space-y-4">
-                <Link
-                  href={{
-                    pathname: "/case-study",
-                    query: { title: "End-to-End Deployment of Guidra Backend on Azure VM" },
-                  }}
-                  className="group block border-b border-gray-100 dark:border-gray-800 pb-4 last:border-0 last:pb-0 hover:opacity-80 transition-opacity"
-                >
-                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
-                    <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                        End-to-End Deployment of Guidra Backend on Azure VM
-                      </h3>
-                      <p className="text-xs text-base text-secondary flex-1 leading-relaxed">
-                        Production deployment with Nginx, PM2, Azure VM, SSL, and security hardening
-                      </p>
+                  <Link
+                    href={{
+                      pathname: "/case-study",
+                      query: { title: "End-to-End Deployment of Guidra Backend on Azure VM" },
+                    }}
+                    className="group block border-b border-gray-100 dark:border-gray-800 pb-4 last:border-0 last:pb-0 hover:opacity-80 transition-opacity"
+                  >
+                    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
+                      <div className="flex-1">
+                        <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                          End-to-End Deployment of Guidra Backend on Azure VM
+                        </h3>
+                        <p className="text-xs text-base text-secondary flex-1 leading-relaxed">
+                          Production deployment with Nginx, PM2, Azure VM, SSL, and security hardening
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-4 mt-2 sm:mt-0">
+                        <span className="text-xs text-gray-500 dark:text-gray-400 hover:text-primary transition-colors">
+                          Read more →
+                        </span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-4 mt-2 sm:mt-0">
-                      <span className="text-xs text-gray-500 dark:text-gray-400 hover:text-primary transition-colors">
-                      Read more →
-                      </span>
-                    </div>
-                  </div>
-                </Link>
+                  </Link>
 
-                <Link
-                  href={{
-                    pathname: "/case-study",
-                    query: { title: "From Code to Containers: Chronicle Homelab Deployment" },
-                  }}
-                  className="group block border-b border-gray-100 dark:border-gray-800 pb-4 last:border-0 last:pb-0 hover:opacity-80 transition-opacity"
-                >
-                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
-                    <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                        From Code to Containers: Chronicle Homelab Deployment
-                      </h3>
-                      <p className="text-xs text-base text-secondary flex-1 leading-relaxed">
-                        Containerization, CI/CD, Docker networking, Nginx, GHCR, Tailscale, Cloudflare and homelab deployment
-                      </p>
+                  <Link
+                    href={{
+                      pathname: "/case-study",
+                      query: {
+                        title: "Automated Linux Deployment of LANBox — a File Sharing Platform",
+                      },
+                    }}
+                    className="group block border-b border-gray-100 dark:border-gray-800 pb-4 last:border-0 last:pb-0 hover:opacity-80 transition-opacity"
+                  >
+                    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
+                      <div className="flex-1">
+                        <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                          Automated Linux Deployment of LANBox — a File Sharing Platform
+                        </h3>
+
+                        <p className="text-xs text-base text-secondary flex-1 leading-relaxed">
+                          Docker-based LAN file sharing with Linux deployment, GHCR images,
+                          firewall configuration, and automated installation
+                        </p>
+                      </div>
+
+                      <div className="flex items-center gap-4 mt-2 sm:mt-0">
+                        <span className="text-xs text-gray-500 dark:text-gray-400 hover:text-primary transition-colors">
+                          Read more →
+                        </span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-4 mt-2 sm:mt-0">
-                      <span className="text-xs text-gray-500 dark:text-gray-400 hover:text-primary transition-colors">
-                      Read more →
-                      </span>
+                  </Link>
+                  <Link
+                    href={{
+                      pathname: "/case-study",
+                      query: { title: "From Code to Containers: Chronicle Homelab Deployment" },
+                    }}
+                    className="group block border-b border-gray-100 dark:border-gray-800 pb-4 last:border-0 last:pb-0 hover:opacity-80 transition-opacity"
+                  >
+                    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
+                      <div className="flex-1">
+                        <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                          From Code to Containers: Chronicle Homelab Deployment
+                        </h3>
+                        <p className="text-xs text-base text-secondary flex-1 leading-relaxed">
+                          Containerization, CI/CD, Docker networking, Nginx, GHCR, Tailscale, Cloudflare and homelab deployment
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-4 mt-2 sm:mt-0">
+                        <span className="text-xs text-gray-500 dark:text-gray-400 hover:text-primary transition-colors">
+                          Read more →
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </Link>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -316,50 +344,50 @@ const FeaturedWork = () => {
 
           {/* Other Projects */}
           <div className="border-t border-primary/10">
-               <div className="flex flex-col max-w-3xl mx-auto py-10 px-4 sm:px-7">
-            <div className="flex flex-col xs:flex-row gap-5 items-center justify-between">
-              <p className="text-sm tracking-[2px] text-primary uppercase font-medium">
-                Other Projects
-              </p>
+            <div className="flex flex-col max-w-3xl mx-auto py-10 px-4 sm:px-7">
+              <div className="flex flex-col xs:flex-row gap-5 items-center justify-between">
+                <p className="text-sm tracking-[2px] text-primary uppercase font-medium">
+                  Other Projects
+                </p>
+              </div>
             </div>
-          </div>
 
             <div className="border-t border-primary/10">
               <div className="max-w-5xl mx-auto px-4 py-8 sm:px-7 sm:py-10 lg:py-8">
                 <div className="space-y-4">
-                {additionalProjects.map((project) => (
-                  <div
-                    key={project.id}
-                    className="group border-b border-gray-100 dark:border-gray-800 pb-4 last:border-0 last:pb-0"
-                  >
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                      <div className="flex-1">
-                        <div className="flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:gap-3">
-                          <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                            {project.title}
-                          </h4>
-                          <span className="hidden sm:inline text-xs text-gray-500 dark:text-gray-400">
-                  
-                          </span>
-                          <p className="text-xs text-secondary flex-1 leading-relaxed">
-                            {project.description}
-                          </p>
+                  {additionalProjects.map((project) => (
+                    <div
+                      key={project.id}
+                      className="group border-b border-gray-100 dark:border-gray-800 pb-4 last:border-0 last:pb-0"
+                    >
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div className="flex-1">
+                          <div className="flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:gap-3">
+                            <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                              {project.title}
+                            </h4>
+                            <span className="hidden sm:inline text-xs text-gray-500 dark:text-gray-400">
+
+                            </span>
+                            <p className="text-xs text-secondary flex-1 leading-relaxed">
+                              {project.description}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-4 mt-2 sm:mt-0 sm:shrink-0">
+                          <Link
+                            href={project.repoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs text-gray-500 dark:text-gray-400 hover:text-primary transition-colors"
+                          >
+                            Repo →
+                          </Link>
                         </div>
                       </div>
-
-                      <div className="flex items-center gap-4 mt-2 sm:mt-0 sm:shrink-0">
-                        <Link
-                          href={project.repoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-xs text-gray-500 dark:text-gray-400 hover:text-primary transition-colors"
-                        >
-                          Repo →
-                        </Link>
-                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
                 </div>
 
                 <div className="mt-8 border-t border-gray-100 pt-6 dark:border-gray-800">
