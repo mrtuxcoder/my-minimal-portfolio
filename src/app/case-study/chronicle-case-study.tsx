@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const sectionClass = "space-y-4 border-t border-primary/10 pt-8";
 
 const bodyClass = "text-sm sm:text-base leading-relaxed text-secondary";
@@ -6,6 +8,32 @@ const listClass =
     "list-disc pl-5 space-y-1.5 text-sm sm:text-base leading-relaxed text-secondary";
 
 const headingClass = "text-lg sm:text-2xl font-semibold text-primary";
+
+type CaseStudyImageProps = {
+    src?: string;
+    alt: string;
+};
+
+/**
+ * Keeps visuals optional so sections without an asset retain their current
+ * text-only layout. Add an image path to a section when a matching visual is
+ * available.
+ */
+const CaseStudyImage = ({ src, alt }: CaseStudyImageProps) => {
+    if (!src) return null;
+
+    return (
+        <figure className="overflow-hidden rounded-lg border border-primary/10 bg-muted/40">
+            <Image
+                src={src}
+                alt={alt}
+                width={1920}
+                height={1080}
+                className="h-auto w-full"
+            />
+        </figure>
+    );
+};
 
 const ChronicleCaseStudy = () => (
     <div className="space-y-10">
@@ -30,6 +58,11 @@ const ChronicleCaseStudy = () => (
                 troubleshoot, and recover the entire system on a Linux homelab
                 server.
             </p>
+
+            <CaseStudyImage
+                src="/images/case-study/chronicle/chronicle-app.png"
+                alt="Chronicle blogging application running in the browser"
+            />
 
             <div>
                 <p className="mb-2 text-sm sm:text-base font-semibold text-primary">
@@ -102,7 +135,7 @@ const ChronicleCaseStudy = () => (
 
                     <tbody>
                         <tr className="border-b border-primary/10">
-                            <td className="p-2.5">Frontend</td>
+                            <td className="p-2.5">frontend</td>
                             <td className="p-2.5">React + Nginx</td>
                             <td className="p-2.5">
                                 Serves the frontend and proxies API requests
@@ -110,7 +143,7 @@ const ChronicleCaseStudy = () => (
                         </tr>
 
                         <tr className="border-b border-primary/10">
-                            <td className="p-2.5">Backend</td>
+                            <td className="p-2.5">backend</td>
                             <td className="p-2.5">Node.js + Express</td>
                             <td className="p-2.5">
                                 REST API, authentication, and application logic
@@ -118,7 +151,7 @@ const ChronicleCaseStudy = () => (
                         </tr>
 
                         <tr>
-                            <td className="p-2.5">Database</td>
+                            <td className="p-2.5">mongodb</td>
                             <td className="p-2.5">MongoDB</td>
                             <td className="p-2.5">
                                 Application and credential data
@@ -162,6 +195,10 @@ const ChronicleCaseStudy = () => (
                 MongoDB container, allowing the container to be recreated without
                 losing the stored data.
             </p>
+             <CaseStudyImage
+                src="/images/case-study/chronicle/chronicle-terminal.png"
+                alt="Chronicle Docker containers in the terminal"
+            />
         </section>
 
         {/* 4. Nginx */}
@@ -243,6 +280,11 @@ GitHub Actions
                 environment configuration, Docker, and the required secrets,
                 while the application itself is packaged inside the images.
             </p>
+
+            <CaseStudyImage
+                src="/images/case-study/chronicle/chronicle-workflow.png"
+                alt="Chronicle CI/CD workflow from GitHub Actions to deployment"
+            />
         </section>
 
         {/* 6. Cloudflare Tunnel */}
