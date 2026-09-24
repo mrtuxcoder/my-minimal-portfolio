@@ -1,13 +1,46 @@
+import Image from "next/image";
+
 const sectionClass = "space-y-4 border-t border-primary/10 pt-8";
 const bodyClass = "text-sm sm:text-base leading-relaxed text-secondary";
 const listClass =
   "list-none pl-0 sm:list-disc sm:pl-5 space-y-1 text-sm sm:text-base leading-relaxed text-secondary";
 const headingClass = "text-lg sm:text-xl font-semibold text-primary";
 
+type CaseStudyImageProps = {
+    src?: string;
+    alt: string;
+};
+
+/**
+ * Keeps visuals optional so sections without an asset retain their current
+ * text-only layout. Add an image path to a section when a matching visual is
+ * available.
+ */
+const CaseStudyImage = ({ src, alt }: CaseStudyImageProps) => {
+    if (!src) return null;
+
+    return (
+        <figure className="overflow-hidden rounded-lg border border-primary/10 bg-muted/40">
+            <Image
+                src={src}
+                alt={alt}
+                width={1920}
+                height={1080}
+                className="h-auto w-full"
+            />
+        </figure>
+    );
+};
+
 const LanBoxCaseStudy = () => (
   <div className="space-y-10">
     <section className={sectionClass}>
       <h2 className={headingClass}>Executive Summary</h2>
+
+       <CaseStudyImage
+                src="/images/case-study/lanbox/lanbox.png"
+                alt="LANBox application running in the browser"
+            />
 
       <p className={bodyClass}>
         LANBox is a self-hosted LAN file-sharing and file-management platform
@@ -19,7 +52,7 @@ const LanBoxCaseStudy = () => (
       <p className={bodyClass}>
         The project was built as a practical systems and DevOps exercise,
         focusing on Linux deployment, Docker containerization, networking,
-        firewall configuration, pre-built container distribution, and
+        Nginx configuration, pre-built container distribution, and
         deployment automation.
       </p>
 
@@ -28,7 +61,7 @@ const LanBoxCaseStudy = () => (
           Technologies Used:
         </span>{" "}
         Linux, Docker, Docker Compose, Node.js, React, Nginx, GitHub Container
-        Registry (GHCR), firewalld
+        Registry (GHCR)
       </p>
 
       <div>
@@ -51,7 +84,11 @@ const LanBoxCaseStudy = () => (
       <h2 className={headingClass}>1. System Architecture</h2>
 
       <pre className="overflow-x-auto rounded-lg border border-primary/10 bg-muted/50 p-4 text-sm leading-relaxed text-secondary">
-{`LAN Device → Linux Server → Docker Compose → Nginx → LANBox Backend → Filesystem`}
+{
+`                                                 ┌─── LANBox Backend → Filesystem
+LAN Device → Linux Server → Docker Compose → Nginx →  LANBox Frontend `
+                                                                
+}
       </pre>
 
       <div className="overflow-x-auto">
@@ -75,7 +112,7 @@ const LanBoxCaseStudy = () => (
 
             <tr className="border-b border-primary/10">
               <td className="p-2.5">Network</td>
-              <td className="p-2.5">LAN + firewalld</td>
+              <td className="p-2.5">LAN</td>
               <td className="p-2.5">
                 Provides private network access to the application
               </td>
@@ -195,7 +232,7 @@ const LanBoxCaseStudy = () => (
     </section>
 
     <section className={sectionClass}>
-      <h2 className={headingClass}>4. LAN Networking &amp; Firewall</h2>
+      <h2 className={headingClass}>4. LAN Networking </h2>
 
       <p className={bodyClass}>
         LANBox was designed primarily for private network access. The Linux
@@ -222,7 +259,6 @@ Filesystem`}
       </pre>
 
       <ul className={listClass}>
-        <li>Configured Linux firewall rules for LANBox network access</li>
         <li>Frontend exposed through TCP port 80</li>
         <li>Backend remains an internal application service</li>
         <li>LAN devices can access LANBox without installing a client application</li>
@@ -231,65 +267,73 @@ Filesystem`}
 
       <p className={bodyClass}>
         This deployment also provided practical experience with the difference
-        between an application listening on a server and a firewall allowing
-        other machines to reach that service.
+        between an application listening on a server.
       </p>
     </section>
 
     <section className={sectionClass}>
-      <h2 className={headingClass}>5. Automated Linux Installation</h2>
+  <h2 className={headingClass}>5. Automated Linux Installation</h2>
 
-      <p className={bodyClass}>
-        A major DevOps-focused part of LANBox was the creation of an automated
-        installation script. The goal was to make deployment possible on a
-        fresh Linux machine without requiring the user to clone the LANBox
-        source repository.
-      </p>
+  <p className={bodyClass}>
+    LANBox includes an automated Linux installer that deploys the application
+    without requiring users to clone the source repository. Docker must already
+    be installed, while the installer verifies and starts the required services.
+  </p>
 
-      <pre className="overflow-x-auto rounded-lg border border-primary/10 bg-muted/50 p-4 text-sm leading-relaxed text-secondary">
-{`Fresh Linux Machine
-        │
-        ▼
-Verify / Install Docker
-        │
-        ▼
-Pull LANBox Images from GHCR
-        │
-        ▼
-Configure Deployment
-        │
-        ▼
-Docker Compose
-        │
-        ▼
-LANBox Running
-        │
-        ▼
-Open LAN IP in Browser`}
-      </pre>
+  <pre className="overflow-x-auto rounded-lg border border-primary/10 bg-muted/50 p-4 text-sm leading-relaxed text-secondary">
+{`Linux Machine
+     │
+     ▼
+Run Installer with sudo
+     │
+     ▼
+Check Docker & Compose
+     │
+     ▼
+Create /opt/lanbox
+     │
+     ▼
+Create .env
+     │
+     ▼
+Download Compose File
+     │
+     ▼
+Pull Images from GHCR
+     │
+     ▼
+Start LANBox
+     │
+     ▼
+Verify Containers
+     │
+     ▼
+Show LAN IP`}
+  </pre>
 
-      <div>
-        <p className="mb-2 text-sm sm:text-base font-semibold text-primary">
-          Installation workflow:
-        </p>
+  <div>
+    <p className="mb-2 text-sm sm:text-base font-semibold text-primary">
+      Installation workflow:
+    </p>
 
-        <ul className={listClass}>
-          <li>Prepare the Linux environment</li>
-          <li>Verify or install Docker dependencies</li>
-          <li>Pull pre-built LANBox images from GHCR</li>
-          <li>Configure the required deployment environment</li>
-          <li>Start the application using Docker Compose</li>
-          <li>Expose LANBox through the configured LAN interface</li>
-          <li>Allow access through the required firewall configuration</li>
-        </ul>
-      </div>
+    <ul className={listClass}>
+      <li>Run the installer with sudo</li>
+      <li>Verify and start Docker and Docker Compose</li>
+      <li>Create the <code>/opt/lanbox</code> deployment directory</li>
+      <li>Generate the required <code>.env</code> configuration</li>
+      <li>Download and validate the Docker Compose file</li>
+      <li>Pull LANBox images from GHCR</li>
+      <li>Start and verify the LANBox containers</li>
+      <li>Display the server's LAN IP for browser access</li>
+    </ul>
+  </div>
 
-      <p className={bodyClass}>
-        This changes LANBox from simply being a project that can be deployed
-        manually into a repeatable self-hosting deployment workflow.
-      </p>
-    </section>
-
+  <p className={bodyClass}>
+    This provides a repeatable self-hosting workflow that automatically
+    configures, deploys, verifies, and exposes LANBox on the local network.
+  </p>
+</section>
+    
     <section className={sectionClass}>
       <h2 className={headingClass}>6. Running Multiple Services on One Server</h2>
 
@@ -312,6 +356,11 @@ Open LAN IP in Browser`}
     └── Backend → internal :3000`}
       </pre>
 
+       <CaseStudyImage
+                src="/images/case-study/lanbox/lanbox-terminal.png"
+                alt="LANBox and Chronicle running simultaneously on the same Linux server"
+            />
+
       <p className={bodyClass}>
         This deployment required understanding port publishing, container
         networking, service isolation, and how multiple Compose applications
@@ -331,7 +380,7 @@ Open LAN IP in Browser`}
           <p>
             Access from another device required the application to be reachable
             through the server&apos;s LAN interface rather than only through
-            localhost. Firewall and port configuration were part of validating
+            localhost. Nginx and port configuration were part of validating
             this behavior.
           </p>
         </div>
@@ -415,8 +464,8 @@ Open LAN IP in Browser`}
           <span className="font-semibold text-primary">
             Networking:
           </span>{" "}
-          Application connectivity depends on interfaces, ports, Docker
-          networking, and host firewall rules working together.
+          Application connectivity depends on interfaces, Docker
+          networking, ports working together
         </li>
 
         <li>
@@ -447,7 +496,7 @@ Open LAN IP in Browser`}
           <span className="font-semibold text-primary">
             Troubleshooting:
           </span>{" "}
-          Debugging LAN connectivity, firewall rules, Docker services, and
+          Debugging LAN connectivity, Docker services, and
           application access provided practical systems-level experience.
         </li>
       </ul>
@@ -474,7 +523,7 @@ Docker Compose
      ▼
 Linux Homelab
      │
-     ├── Firewall / LAN Networking
+     ├──  LAN Networking
      │
      ▼
 LANBox
@@ -486,7 +535,7 @@ Phone / Laptop / PC`}
       <p className={bodyClass}>
         LANBox evolved from a file-management application into a practical
         self-hosting project covering application packaging, container
-        deployment, Linux administration, LAN networking, firewall
+        deployment, Linux administration, LAN networking, Nginx
         configuration, container registries, and installation automation.
       </p>
     </section>
