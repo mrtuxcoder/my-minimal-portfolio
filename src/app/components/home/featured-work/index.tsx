@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { BriefcaseBusiness, FolderKanban } from "lucide-react";
 import { useEffect, useState } from "react";
 
 type FeaturedProject = {
@@ -22,33 +23,18 @@ type AdditionalProject = {
 };
 
 const FeaturedWork = () => {
-  const [featureWork, setFeatureWork] = useState<FeaturedProject[] | null>(null);
+  const [featureWork, setFeatureWork] = useState<FeaturedProject[]>([]);
   const [additionalProjects, setAdditionalProjects] = useState<AdditionalProject[]>([]);
 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("/api/featured-work");
+        const res = await fetch("/api/featured-work", { cache: "no-store" });
         if (!res.ok) throw new Error("Failed to fetch");
-        const data: { featureWork: FeaturedProject[] } = await res.json();
-        setFeatureWork(data?.featureWork);
-
-        const extraProjects = [
-          {
-            id: 1,
-            title: "LANBox",
-            description: "A self-hosted private cloud for your local network.",
-            repoUrl: "https://github.com/mrtuxcoder/LANBox",
-          },
-          {
-            id: 2,
-            title: "Linux Automation Toolkit",
-            description: "Practical Bash automation scripts for system administration, monitoring, and infrastructure workflows",
-            repoUrl: "https://github.com/mrtuxcoder/my-scripts",
-          },
-        ];
-        setAdditionalProjects(extraProjects);
+        const data: { featureWork?: FeaturedProject[]; additionalProjects?: AdditionalProject[] } = await res.json();
+        setFeatureWork(data.featureWork ?? []);
+        setAdditionalProjects(data.additionalProjects ?? []);
       } catch { }
     };
 
@@ -58,27 +44,29 @@ const FeaturedWork = () => {
   return (
     <section>
       <div className="container">
-        <div className="border-x border-primary/10">
+        <div className="section-surface border-x border-primary/10">
           {/* Header */}
           <div className="flex flex-col max-w-3xl mx-auto py-10 px-4 sm:px-7">
             <div className="flex flex-col xs:flex-row gap-5 items-center justify-between">
-              <p className="text-sm tracking-[2px] text-primary uppercase font-medium">
-                Featured Work
+              <p className="flex items-center gap-2 text-sm tracking-[2px] text-primary uppercase font-medium">
+                <BriefcaseBusiness aria-hidden="true" className="h-4 w-4" />
+                <span>Featured Work</span>
               </p>
             </div>
           </div>
 
           {/* Main Featured Projects */}
-          <div className="border-t border-primary/10 px-2 py-3 sm:p-4 lg:p-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+          <div className="border-t border-primary/10">
+            <div className="max-w-5xl mx-auto px-4 sm:px-7 py-9 md:py-10">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
               {featureWork?.map((project, index) => (
                 <div
                   key={index}
-                  className="rounded-2xl bg-[linear-gradient(180deg,rgba(120,119,198,0.06)_0%,rgba(255,255,255,0)_45%)] p-4 sm:p-5 border border-primary/10 flex flex-col h-full"
+                  className="rounded-2xl bg-[linear-gradient(180deg,rgba(28,33,43,0.06)_0%,rgba(255,255,255,0)_45%)] p-4 sm:p-5 border border-primary/10 flex flex-col h-full"
                 >
                   {/* Project Image */}
                   <div className="mb-4 -mx-4 -mt-4 sm:-mx-5 sm:-mt-5">
-                    <div className="relative overflow-hidden rounded-t-2xl aspect-[16/9]">
+                    <div className="relative overflow-hidden rounded-t-lg aspect-[16/9]">
                       <Image
                         src={project?.image || "/images/feature-work/feature-img-11.png"}
                         alt={project?.title || "Featured work image"}
@@ -101,7 +89,7 @@ const FeaturedWork = () => {
                         },
                       }}
                     >
-                      <h3 className="text-lg sm:text-xl font-semibold leading-snug hover:text-primary/80 transition-colors">
+                      <h3 className="text-lg font-semibold leading-snug hover:text-primary/80 transition-colors">
                         {project?.title}
                       </h3>
                     </Link>
@@ -237,16 +225,19 @@ const FeaturedWork = () => {
                   </div>
                 </div>
               ))}
+              </div>
             </div>
           </div>
 
+          <div className="h-4 border border-primary/10" />
 
           {/* Case Studies */}
-          <div className="border-t border-primary/10">
+          <div>
             <div className="flex flex-col max-w-3xl mx-auto py-10 px-4 sm:px-7">
               <div className="flex flex-col xs:flex-row gap-5 items-center justify-between">
-                <p className="text-sm tracking-[2px] text-primary uppercase font-medium">
-                  Case Studies
+                <p className="flex items-center gap-2 text-sm tracking-[2px] text-primary uppercase font-medium">
+                  <FolderKanban aria-hidden="true" className="h-4 w-4" />
+                  <span>Case Studies</span>
                 </p>
               </div>
             </div>
@@ -266,7 +257,7 @@ const FeaturedWork = () => {
                         <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
                           End-to-End Deployment of Guidra Backend on Azure VM
                         </h3>
-                        <p className="text-xs text-base text-secondary flex-1 leading-relaxed">
+                        <p className="text-base text-secondary flex-1 leading-relaxed">
                           Production deployment with Nginx, PM2, Azure VM, SSL, and security hardening
                         </p>
                       </div>
@@ -293,7 +284,7 @@ const FeaturedWork = () => {
                           Automated Linux Deployment of LANBox — a File Sharing Platform
                         </h3>
 
-                        <p className="text-xs text-base text-secondary flex-1 leading-relaxed">
+                        <p className="text-base text-secondary flex-1 leading-relaxed">
                           Docker-based LAN file sharing with Linux deployment, GHCR images,
                           firewall configuration, and automated installation
                         </p>
@@ -318,7 +309,7 @@ const FeaturedWork = () => {
                         <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
                           From Code to Containers: Chronicle Homelab Deployment
                         </h3>
-                        <p className="text-xs text-base text-secondary flex-1 leading-relaxed">
+                        <p className="text-base text-secondary flex-1 leading-relaxed">
                           Containerization, CI/CD, Docker networking, Nginx, GHCR, Tailscale, Cloudflare and homelab deployment
                         </p>
                       </div>
@@ -334,12 +325,15 @@ const FeaturedWork = () => {
             </div>
           </div>
 
+          <div className="h-4 border border-primary/10" />
+
           {/* Other Projects */}
-          <div className="border-t border-primary/10">
+          <div>
             <div className="flex flex-col max-w-3xl mx-auto py-10 px-4 sm:px-7">
               <div className="flex flex-col xs:flex-row gap-5 items-center justify-between">
-                <p className="text-sm tracking-[2px] text-primary uppercase font-medium">
-                  Other Projects
+                <p className="flex items-center gap-2 text-sm tracking-[2px] text-primary uppercase font-medium">
+                  <FolderKanban aria-hidden="true" className="h-4 w-4" />
+                  <span>Other Projects</span>
                 </p>
               </div>
             </div>
@@ -361,7 +355,7 @@ const FeaturedWork = () => {
                             <span className="hidden sm:inline text-xs text-gray-500 dark:text-gray-400">
 
                             </span>
-                            <p className="text-xs text-secondary flex-1 leading-relaxed">
+                            <p className="text-base text-secondary leading-relaxed sm:flex-1">
                               {project.description}
                             </p>
                           </div>

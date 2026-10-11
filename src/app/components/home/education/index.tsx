@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { GraduationCap } from "lucide-react";
 
 const Education = () => {
     const [educationData, setEducationData] = useState<any>(null);
@@ -7,7 +8,7 @@ const Education = () => {
         useEffect(() => {
             const fetchData = async () => {
                 try {
-                    const res = await fetch('/api/page-data')
+                    const res = await fetch('/api/page-data', { cache: 'no-store' })
                     if (!res.ok) throw new Error('Failed to fetch')
                     const data = await res.json()
                     setEducationData(data?.educationData)
@@ -20,10 +21,13 @@ const Education = () => {
     return (
         <section>
             <div className="container">
-                <div className="border-x border-primary/10">
+                <div className="section-surface border-x border-primary/10">
                     <div className="flex flex-col max-w-3xl mx-auto py-10 sm:py-8 px-4 sm:px-7">
                         <div className="flex flex-col xs:flex-row gap-5 items-center justify-between">
-                            <p className="text-sm tracking-[2px] text-primary uppercase font-medium">Education</p>
+                            <p className="flex items-center gap-2 text-sm tracking-[2px] text-primary uppercase font-medium">
+                                <GraduationCap aria-hidden="true" className="h-4 w-4" />
+                                <span>Education</span>
+                            </p>
                         </div>
                     </div>
 
@@ -50,14 +54,14 @@ const Education = () => {
                                         </div>
 
                                         <div className="flex flex-col gap-2 flex-1 sm:pl-16 ml-2 sm:ml-0">
-                                            <h5 className="text-base sm:text-lg font-semibold text-primary">{item.title}</h5>
-                                            <div className="flex sm:hidden items-center gap-2 text-sm leading-relaxed text-primary/80">
+                                            <h5 className="text-lg font-semibold text-primary">{item.title}</h5>
+                                            <div className="flex sm:hidden items-center gap-2 text-base leading-relaxed text-primary/80">
                                                 <span className="hidden sm:inline-flex shrink-0 p-1 border border-primary/10 rounded-full bg-white">
                                                     <span className="w-2.5 h-2.5 bg-primary rounded-full" />
                                                 </span>
                                                 <span>{item.date}</span>
                                             </div>
-                                            <p className="text-sm sm:text-base text-primary">{item.subtitle}</p>
+                                            <p className="text-base text-primary">{item.subtitle}</p>
                                         </div>
                                     </div>
                                 ))}

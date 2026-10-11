@@ -9,7 +9,7 @@ const ProjectOverview = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch('/api/page-data')
+                const res = await fetch('/api/page-data', { cache: 'no-store' })
                 if (!res.ok) throw new Error('Failed to fetch')
                 const data = await res.json()
                 setProjectData(data?.projectOverview)
@@ -21,7 +21,7 @@ const ProjectOverview = () => {
     return (
         <section>
             <div className="container">
-                <div className="border-x border-primary/10">
+                <div className="section-surface border-x border-primary/10">
                     <div className="flex flex-col max-w-3xl mx-auto gap-10 sm:gap-16 px-4 sm:px-7 py-9 md:py-16 ">
                         <div className="flex flex-col xs:flex-row items-start gap-5 xs:gap-10 md:gap-28 lg:gap-5">
                             <p className="max-w-fit lg:max-w-2xs w-full text-sm tracking-[2px] text-primary uppercase font-medium">Case Study</p>
@@ -58,7 +58,7 @@ const ProjectOverview = () => {
                                                 />
                                             ) : (
                                                 <div className="py-1.5 px-3 bg-muted rounded-lg">
-                                                    <p className="text-xs md:text-base font-normal text-muted-foreground">Coming Soon</p>
+                                                    <p className="text-base font-normal text-muted-foreground">Coming Soon</p>
                                                 </div>
                                             )}
                                         </div>

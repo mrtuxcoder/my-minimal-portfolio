@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { BriefcaseBusiness, Download, MapPin } from "lucide-react";
 
 const bannerSrc = "/images/hero-sec/banner.png";
 
@@ -30,12 +30,12 @@ const HeroSection = () => {
         {
             img: "/images/icon/twitter-icon.svg",
             href: "https://x.com/mrtuxcoder" ,
-            icon: "X"
+            icon: ""
         },
         {
             img: "/images/icon/github-icon.svg",
             href: "https://github.com/mrtuxcoder",
-            icon: "Behance"
+            icon: "GitHub"
         },
         {
             img: "/images/icon/linkedin-icon.svg",
@@ -47,57 +47,70 @@ const HeroSection = () => {
         <section>
             <div className="container">
                 <div className="">
-                    <div className="relative w-full h-56 sm:h-72 overflow-hidden">
+                    <div className="relative w-full h-48 sm:h-72 overflow-hidden">
                         <BannerMedia alt="banner-img mobile" priority className="object-cover xs:hidden" />
                         <BannerMedia alt="banner-img desktop" priority className="hidden object-cover xs:block" />
                     </div>
-                    <div className="border-x border-primary/10">
-                        <div className="relative flex flex-col xs:flex-row items-center xs:items-start justify-center xs:justify-between max-w-3xl mx-auto gap-10 xs:gap-3 px-4 sm:px-7 pt-22 pb-8 sm:pb-12">
-                            <div className="absolute top-0 transform -translate-y-1/2">
-                                <Image src={"/images/hero-sec/guganraj-rengaraju.png"} alt="Guganraj Rengaraju" width={145} height={145} className="border-4 border-white rounded-full" />
-                                <span className="absolute bottom-2.5 right-5 w-4 h-4 bg-green-500 border-2 border-white rounded-full" />
+                    <div className="section-surface border-x border-primary/10">
+                        <div className="relative max-w-5xl mx-auto px-4 sm:px-7 pt-14 pb-5 sm:pt-24 sm:pb-12">
+                            <div className="absolute left-4 sm:left-7 top-0 -translate-y-1/2">
+                                <Image src={"/images/hero-sec/guganraj-rengaraju.png"} alt="Guganraj Rengaraju" width={145} height={145} className="h-20 w-20 border-4 border-white rounded-full sm:h-[145px] sm:w-[145px]" />
+                                <span className="absolute bottom-1 right-1.5 w-3 h-3 bg-primary/60 border-2 border-white rounded-full sm:bottom-2.5 sm:right-5 sm:h-4 sm:w-4" />
                             </div>
-                            <div className="flex flex-col gap-2 sm:gap-3 items-center text-center xs:items-start">
-                                <h1 className="pt-2 text text-3xl">Guganraj Rengaraju</h1>
-                                <p className="text-violet-700 font-normal">Junior DevOps Engineer</p>
-                                <div className="flex items-center gap-2">
-                                    <Image src={"/images/icon/map-icon.svg"} alt="map-icon" width={20} height={20} />
-                                    <p className="text-primary">Tamil Nadu, India</p>
+
+                            <div className="flex min-h-20 flex-col items-start justify-between gap-4 pl-0 sm:min-h-0 sm:flex-row sm:items-center sm:gap-8">
+                                <div className="flex flex-col gap-1 text-left sm:gap-2">
+                                    <h1 className="text-xl leading-tight sm:text-3xl">Guganraj Rengaraju</h1>
+                                    <p className="flex items-center gap-1.5 text-sm text-primary/70 font-normal sm:text-base">
+                                        <BriefcaseBusiness aria-hidden="true" className="h-4 w-4 shrink-0" />
+                                        <span>Junior DevOps Engineer</span>
+                                    </p>
+                                    <p className="flex items-center gap-1.5 text-sm text-secondary sm:text-base">
+                                        <MapPin aria-hidden="true" className="h-4 w-4 shrink-0" />
+                                        <span>Thanjavur, Tamil Nadu, India</span>
+                                    </p>
+                                </div>
+
+                                <div className="relative z-10 flex w-full max-w-full flex-nowrap items-center justify-between gap-2 sm:w-auto sm:max-w-xs sm:flex-col sm:items-end sm:gap-2">
+                                    <span className="hero-badge hero-badge-linux">
+                                        Linux Enthusiast
+                                    </span>
+                                    <span className="hero-badge hero-badge-hosted">
+                                        Self-Hosted
+                                    </span>
+                                    <span className="hero-badge hero-badge-open">
+                                        Open to Opportunities
+                                    </span>
                                 </div>
                             </div>
-                            <div className="flex flex-col md:flex-row items-center gap-4">
-                                <div className="flex items-center gap-2">
-                                    {socialIcon?.map((value, index) => {
+
+                            <div className="mt-4 flex flex-wrap items-center justify-start gap-2 sm:mt-6 sm:gap-3">
+                                <div className="flex flex-wrap items-center justify-start gap-2">
+                                    {socialIcon?.map((value) => {
                                         return (
                                             <Link
                                                 href={value?.href}
                                                 target="_blank"
-                                                key={index}
-                                                className={`social-icon-spin w-fit p-2.5 sm:p-3.5 hover:bg-primary/5 border border-primary/10 rounded-full ${index === 0 ? 'social-icon-glitter-purple' : index === 1 ? 'social-icon-glitter-sky' : index === 2 ? 'social-icon-glitter-pink' : ''}`}
-                                                style={{ animationDelay: `${index * 140}ms` }}
+                                                rel="noopener noreferrer"
+                                                key={value.icon}
+                                                className="inline-flex items-center gap-1.5 rounded-md border border-primary/10 px-2.5 py-1.5 text-xs font-medium text-primary hover:bg-primary/5 sm:px-3 sm:text-sm"
                                             >
-                                                <Image src={value?.img} alt={value?.icon} width={18} height={18} className="w-[18px] h-[18px]" />
+                                                <span className="relative block h-4 w-4 shrink-0">
+                                                    <Image src={value?.img} alt="" fill sizes="16px" className="object-contain" />
+                                                </span>
+                                                <span>{value.icon}</span>
                                             </Link>
                                         )
                                     })}
                                 </div>
-                                <Button asChild className="h-auto rounded-full p-0.5!">
-                                    <Link
-                                        href="https://t.me/mrtuxcoder"
-                                        className="inline-block p-0.5 rounded-full bg-[linear-gradient(96.09deg,_#9282F8_12.17%,_#F3CA4D_90.71%)]"
-                                    >
-                                        <span className="flex items-center gap-3 bg-primary hover:bg-[linear-gradient(96.09deg,_#9282F8_12.17%,_#F3CA4D_90.71%)] py-2.5 px-5 rounded-full">
-                                            <Image
-                                                src="/images/icon/spark-icon.svg"
-                                                alt="spark-icon"
-                                                width={14}
-                                                height={14}
-                                                className="w-[14px] h-[14px]"
-                                            />
-                                            <span className="text-sm sm:text-base font-semibold text-white">Get in touch</span>
-                                        </span>
-                                    </Link>
-                                </Button>
+                                <Link
+                                    href="/docs/Guganraj-Resume.pdf"
+                                    download="Guganraj-Resume.pdf"
+                                    className="inline-flex items-center gap-1.5 rounded-md border border-primary/10 px-2.5 py-1.5 text-xs font-medium text-primary hover:bg-primary/5 sm:px-3 sm:text-sm"
+                                >
+                                    <Download aria-hidden="true" size={16} strokeWidth={2} />
+                                    <span>Resume</span>
+                                </Link>
                             </div>
                         </div>
                     </div>

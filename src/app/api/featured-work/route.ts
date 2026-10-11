@@ -62,8 +62,26 @@ const featureWork = [
     image: "/images/feature-work/chronicle-cover.png"
 }
 ];
+
+const additionalProjects = [
+    {
+        id: 1,
+        title: "LANBox",
+        description: "A self-hosted private cloud for your local network.",
+        repoUrl: "https://github.com/mrtuxcoder/LANBox",
+    },
+    {
+        id: 2,
+        title: "Linux Automation Toolkit",
+        description: "Practical Bash automation scripts for system administration, monitoring, and infrastructure workflows",
+        repoUrl: "https://github.com/mrtuxcoder/my-scripts",
+    },
+];
+
 export const GET = async () => {
-    return NextResponse.json({
-        featureWork
+    return NextResponse.json({ featureWork, additionalProjects }, {
+        headers: {
+            "Cache-Control": "public, s-maxage=300, stale-while-revalidate=86400",
+        },
     });
 };

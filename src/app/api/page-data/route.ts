@@ -84,9 +84,9 @@ const projectOverview = {
 
 
 export const GET = async () => {
-    return NextResponse.json({
-        experienceData,
-        educationData,
-        projectOverview
+    return NextResponse.json({ experienceData, educationData, projectOverview }, {
+        headers: {
+            "Cache-Control": "public, s-maxage=300, stale-while-revalidate=86400",
+        },
     });
 };

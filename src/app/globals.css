@@ -58,6 +58,10 @@ body {
 }
 
 @layer utilities {
+  .section-surface {
+    background-color: var(--section-surface);
+  }
+
   .container {
     @apply w-full max-w-[70.9rem] mx-auto mt-0 mb-0 py-0 sm:px-7 px-5;
   }
@@ -95,6 +99,7 @@ body {
 
 :root {
   --radius: 0.625rem;
+  --section-surface: oklch(0.985 0 0);
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -129,6 +134,7 @@ body {
 }
 
 .dark {
+  --section-surface: oklch(0.18 0 0);
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -209,166 +215,65 @@ body {
   animation-play-state: paused;
 }
 
-.social-icon-spin {
-  animation: socialIconSpin 750ms ease-out both;
+.about-highlight {
+  background: linear-gradient(90deg, rgba(107, 114, 128, 0.28) 0%, rgba(156, 163, 175, 0.1) 100%);
+}
+
+.hero-badge {
+  position: relative;
+  z-index: 10;
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  color: var(--primary);
   transform-origin: center;
 }
 
-.social-icon-glitter-purple,
-.social-icon-glitter-sky,
-.social-icon-glitter-pink {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-  background: transparent;
-  box-shadow: inset 0 0 0 1px rgba(196, 181, 253, 0.22);
+.hero-badge-linux {
+  border-color: rgba(14, 116, 144, 0.2);
+  background: rgba(207, 250, 254, 0.7);
 }
 
-.social-icon-glitter-purple::before,
-.social-icon-glitter-sky::before,
-.social-icon-glitter-pink::before {
-  content: "";
-  position: absolute;
-  inset: -18%;
-  opacity: 0;
-  pointer-events: none;
-  mix-blend-mode: screen;
-  animation: socialIconWheel 3s linear infinite;
-  z-index: 0;
+.hero-badge-hosted {
+  border-color: rgba(22, 101, 52, 0.2);
+  background: rgba(220, 252, 231, 0.7);
 }
 
-.social-icon-glitter-purple::before {
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    rgba(233, 213, 255, 0.06) 28deg,
-    rgba(196, 181, 253, 0.3) 70deg,
-    rgba(168, 85, 247, 0.55) 118deg,
-    rgba(196, 181, 253, 0.22) 160deg,
-    transparent 220deg,
-    rgba(255, 255, 255, 0.1) 260deg,
-    transparent 360deg
-  );
+.hero-badge-open {
+  border-color: rgba(180, 83, 9, 0.2);
+  background: rgba(254, 243, 199, 0.72);
 }
 
-.social-icon-glitter-sky::before {
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    rgba(224, 242, 254, 0.06) 28deg,
-    rgba(125, 211, 252, 0.3) 70deg,
-    rgba(14, 165, 233, 0.55) 118deg,
-    rgba(125, 211, 252, 0.22) 160deg,
-    transparent 220deg,
-    rgba(255, 255, 255, 0.1) 260deg,
-    transparent 360deg
-  );
+.dark .hero-badge-linux {
+  border-color: rgba(103, 232, 249, 0.22);
+  background: rgba(8, 47, 73, 0.72);
 }
 
-.social-icon-glitter-pink::before {
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    rgba(252, 231, 243, 0.06) 28deg,
-    rgba(244, 114, 182, 0.3) 70deg,
-    rgba(219, 39, 119, 0.55) 118deg,
-    rgba(244, 114, 182, 0.22) 160deg,
-    transparent 220deg,
-    rgba(255, 255, 255, 0.1) 260deg,
-    transparent 360deg
-  );
+.dark .hero-badge-hosted {
+  border-color: rgba(134, 239, 172, 0.22);
+  background: rgba(20, 83, 45, 0.7);
 }
 
-.social-icon-glitter-purple::after,
-.social-icon-glitter-sky::after,
-.social-icon-glitter-pink::after {
-  content: "";
-  position: absolute;
-  inset: -12%;
-  border-radius: inherit;
-  opacity: 0;
-  pointer-events: none;
-  mix-blend-mode: screen;
-  animation: socialIconGlow 3s ease-in-out infinite;
-  z-index: 0;
+.dark .hero-badge-open {
+  border-color: rgba(253, 186, 116, 0.22);
+  background: rgba(124, 45, 18, 0.68);
 }
 
-.social-icon-glitter-purple::after {
-  background: radial-gradient(circle at 100% 100%, rgba(233, 213, 255, 0.7) 0%, rgba(196, 181, 253, 0.28) 20%, transparent 62%);
-}
-
-.social-icon-glitter-sky::after {
-  background: radial-gradient(circle at 100% 100%, rgba(224, 242, 254, 0.7) 0%, rgba(125, 211, 252, 0.28) 20%, transparent 62%);
-}
-
-.social-icon-glitter-pink::after {
-  background: radial-gradient(circle at 100% 100%, rgba(252, 231, 243, 0.7) 0%, rgba(244, 114, 182, 0.28) 20%, transparent 62%);
-}
-
-.social-icon-glitter-purple > span,
-.social-icon-glitter-sky > span,
-.social-icon-glitter-pink > span {
-  position: relative;
-  z-index: 1;
-}
-
-@keyframes socialIconGlow {
-  0%,
-  84%,
-  100% {
-    opacity: 0;
-    transform: scale(0.9);
+@media (max-width: 639px) {
+  .hero-badge {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.58rem;
+    letter-spacing: 0;
+    white-space: nowrap;
   }
-  88% {
-    opacity: 0.14;
-    transform: scale(1);
-  }
-  92% {
-    opacity: 0.3;
-    transform: scale(1.03);
-  }
-  96% {
-    opacity: 0.12;
-    transform: scale(1.01);
-  }
-}
 
-@keyframes socialIconWheel {
-  0% {
-    opacity: 0;
-    transform: rotate(0deg) scale(0.92);
-    filter: blur(0.4px);
-  }
-  16% {
-    opacity: 0.22;
-  }
-  42% {
-    opacity: 0.45;
-    transform: rotate(160deg) scale(1.02);
-  }
-  68% {
-    opacity: 0.3;
-    transform: rotate(290deg) scale(1.04);
-  }
-  100% {
-    opacity: 0;
-    transform: rotate(360deg) scale(1);
-    filter: blur(0.2px);
-  }
-}
-
-@keyframes socialIconSpin {
-  0% {
-    transform: rotate(0deg) scale(0.92);
-    opacity: 0;
-  }
-  60% {
-    transform: rotate(300deg) scale(1.04);
-    opacity: 1;
-  }
-  100% {
-    transform: rotate(360deg) scale(1);
-    opacity: 1;
+  .hero-badge-linux,
+  .hero-badge-hosted,
+  .hero-badge-open {
+    margin-right: 0;
   }
 }
 

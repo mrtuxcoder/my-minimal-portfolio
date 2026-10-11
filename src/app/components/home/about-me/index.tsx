@@ -1,3 +1,5 @@
+import { UserRound } from "lucide-react";
+
 const AboutMe = () => {
     const skillGroups = [
         {
@@ -49,25 +51,27 @@ const AboutMe = () => {
     return (
         <section>
             <div className="container">
-                <div className="border-x border-primary/10 bg-[url('/images/about-me/about-me-bg.svg')] bg-cover bg-center bg-no-repeat">
+                <div className="section-surface border-x border-primary/10 bg-[url('/images/about-me/about-me-bg.svg')] bg-cover bg-center bg-no-repeat">
                     <div className="flex flex-col gap-8 max-w-5xl mx-auto px-4 sm:px-7 py-11 md:py-12">
                         <div className="flex flex-col gap-4">
-                            <p className="text-sm tracking-[2px] text-primary uppercase font-medium">
-                                About Me
+                            <p className="flex items-center gap-2 text-sm tracking-[2px] text-primary uppercase font-medium">
+                                <UserRound aria-hidden="true" className="h-4 w-4" />
+                                <span>About Me</span>
                             </p>
 
-                            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl leading-snug">
+                            <h2 className="text-base leading-relaxed sm:text-2xl sm:leading-snug">
                                 Junior DevOps Engineer with hands-on experience in
-                                <span className="bg-[linear-gradient(90deg,_rgba(168,85,247,0.4)_0%,_rgba(168,85,247,0.05)_100%)]">
+                                <span className="about-highlight">
                                     &nbsp; Linux-based deployments, containerized applications, and backend systems.
                                 </span>{" "}
-                                Built and deployed production-ready applications using Docker, Nginx, GitHub Actions, and Azure VM, .with a focus on reliability, security, automation, and practical deployment workflows.
+                                Built and deployed production-ready applications using Docker, Nginx, GitHub Actions, and Azure VM with a focus on reliability, security, automation, and practical deployment workflows.
                             </h2>
                         </div>
 
                         <div className="flex flex-col gap-3">
-                            <p className="text-sm tracking-[2px] text-primary uppercase font-medium">
-                                Skills
+                            <p className="flex items-center gap-2 text-sm tracking-[2px] text-primary uppercase font-medium">
+                                <UserRound aria-hidden="true" className="h-4 w-4" />
+                                <span>Skills</span>
                             </p>
 
                             <div className="flex flex-col gap-4">

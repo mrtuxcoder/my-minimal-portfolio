@@ -1,15 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
 import Script from "next/script";
 
 import "./globals.css";
 import Header from "./components/layout/header";
 import Footer from "./components/layout/footer";
-
-const inter = Inter({
-  variable: "--font-inter-sans",
-  subsets: ["latin"],
-});
 
 const siteUrl = "https://guganraj.site";
 const openGraphImageUrl = `${siteUrl}/images/favicon/OG.png`;
@@ -243,7 +237,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#065f46",
+  themeColor: "#1C212B",
   width: "device-width",
   initialScale: 1,
 };
@@ -255,7 +249,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <Script
           id="person-structured-data"
           type="application/ld+json"

@@ -1,3 +1,5 @@
+import { Activity } from "lucide-react";
+
 const TechnicalActivities = () => {
     const openSourceLinks = [
         "https://github.com/se7engoodfellas/zenmix/pull/39",
@@ -11,17 +13,20 @@ const TechnicalActivities = () => {
     return (
         <section>
             <div className="container">
-                <div className="border-x border-primary/10">
+                <div className="section-surface border-x border-primary/10">
                     <div className="flex flex-col max-w-3xl mx-auto py-10 px-4 sm:px-7">
                         <div className="flex flex-col xs:flex-row gap-5 items-center justify-between">
-                            <p className="text-sm tracking-[2px] text-primary uppercase font-medium">Technical Activity</p>
+                            <p className="flex items-center gap-2 text-sm tracking-[2px] text-primary uppercase font-medium">
+                                <Activity aria-hidden="true" className="h-4 w-4" />
+                                <span>Technical Activity</span>
+                            </p>
                         </div>
                     </div>
 
                     <div className="border-t border-primary/10">
                         <div className="flex flex-col max-w-none px-4 sm:px-7 py-8 md:py-8">
                             <div className="flex flex-col gap-3 lg:grid lg:grid-cols-[minmax(240px,0.3fr)_minmax(0,1fr)] lg:gap-x-10 lg:gap-y-3">
-                                <h5 className="lg:col-start-1 lg:row-start-1">Student Coordinator – Debugging Competition (TECHIES 8.0)</h5>
+                                <h5 className="text-lg font-medium text-primary lg:col-start-1 lg:row-start-1">Student Coordinator – Debugging Competition (TECHIES 8.0)</h5>
 
                                 <ul className="space-y-1 lg:col-start-2 lg:row-start-1">
                                     <li className="flex items-start gap-2 text-base font-normal text-secondary">
@@ -48,7 +53,7 @@ const TechnicalActivities = () => {
                             </div>
 
                             <div className="flex flex-col gap-3 border-dashed border-t border-primary/10 pt-6 sm:pt-6 mt-6 sm:mt-6 lg:grid lg:grid-cols-[minmax(240px,0.3fr)_minmax(0,1fr)] lg:gap-x-10 lg:gap-y-3">
-                                <h5 className="lg:col-start-1 lg:row-start-1">Open Source Contribution - zenmix (GitHub)</h5>
+                                <h5 className="text-lg font-medium text-primary lg:col-start-1 lg:row-start-1">Open Source Contribution - zenmix (GitHub)</h5>
 
                                 <ul className="space-y-1 lg:col-start-2 lg:row-start-1">
                                     <li className="flex items-start gap-2 text-base font-normal text-secondary">
@@ -76,7 +81,7 @@ const TechnicalActivities = () => {
                                             href={link}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors px-3 py-1.5 bg-primary/5 hover:bg-primary/10 rounded-lg border border-primary/10"
+                                            className="inline-flex items-center gap-1.5 rounded-full border border-primary/15 bg-transparent px-3 py-1 text-xs font-medium text-primary hover:bg-primary/5"
                                         >
                                             <span>PR #{index + 1}</span>
                                         </a>
@@ -85,7 +90,7 @@ const TechnicalActivities = () => {
                             </div>
 
                             <div className="flex flex-col gap-3 border-dashed border-t border-primary/10 pt-6 sm:pt-6 mt-6 sm:mt-6 lg:grid lg:grid-cols-[minmax(240px,0.3fr)_minmax(0,1fr)] lg:gap-x-10 lg:gap-y-3">
-                                <h5 className="lg:col-start-1 lg:row-start-1">Open Source Contribution - Study-Notion LMS (GitHub)</h5>
+                                <h5 className="text-lg font-medium text-primary lg:col-start-1 lg:row-start-1">Open Source Contribution - Study-Notion LMS (GitHub)</h5>
 
                                 <ul className="space-y-1 lg:col-start-2 lg:row-start-1">
                                     <li className="flex items-start gap-2 text-base font-normal text-secondary">
@@ -109,7 +114,7 @@ const TechnicalActivities = () => {
                                             href={link}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors px-3 py-1.5 bg-primary/5 hover:bg-primary/10 rounded-lg border border-primary/10"
+                                            className="inline-flex items-center gap-1.5 rounded-full border border-primary/15 bg-transparent px-3 py-1 text-xs font-medium text-primary hover:bg-primary/5"
                                         >
                                             <span>PR #{index + 1}</span>
                                         </a>

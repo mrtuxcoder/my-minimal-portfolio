@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { ChevronDown } from 'lucide-react';
+import { BriefcaseBusiness, ChevronDown } from 'lucide-react';
 
 const Experience = () => {
     const [experienceData, setExperienceData] = useState<any>(null);
@@ -9,7 +9,7 @@ const Experience = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch('/api/page-data')
+                const res = await fetch('/api/page-data', { cache: 'no-store' })
                 if (!res.ok) throw new Error('Failed to fetch')
                 const data = await res.json()
                 setExperienceData(data?.experienceData)
@@ -22,10 +22,13 @@ const Experience = () => {
     return (
         <section>
             <div className="container">
-                <div className="border-x border-primary/10">
+                <div className="section-surface border-x border-primary/10">
                     <div className="flex flex-col max-w-3xl mx-auto py-10 sm:py-8 px-4 sm:px-7">
                         <div className="flex flex-col xs:flex-row gap-5 items-center justify-between">
-                            <p className="text-sm tracking-[2px] text-primary uppercase font-medium">Experience</p>
+                            <p className="flex items-center gap-2 text-sm tracking-[2px] text-primary uppercase font-medium">
+                                <BriefcaseBusiness aria-hidden="true" className="h-4 w-4" />
+                                <span>Experience</span>
+                            </p>
                         </div>
                     </div>
                     <div className="border-t border-primary/10">
@@ -48,10 +51,10 @@ const Experience = () => {
                                             aria-controls={accordionId}
                                         >
                                             <div className="flex flex-col gap-4">
-                                                <div className="flex items-start gap-4">
+                                                <div className="flex items-start gap-3 sm:gap-4">
                                                     <div className="flex items-center gap-4 min-w-0">
                                                         <span className="hidden sm:block w-2.5 h-2.5 rounded-full bg-primary/60 shrink-0" />
-                                                        <h5 className="text-lg font-medium text-primary">{value?.role}</h5>
+                                                        <h5 className="text-base font-medium text-primary sm:text-lg">{value?.role}</h5>
                                                     </div>
                                                     <div className="ml-auto flex items-center gap-3 shrink-0">
                                                         {hasDuration && (
@@ -123,7 +126,7 @@ const Experience = () => {
                                                                     href={link}
                                                                     target="_blank"
                                                                     rel="noopener noreferrer"
-                                                                    className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors px-3 py-1.5 bg-primary/5 hover:bg-primary/10 rounded-lg border border-primary/10"
+                                                                    className="inline-flex items-center gap-1.5 rounded-full border border-primary/15 bg-transparent px-3 py-1 text-xs font-medium text-primary hover:bg-primary/5"
                                                                 >
                                                                     <span>Visit site</span>
                                                                 </a>
