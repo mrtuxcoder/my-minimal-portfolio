@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/.env",
+      "destination": "404",
+      "statusCode": 404
+    }
+  ]
+}
