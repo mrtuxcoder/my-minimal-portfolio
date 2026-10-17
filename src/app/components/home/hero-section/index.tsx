@@ -103,14 +103,14 @@ const HeroSection = () => {
                                         )
                                     })}
                                 </div>
-                                <Link
+                                <a
                                     href="/docs/guganraj-rengaraju-resume.pdf"
                                     download="Guganraj-Resume.pdf"
                                     className="inline-flex items-center gap-1.5 rounded-md border border-primary/10 px-2.5 py-1.5 text-xs font-medium text-primary hover:bg-primary/5 sm:px-3 sm:text-sm"
                                 >
                                     <Download aria-hidden="true" size={16} strokeWidth={2} />
                                     <span>Resume</span>
-                                </Link>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -121,4 +121,3 @@ const HeroSection = () => {
 }
 
 export default HeroSection
-
