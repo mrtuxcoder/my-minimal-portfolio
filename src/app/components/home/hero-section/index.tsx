@@ -104,7 +104,7 @@ const HeroSection = () => {
                                     })}
                                 </div>
                                 <Link
-                                    href="/docs/Guganraj-Resume.pdf"
+                                    href="/docs/guganraj-rengaraju-resume.pdf"
                                     download="Guganraj-Resume.pdf"
                                     className="inline-flex items-center gap-1.5 rounded-md border border-primary/10 px-2.5 py-1.5 text-xs font-medium text-primary hover:bg-primary/5 sm:px-3 sm:text-sm"
                                 >
