@@ -11,11 +11,9 @@ const experienceData = [
     "startYear": "Mar 2026",
     "endYear": "Apr 2026",
     "bulletPoints": [
-        "Conducted daily online sessions teaching Web Development and Python fundamentals to remote learners",
-        "Simplified complex technical concepts into structured, beginner-friendly lessons with hands-on exercises",
-        "Guided students through real-world mini projects and debugging code development workflows",
-        "Transitioned from in-office to remote instruction while maintaining engagement and consistency",
-        "Helped students understand development workflows and industry-relevant coding practices"
+        "Delivered online sessions covering web development and Python fundamentals.",
+        "Taught technical concepts through structured lessons and hands-on exercises.",
+        "Guided learners through mini-projects, debugging, and development workflows."
     ]
 }
 
@@ -23,17 +21,15 @@ const experienceData = [
 
     ,{
     icon: "/images/icon/tailwind-icon.svg",
-    role: "Freelance Developer",
+    role: "Freelance Web Developer",
     location: "Tamil Nadu, India",
     organization: "SAP CONSERV",
     startYear: "Feb 2026",
     endYear: "Feb 2026",
     bulletPoints: [
-        "Designed and developed a production-ready responsive business website aligned with client requirements.",
-        "Handled full deployment lifecycle including hosting configuration, domain setup, and production release",
-        "Implemented performance optimizations and SEO-focused content structure to improve discoverability and scalability.",
-        "Communicated directly with client to gather requirements, iterate on feedback, and deliver final product",
-        "Successfully delivered live project and received first freelance payment as a student developer"
+        "Developed and deployed a responsive business website aligned with client requirements.",
+        "Handled hosting configuration, domain setup, and the production release.",
+        "Improved performance and SEO-focused content structure while incorporating client feedback."
     ],
      websitelink: [
     "https://www.sapconserv.com/"]
@@ -46,10 +42,9 @@ const experienceData = [
     startYear: "May 2025",
     endYear: "Oct 2025",
     bulletPoints: [
-        "Worked with MERN stack and Spring Boot to build and maintain full-stack features",
-        "Collaborated with developers across backend, frontend, and deployment workflows",
-        "Contributed to real-world projects with focus on code quality, debugging, and performance improvements",
-        "Gained hands-on experience with Git-based workflows and API integration"
+        "Built and maintained full-stack features using the MERN stack and Spring Boot.",
+        "Collaborated across frontend, backend, and deployment workflows.",
+        "Worked with Git-based workflows, API integration, debugging, and performance improvements."
     ]
 },
 ]
@@ -64,7 +59,7 @@ const educationData = [
         date: "2022 - 2025",
         title: "B.C.A., - Computer Applications",
         subtitle: "Annai Vailankanni arts and science college, Thanjavur, TamilNadu, India",
-       
+
     }
 ];
 

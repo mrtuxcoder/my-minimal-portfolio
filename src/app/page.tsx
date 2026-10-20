@@ -6,23 +6,23 @@ import FeaturedWork from "./components/home/featured-work"
 import HeroSection from "./components/home/hero-section"
 import TechnicalActivities from "./components/home/technical-activities"
 
-const page = () => {
+const Page = () => {
   return (
     <main>
-      <HeroSection/>
-      <Divider/>
-      <AboutMe/>
-      <Divider/>
-      <FeaturedWork/>
-      <Divider/>
-      <Experience/>
-      <Divider/>
-      <TechnicalActivities/>
-      <Divider/>
-      <Education/>
-      <Divider/>
+      <HeroSection />
+      <Divider />
+      <AboutMe />
+      <Divider />
+      <FeaturedWork />
+      <Divider />
+      <Experience />
+      <Divider />
+      <TechnicalActivities />
+      <Divider />
+      <Education />
+      <Divider />
     </main>
-  )
-}
+  );
+};
 
-export default page
+export default Page;

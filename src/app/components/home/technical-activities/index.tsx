@@ -26,50 +26,50 @@ const TechnicalActivities = () => {
                     <div className="border-t border-primary/10">
                         <div className="flex flex-col max-w-none px-4 sm:px-7 py-8 md:py-8">
                             <div className="flex flex-col gap-3 lg:grid lg:grid-cols-[minmax(240px,0.3fr)_minmax(0,1fr)] lg:gap-x-10 lg:gap-y-3">
-                                <h5 className="text-lg font-medium text-primary lg:col-start-1 lg:row-start-1">Student Coordinator – Debugging Competition (TECHIES 8.0)</h5>
+                                <h5 className="text-base font-medium leading-snug text-primary sm:text-lg lg:col-start-1 lg:row-start-1">Student Coordinator – Debugging Competition (TECHIES 8.0)</h5>
 
                                 <ul className="space-y-1 lg:col-start-2 lg:row-start-1">
-                                    <li className="flex items-start gap-2 text-base font-normal text-secondary">
-                                        <span className="hidden sm:inline-block w-2.5 h-2.5 text-secondary">•</span>
+                                    <li className="flex items-start gap-2.5 text-sm leading-relaxed text-secondary sm:text-base">
+                                        <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/60" />
                                         Set up debugging programs across multiple lab systems
                                     </li>
-                                    <li className="flex items-start gap-2 text-base font-normal text-secondary">
-                                        <span className="hidden sm:inline-block w-2.5 h-2.5 text-secondary">•</span>
+                                    <li className="flex items-start gap-2.5 text-sm leading-relaxed text-secondary sm:text-base">
+                                        <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/60" />
                                         Standardized file naming and folder structure for participants
                                     </li>
-                                    <li className="flex items-start gap-2 text-base font-normal text-secondary">
-                                        <span className="hidden sm:inline-block w-2.5 h-2.5 text-secondary">•</span>
+                                    <li className="flex items-start gap-2.5 text-sm leading-relaxed text-secondary sm:text-base">
+                                        <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/60" />
                                         Assisted faculty during competition execution
                                     </li>
-                                    <li className="flex items-start gap-2 text-base font-normal text-secondary">
-                                        <span className="hidden sm:inline-block w-2.5 h-2.5 text-secondary">•</span>
+                                    <li className="flex items-start gap-2.5 text-sm leading-relaxed text-secondary sm:text-base">
+                                        <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/60" />
                                         Guided participants on accessing and running programs
                                     </li>
-                                    <li className="flex items-start gap-2 text-base font-normal text-secondary">
-                                        <span className="hidden sm:inline-block w-2.5 h-2.5 text-secondary">•</span>
+                                    <li className="flex items-start gap-2.5 text-sm leading-relaxed text-secondary sm:text-base">
+                                        <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/60" />
                                         Helped monitor lab environment and quiz evaluation
                                     </li>
                                 </ul>
                             </div>
 
-                            <div className="flex flex-col gap-3 border-dashed border-t border-primary/10 pt-6 sm:pt-6 mt-6 sm:mt-6 lg:grid lg:grid-cols-[minmax(240px,0.3fr)_minmax(0,1fr)] lg:gap-x-10 lg:gap-y-3">
-                                <h5 className="text-lg font-medium text-primary lg:col-start-1 lg:row-start-1">Open Source Contribution - zenmix (GitHub)</h5>
+                            <div className="flex flex-col gap-3 pt-6 mt-6 sm:pt-6 sm:mt-6 lg:grid lg:grid-cols-[minmax(240px,0.3fr)_minmax(0,1fr)] lg:gap-x-10 lg:gap-y-3">
+                                <h5 className="text-base font-medium leading-snug text-primary sm:text-lg lg:col-start-1 lg:row-start-1">Open Source Contribution - zenmix (GitHub)</h5>
 
                                 <ul className="space-y-1 lg:col-start-2 lg:row-start-1">
-                                    <li className="flex items-start gap-2 text-base font-normal text-secondary">
-                                        <span className="hidden sm:inline-block w-2.5 h-2.5 text-secondary">•</span>
+                                    <li className="flex items-start gap-2.5 text-sm leading-relaxed text-secondary sm:text-base">
+                                        <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/60" />
                                         Submitted multiple pull requests focused on UI improvements and theming
                                     </li>
-                                    <li className="flex items-start gap-2 text-base font-normal text-secondary">
-                                        <span className="hidden sm:inline-block w-2.5 h-2.5 text-secondary">•</span>
+                                    <li className="flex items-start gap-2.5 text-sm leading-relaxed text-secondary sm:text-base">
+                                        <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/60" />
                                         Worked on light/dark mode behavior and visual consistency
                                     </li>
-                                    <li className="flex items-start gap-2 text-base font-normal text-secondary">
-                                        <span className="hidden sm:inline-block w-2.5 h-2.5 text-secondary">•</span>
+                                    <li className="flex items-start gap-2.5 text-sm leading-relaxed text-secondary sm:text-base">
+                                        <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/60" />
                                         Collaborated with the maintainer through code reviews and feedback
                                     </li>
-                                    <li className="flex items-start gap-2 text-base font-normal text-secondary">
-                                        <span className="hidden sm:inline-block w-2.5 h-2.5 text-secondary">•</span>
+                                    <li className="flex items-start gap-2.5 text-sm leading-relaxed text-secondary sm:text-base">
+                                        <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/60" />
                                         Had several contributions merged into the main codebase
                                     </li>
                                 </ul>
@@ -89,20 +89,20 @@ const TechnicalActivities = () => {
                                 </div>
                             </div>
 
-                            <div className="flex flex-col gap-3 border-dashed border-t border-primary/10 pt-6 sm:pt-6 mt-6 sm:mt-6 lg:grid lg:grid-cols-[minmax(240px,0.3fr)_minmax(0,1fr)] lg:gap-x-10 lg:gap-y-3">
-                                <h5 className="text-lg font-medium text-primary lg:col-start-1 lg:row-start-1">Open Source Contribution - Study-Notion LMS (GitHub)</h5>
+                            <div className="flex flex-col gap-3 pt-6 mt-6 sm:pt-6 sm:mt-6 lg:grid lg:grid-cols-[minmax(240px,0.3fr)_minmax(0,1fr)] lg:gap-x-10 lg:gap-y-3">
+                                <h5 className="text-base font-medium leading-snug text-primary sm:text-lg lg:col-start-1 lg:row-start-1">Open Source Contribution - Study-Notion LMS (GitHub)</h5>
 
                                 <ul className="space-y-1 lg:col-start-2 lg:row-start-1">
-                                    <li className="flex items-start gap-2 text-base font-normal text-secondary">
-                                        <span className="hidden sm:inline-block w-2.5 h-2.5 text-secondary">•</span>
+                                    <li className="flex items-start gap-2.5 text-sm leading-relaxed text-secondary sm:text-base">
+                                        <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/60" />
                                         Identified and fixed documentation issues in an open-source LMS project
                                     </li>
-                                    <li className="flex items-start gap-2 text-base font-normal text-secondary">
-                                        <span className="hidden sm:inline-block w-2.5 h-2.5 text-secondary">•</span>
+                                    <li className="flex items-start gap-2.5 text-sm leading-relaxed text-secondary sm:text-base">
+                                        <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/60" />
                                         Created and submitted a pull request that was successfully merged
                                     </li>
-                                    <li className="flex items-start gap-2 text-base font-normal text-secondary">
-                                        <span className="hidden sm:inline-block w-2.5 h-2.5 text-secondary">•</span>
+                                    <li className="flex items-start gap-2.5 text-sm leading-relaxed text-secondary sm:text-base">
+                                        <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/60" />
                                         Gained hands-on experience with GitHub workflows (forking, branching, PR)
                                     </li>
                                 </ul>

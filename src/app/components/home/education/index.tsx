@@ -39,11 +39,10 @@ const Education = () => {
                                 {educationData?.map((item:any, index:any) => (
                                     <div
                                         key={index}
-                                        className={`relative flex flex-col sm:flex-row sm:items-start gap-4 ${index !== educationData.length - 1 ? "mb-8 sm:mb-10" : ""
-                                            }`}
+                                        className={`relative flex flex-col gap-4 sm:flex-row sm:items-start ${index !== educationData.length - 1 ? "mb-8 sm:mb-10" : ""}`}
                                     >
                                         <div className="hidden sm:block relative sm:w-64 sm:text-right sm:pr-16">
-                                            <p className="text-base font-normal sm:mb-0 leading-relaxed">
+                                            <p className="text-sm leading-snug text-secondary sm:mb-0">
                                                 {item.date}
                                             </p>
 
@@ -54,14 +53,14 @@ const Education = () => {
                                         </div>
 
                                         <div className="flex flex-col gap-2 flex-1 sm:pl-16 ml-2 sm:ml-0">
-                                            <h5 className="text-lg font-semibold text-primary">{item.title}</h5>
-                                            <div className="flex sm:hidden items-center gap-2 text-base leading-relaxed text-primary/80">
+                                            <h5 className="text-base font-semibold leading-snug text-primary sm:text-lg">{item.title}</h5>
+                                            <div className="flex items-center gap-2 text-sm leading-snug text-secondary sm:hidden">
                                                 <span className="hidden sm:inline-flex shrink-0 p-1 border border-primary/10 rounded-full bg-white">
                                                     <span className="w-2.5 h-2.5 bg-primary rounded-full" />
                                                 </span>
                                                 <span>{item.date}</span>
                                             </div>
-                                            <p className="text-base text-primary">{item.subtitle}</p>
+                                            <p className="text-sm leading-relaxed text-secondary sm:text-base">{item.subtitle}</p>
                                         </div>
                                     </div>
                                 ))}

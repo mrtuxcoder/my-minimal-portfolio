@@ -219,61 +219,20 @@ body {
   background: linear-gradient(90deg, rgba(107, 114, 128, 0.28) 0%, rgba(156, 163, 175, 0.1) 100%);
 }
 
-.hero-badge {
-  position: relative;
-  z-index: 10;
-  border: 1px solid transparent;
-  border-radius: 9999px;
-  padding: 0.25rem 0.75rem;
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.025em;
-  color: var(--primary);
-  transform-origin: center;
-}
 
-.hero-badge-linux {
-  border-color: rgba(14, 116, 144, 0.2);
-  background: rgba(207, 250, 254, 0.7);
-}
-
-.hero-badge-hosted {
-  border-color: rgba(22, 101, 52, 0.2);
-  background: rgba(220, 252, 231, 0.7);
-}
-
-.hero-badge-open {
-  border-color: rgba(180, 83, 9, 0.2);
-  background: rgba(254, 243, 199, 0.72);
-}
-
-.dark .hero-badge-linux {
-  border-color: rgba(103, 232, 249, 0.22);
-  background: rgba(8, 47, 73, 0.72);
-}
-
-.dark .hero-badge-hosted {
-  border-color: rgba(134, 239, 172, 0.22);
-  background: rgba(20, 83, 45, 0.7);
-}
-
-.dark .hero-badge-open {
-  border-color: rgba(253, 186, 116, 0.22);
-  background: rgba(124, 45, 18, 0.68);
-}
-
-@media (max-width: 639px) {
-  .hero-badge {
-    padding: 0.2rem 0.4rem;
-    font-size: 0.58rem;
-    letter-spacing: 0;
-    white-space: nowrap;
+@media (hover: none), (pointer: coarse), (max-width: 639px) {
+  .social-pill-link {
+    max-width: 50px !important;
+    opacity: 1 !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    pointer-events: auto !important;
+    overflow: visible !important;
+    transition: none !important;
   }
 
-  .hero-badge-linux,
-  .hero-badge-hosted,
-  .hero-badge-open {
-    margin-right: 0;
+  .social-pill-label {
+    display: none !important;
   }
 }
 

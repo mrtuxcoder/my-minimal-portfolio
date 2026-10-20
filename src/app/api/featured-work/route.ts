@@ -2,9 +2,9 @@ import { NextResponse } from "next/server";
 
 const featureWork = [
     {
-        title: "Guidra - Structured AI Learning Platform",
+        title: "Guidra",
         description:
-            "An AI-powered learning platform that turns any topic into a structured, step-by-step learning path with persistent progress, recall workflows, and cached AI-generated content.",
+            "An AI-powered learning platform that turns topics into structured learning paths. Features multi-model AI generation, progress tracking, and recall workflows.",
         roles: [
             "React",
             "Material UI",
@@ -28,39 +28,35 @@ const featureWork = [
         ],
         caseStudyTitle: "End-to-End Deployment of Guidra Backend on Azure VM",
         image: "/images/feature-work/guidra-cover.png"
-    }, 
+    },
     {
-    title: "Chronicle - Homelab Publishing Platform",
-    description:
-        "A full-stack publishing platform evolved into a practical homelab project for learning Docker, CI/CD, networking, and self-hosted deployment.",
-
-    roles: [
-        "React",
-        "Node.js",
-        "Express.js",
-        "MongoDB",
-        "Docker",
-        "GitHub Actions",
-        "Cloudflare Tunnel"
-    ],
-
-    highlights: [
-        "Full-stack publishing platform with admin publishing and public reading",
-        "Containerized React, Node.js, and MongoDB using Docker Compose",
-        "Automated Docker image builds and deployment through GitHub Actions and GHCR",
-        "Publicly exposed through Cloudflare Tunnel from a self-hosted Linux homelab"
-    ],
-
-    deployment: [
-        "Dockerized services deployed on a Linux homelab",
-        "Nginx reverse proxy with internal Docker networking",
-        "Tailscale used for private server access and deployment",
-        "Cloudflare Tunnel with cloudflared provides public HTTPS access"
-    ],
-
-    caseStudyTitle: "From Code to Containers: Chronicle Homelab Deployment",
-    image: "/images/feature-work/chronicle-cover.png"
-}
+        title: "Chronicle",
+        description:
+            "A self-hosted publishing platform built with Docker Compose. Automates image publishing and deployment with GitHub Actions, GHCR, and private networking.",
+        roles: [
+            "React",
+            "Node.js",
+            "Express.js",
+            "MongoDB",
+            "Docker",
+            "GitHub Actions",
+            "Cloudflare Tunnel"
+        ],
+        highlights: [
+            "Full-stack publishing platform with admin publishing and public reading",
+            "Containerized React, Node.js, and MongoDB using Docker Compose",
+            "Automated Docker image builds and deployment through GitHub Actions and GHCR",
+            "Publicly exposed through Cloudflare Tunnel from a self-hosted Linux homelab"
+        ],
+        deployment: [
+            "Dockerized services deployed on a Linux homelab",
+            "Nginx reverse proxy with internal Docker networking",
+            "Tailscale used for private server access and deployment",
+            "Cloudflare Tunnel with cloudflared provides public HTTPS access"
+        ],
+        caseStudyTitle: "From Code to Containers: Chronicle Homelab Deployment",
+        image: "/images/feature-work/chronicle-cover.png"
+    }
 ];
 
 const additionalProjects = [
@@ -73,7 +69,7 @@ const additionalProjects = [
     {
         id: 2,
         title: "Linux Automation Toolkit",
-        description: "Practical Bash automation scripts for system administration, monitoring, and infrastructure workflows",
+        description: "Practical Bash automation scripts for system administration, monitoring workflows.",
         repoUrl: "https://github.com/mrtuxcoder/my-scripts",
     },
 ];

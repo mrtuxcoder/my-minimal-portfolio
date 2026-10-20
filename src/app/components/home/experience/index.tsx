@@ -37,76 +37,49 @@ const Experience = () => {
                                 const hasDuration = value?.startYear && value?.endYear;
                                 const isOpen = openIndex === index;
                                 const accordionId = `experience-panel-${index}`;
-                                const summary = value?.bulletPoints?.[0];
 
                                 return (
                                     <div
                                         key={index}
-                                        className="flex flex-col gap-5 border-dashed border-b border-primary/10 last:border-b-0 pt-8 sm:pt-10 pb-8 sm:pb-10 first:pt-0 last:pb-0">
+                                        className="border-dashed border-b border-primary/10 last:border-b-0 py-7 sm:py-8 first:pt-0 last:pb-0">
                                         <button
                                             type="button"
-                                            className="w-full text-left"
+                                            className="group w-full text-left"
                                             onClick={() => setOpenIndex(isOpen ? null : index)}
                                             aria-expanded={isOpen}
                                             aria-controls={accordionId}
                                         >
-                                            <div className="flex flex-col gap-4">
-                                                <div className="flex items-start gap-3 sm:gap-4">
-                                                    <div className="flex items-center gap-4 min-w-0">
-                                                        <span className="hidden sm:block w-2.5 h-2.5 rounded-full bg-primary/60 shrink-0" />
-                                                        <h5 className="text-base font-medium text-primary sm:text-lg">{value?.role}</h5>
-                                                    </div>
-                                                    <div className="ml-auto flex items-center gap-3 shrink-0">
-                                                        {hasDuration && (
-                                                            <div className="hidden sm:flex items-center gap-2.5 border border-primary/10 rounded-lg py-1.5 px-3">
-                                                                <div className={`w-4 h-2 rounded-sm ${value?.endYear == "Present" ? 'bg-primary' : 'bg-primary/10'} `} />
-                                                                <p className="text-sm xs:text-base text-primary">
-                                                                    {value.startYear} – {value.endYear}
-                                                                    {value?.location && ` · ${value?.location}`}
-                                                                </p>
-                                                            </div>
-                                                        )}
-                                                        <ChevronDown className={`w-5 h-5 text-primary transition-transform ${isOpen ? 'rotate-180' : ''}`} />
-                                                    </div>
-                                                </div>
-
-                                                {hasDuration && (
-                                                    <div className="sm:hidden ml-6 inline-flex items-center gap-2.5 border border-primary/10 rounded-lg py-1.5 px-3 w-fit">
-                                                        <div className={`w-4 h-2 rounded-sm ${value?.endYear == "Present" ? 'bg-primary' : 'bg-primary/10'} `} />
-                                                        <p className="text-sm xs:text-base text-primary">
+                                            <div className="flex items-start gap-3 sm:gap-4">
+                                                <span className="hidden sm:block mt-2.5 h-2.5 w-2.5 shrink-0 rounded-full bg-primary/60" />
+                                                <div className="min-w-0 flex-1">
+                                                    <h5 className="text-base font-medium leading-snug text-primary sm:text-lg">{value?.role}</h5>
+                                                    {value?.organization && (
+                                                        <p className="mt-1 text-sm leading-snug text-secondary sm:text-base">{value.organization}</p>
+                                                    )}
+                                                    {hasDuration && (
+                                                        <p className="mt-1 text-sm leading-snug text-secondary">
                                                             {value.startYear} – {value.endYear}
                                                             {value?.location && ` · ${value?.location}`}
                                                         </p>
-                                                    </div>
-                                                )}
-
-                                                {value?.organization && (
-                                                    <div className="flex items-center">
-                                                        <span className="text-base font-normal text-secondary">
-                                                            {value.organization}
-                                                        </span>
-                                                    </div>
-                                                )}
-
-                                                {!isOpen && summary && (
-                                                    <p className="text-base font-normal text-secondary truncate">
-                                                        {summary}
-                                                    </p>
-                                                )}
+                                                    )}
+                                                </div>
+                                                <span className="mt-0.5 shrink-0 rounded-md p-1 text-primary transition-colors group-hover:bg-primary/5">
+                                                    <ChevronDown className={`h-5 w-5 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+                                                </span>
                                             </div>
                                         </button>
 
                                         {isOpen && (
-                                            <div id={accordionId} className="flex flex-col gap-5">
-                                                <ul className="space-y-2">
+                                            <div id={accordionId} className="pt-5 sm:pl-6">
+                                                <ul className="space-y-2.5">
                                                     {value?.bulletPoints?.map((point: any, pointIndex: any) => {
                                                         return (
                                                             <li
                                                                 key={pointIndex}
-                                                                className="flex items-start gap-2 text-base font-normal text-secondary"
+                                                                className="flex items-start gap-2.5 text-sm leading-relaxed text-secondary sm:text-base"
                                                             >
-                                                                <span className="hidden sm:inline-block w-2.5 h-2.5 text-secondary">•</span>
-                                                                {point}
+                                                                <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/60" />
+                                                                <span>{point}</span>
                                                             </li>
                                                         );
                                                     })}
