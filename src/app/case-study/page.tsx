@@ -1,18 +1,16 @@
+"use client";
+
+import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import ChronicleCaseStudy from "./chronicle-case-study";
-import GuidraCaseStudy from "./guidra-case-study";
 import LanBoxCaseStudy from "./lanbox-case-study";
+import GuidraCaseStudy from "./guidra-case-study";
 
-type CaseStudyPageProps = {
-  searchParams: Promise<{
-    title?: string;
-  }>;
-};
-
-const CaseStudyPage = async ({ searchParams }: CaseStudyPageProps) => {
-  const params = await searchParams;
-
+function CaseStudyContent() {
+  const searchParams = useSearchParams();
   const title =
-    params?.title || "End-to-End Deployment of Guidra Backend on Azure VM";
+    searchParams.get("title") ||
+    "End-to-End Deployment of Guidra Backend on Azure VM";
 
   const isChronicle = title.includes("Chronicle");
   const isLanBox = title.includes("LANBox");
@@ -24,37 +22,55 @@ const CaseStudyPage = async ({ searchParams }: CaseStudyPageProps) => {
       : "Azure VM → Nginx → Node.js → MongoDB Atlas";
 
   return (
-    <main>
-      <section>
-        <div className="container">
-          <div className="border-x border-primary/10">
-            <article className="mx-auto max-w-4xl space-y-10 px-4 py-12 sm:px-7 md:py-16">
-              <header className="space-y-4">
-                <p className="text-sm font-medium uppercase tracking-[2px] text-primary">
-                  Case Study
-                </p>
+    <>
+      <header className="space-y-2 sm:space-y-3">
+        <p className="text-xs sm:text-sm font-medium uppercase tracking-[2px] text-primary">
+          Case Study
+        </p>
 
-                <h1 className="text-3xl font-bold leading-tight text-primary sm:text-4xl">
-                  {title}
-                </h1>
+        <h1 className="text-[26px] xs:text-[28px] font-bold leading-[1.2] tracking-tight text-primary sm:text-4xl sm:leading-tight break-words">
+          {title}
+        </h1>
 
-                <p className="text-base leading-relaxed text-secondary sm:text-lg">
-                  {subtitle}
-                </p>
-              </header>
+        <p className="text-xs sm:text-base leading-relaxed text-secondary pt-0.5">
+          {subtitle}
+        </p>
+      </header>
 
-              {isChronicle ? (
-                <ChronicleCaseStudy />
-              ) : isLanBox ? (
-                <LanBoxCaseStudy />
-              ) : (
-                <GuidraCaseStudy />
-              )}
-            </article>
-          </div>
+      {isChronicle ? (
+        <ChronicleCaseStudy />
+      ) : isLanBox ? (
+        <LanBoxCaseStudy />
+      ) : (
+        <GuidraCaseStudy />
+      )}
+    </>
+  );
+}
+
+function CaseStudyLoadingFallback() {
+  return (
+    <header className="space-y-2 sm:space-y-3 animate-pulse">
+      <div className="h-3.5 w-24 rounded bg-primary/10" />
+      <div className="h-8 w-3/4 rounded bg-primary/10" />
+      <div className="h-4 w-1/2 rounded bg-primary/10" />
+    </header>
+  );
+}
+
+const CaseStudyPage = () => {
+  return (
+    <section>
+      <div className="container">
+        <div className="section-surface border-x border-primary/10">
+          <article className="mx-auto max-w-4xl space-y-6 sm:space-y-10 px-4 py-6 sm:px-7 sm:py-12 md:py-16">
+            <Suspense fallback={<CaseStudyLoadingFallback />}>
+              <CaseStudyContent />
+            </Suspense>
+          </article>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
   );
 };
 

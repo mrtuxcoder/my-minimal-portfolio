@@ -4,9 +4,9 @@ const Footer = () => {
     const currentYear = new Date().getFullYear();
     
     return (
-        <footer className="-translate-y-[1px] bg-white dark:bg-gray-900 border-t border-primary/10">
+        <footer className="-translate-y-[1px]">
             <div className="container">
-                <div className="border-x border-primary/10">
+                <div className="section-surface border-x border-t border-b border-primary/10">
                     <div className="max-w-3xl mx-auto px-4 sm:px-7 py-6 md:py-8">
                         <div className="text-center space-y-4">
                             {/* Copyright */}

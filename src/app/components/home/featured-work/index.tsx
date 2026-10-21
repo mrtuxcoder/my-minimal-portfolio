@@ -142,7 +142,7 @@ const FeaturedWork = () => {
                   return (
                     <div
                       key={project.title}
-                      className="rounded-xl bg-[linear-gradient(180deg,rgba(28,33,43,0.06)_0%,rgba(255,255,255,0)_45%)] p-4 sm:p-5 border border-primary/10 flex flex-col justify-between h-full transition-all duration-300 hover:border-primary/20"
+                      className="rounded-sm bg-[linear-gradient(180deg,rgba(28,33,43,0.06)_0%,rgba(255,255,255,0)_45%)] p-4 sm:p-5 flex flex-col justify-between h-full transition-all duration-300 hover:border-primary/20"
                     >
                       <div>
                         {/* Project Image with consistent 16:9 aspect ratio */}
@@ -169,6 +169,7 @@ const FeaturedWork = () => {
                       {/* Clear Actions: Case study & Visit site / GitHub */}
                       <div className="pt-3.5 mt-4 border-t border-primary/10 flex items-center justify-between gap-3">
                         <Link
+                          prefetch
                           href={{
                             pathname: "/case-study",
                             query: {
@@ -308,6 +309,7 @@ const FeaturedWork = () => {
               <div className="max-w-5xl mx-auto px-4 py-8 sm:px-7 sm:py-10 lg:py-8">
                 <div>
                   <Link
+                    prefetch
                     href={{
                       pathname: "/case-study",
                       query: { title: "End-to-End Deployment of Guidra Backend on Azure VM" },
@@ -332,6 +334,7 @@ const FeaturedWork = () => {
                   </Link>
 
                   <Link
+                    prefetch
                     href={{
                       pathname: "/case-study",
                       query: {
@@ -359,6 +362,7 @@ const FeaturedWork = () => {
                   </Link>
 
                   <Link
+                    prefetch
                     href={{
                       pathname: "/case-study",
                       query: { title: "From Code to Containers: Chronicle Homelab Deployment" },

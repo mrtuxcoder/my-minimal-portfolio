@@ -29,6 +29,8 @@ const CaseStudyImage = ({ src, alt }: CaseStudyImageProps) => {
                 alt={alt}
                 width={1920}
                 height={1080}
+                loading="lazy"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 800px, 800px"
                 className="h-auto w-full"
             />
         </figure>

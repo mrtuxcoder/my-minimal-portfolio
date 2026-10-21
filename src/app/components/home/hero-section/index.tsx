@@ -63,12 +63,12 @@ const HeroSection = () => {
         <section>
             <div className="container">
                 <div className="">
-                    <div className="relative w-full h-48 sm:h-72 overflow-hidden">
+                    <div className="relative w-full h-[168px] sm:h-72 overflow-hidden">
                         <BannerMedia alt="banner-img mobile" priority className="object-cover xs:hidden" />
                         <BannerMedia alt="banner-img desktop" priority className="hidden object-cover xs:block" />
                     </div>
                     <div className="section-surface border-x border-primary/10">
-                        <div className="relative max-w-5xl mx-auto px-4 sm:px-7 pt-14 pb-5 sm:pt-24 sm:pb-12">
+                        <div className="relative max-w-5xl mx-auto px-4 sm:px-7 pt-12 pb-4 sm:pt-24 sm:pb-12">
                             <div className="absolute left-4 sm:left-7 top-0 -translate-y-1/2">
                                 <Image
                                     src="/images/hero-sec/guganraj-rengaraju.jpeg"
@@ -91,7 +91,7 @@ const HeroSection = () => {
                                 </p>
                             </div>
 
-                            <div className="mt-4 flex flex-wrap items-center gap-2 sm:mt-6 sm:gap-3">
+                            <div className="mt-3 flex flex-wrap items-center gap-2 sm:mt-6 sm:gap-3">
                                 <div
                                     role="group"
                                     aria-label="Social profiles"

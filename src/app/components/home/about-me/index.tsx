@@ -70,7 +70,7 @@ const AboutMe = () => {
         <section>
             <div className="container">
                 <div className="section-surface border-x border-primary/10 bg-[url('/images/about-me/about-me-bg.svg')] bg-cover bg-center bg-no-repeat">
-                    <div className="flex flex-col gap-8 max-w-5xl mx-auto px-4 sm:px-7 py-11 md:py-12">
+                    <div className="flex flex-col gap-8 max-w-5xl mx-auto px-4 sm:px-7 py-8 sm:py-11 md:py-12">
                         <div className="flex flex-col gap-4">
                             <p className="flex items-center gap-2 text-sm tracking-[2px] text-primary uppercase font-medium">
                                 <UserRound aria-hidden="true" className="h-4 w-4" />
@@ -78,11 +78,7 @@ const AboutMe = () => {
                             </p>
 
                             <h2 className="text-base leading-relaxed sm:text-2xl sm:leading-snug">
-                                Junior DevOps Engineer with hands-on experience in
-                                <span className="about-highlight">
-                                    &nbsp; Linux-based deployments, containerized applications, and backend systems.
-                                </span>{" "}
-                                Built and deployed production-ready applications using Docker, Nginx, GitHub Actions, and Azure VM with a focus on reliability, security, automation, and practical deployment workflows.
+                                Junior DevOps Engineer with hands-on experience in Linux-based deployments, containerized applications, and backend systems. Built and deployed production-ready applications using Docker, Nginx, GitHub Actions, and Azure VM with a focus on reliability, security, automation, and practical deployment workflows.
                             </h2>
                         </div>
 

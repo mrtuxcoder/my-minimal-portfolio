@@ -215,10 +215,6 @@ body {
   animation-play-state: paused;
 }
 
-.about-highlight {
-  background: linear-gradient(90deg, rgba(107, 114, 128, 0.28) 0%, rgba(156, 163, 175, 0.1) 100%);
-}
-
 
 @media (hover: none), (pointer: coarse), (max-width: 639px) {
   .social-pill-link {
