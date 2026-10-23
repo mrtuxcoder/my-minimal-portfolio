@@ -138,6 +138,15 @@ const FeaturedWork = () => {
                   const titleLower = project.title.toLowerCase();
                   const isGuidra = titleLower.includes("guidra") || index === 0;
                   const isChronicle = titleLower.includes("chronicle") || index === 1;
+                  const isLanBox = titleLower.includes("lanbox");
+
+                  const caseStudyUrl = isGuidra
+                    ? "https://notes.guganraj.me/case-study/guidra"
+                    : isChronicle
+                    ? "https://notes.guganraj.me/case-study/chronicle"
+                    : isLanBox
+                    ? "https://notes.guganraj.me/case-study/lanbox"
+                    : "https://notes.guganraj.me";
 
                   return (
                     <div
@@ -168,23 +177,15 @@ const FeaturedWork = () => {
 
                       {/* Clear Actions: Case study & Visit site / GitHub */}
                       <div className="pt-3.5 mt-4 border-t border-primary/10 flex items-center justify-between gap-3">
-                        <Link
-                          prefetch
-                          href={{
-                            pathname: "/case-study",
-                            query: {
-                              title:
-                                project?.caseStudyTitle ||
-                                (isGuidra
-                                  ? "End-to-End Deployment of Guidra Backend on Azure VM"
-                                  : "From Code to Containers: Chronicle Homelab Deployment"),
-                            },
-                          }}
+                        <a
+                          href={caseStudyUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-foreground/85 hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded px-1 py-1"
                         >
                           <FileText className="h-3.5 w-3.5 text-primary/70" aria-hidden="true" />
                           <span>Case study</span>
-                        </Link>
+                        </a>
 
                         {isGuidra && (
                           <a
@@ -286,104 +287,6 @@ const FeaturedWork = () => {
                         d="M14 5l7 7m0 0l-7 7m7-7H3"
                       />
                     </svg>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="h-4 border border-primary/10" />
-
-          {/* Case Studies */}
-          <div>
-            <div className="flex flex-col max-w-3xl mx-auto py-10 px-4 sm:px-7">
-              <div className="flex flex-col xs:flex-row gap-5 items-center justify-between">
-                <p className="flex items-center gap-2 text-sm tracking-[2px] text-primary uppercase font-medium">
-                  <FolderKanban aria-hidden="true" className="h-4 w-4" />
-                  <span>Case Studies</span>
-                </p>
-              </div>
-            </div>
-
-            <div className="border-t border-primary/10">
-              <div className="max-w-5xl mx-auto px-4 py-8 sm:px-7 sm:py-10 lg:py-8">
-                <div>
-                  <Link
-                    prefetch
-                    href={{
-                      pathname: "/case-study",
-                      query: { title: "End-to-End Deployment of Guidra Backend on Azure VM" },
-                    }}
-                    className="group block border-dashed border-b border-primary/10 py-5 first:pt-0 last:border-b-0 last:pb-0 hover:opacity-80 transition-opacity sm:py-6"
-                  >
-                    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
-                      <div className="flex-1">
-                        <h3 className="text-base sm:text-lg font-semibold leading-snug text-primary group-hover:text-primary/80 transition-colors">
-                          End-to-End Deployment of Guidra Backend on Azure VM
-                        </h3>
-                        <p className="hidden mt-1 text-sm leading-relaxed text-secondary sm:block">
-                          Production deployment with Nginx, PM2, Azure VM, SSL, and security hardening
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-4 mt-1 sm:mt-0 sm:shrink-0">
-                        <span className="text-xs font-medium text-primary group-hover:text-primary/80 transition-colors sm:text-sm">
-                          Read more →
-                        </span>
-                      </div>
-                    </div>
-                  </Link>
-
-                  <Link
-                    prefetch
-                    href={{
-                      pathname: "/case-study",
-                      query: {
-                        title: "Automated Linux Deployment of LANBox — a File Sharing Platform",
-                      },
-                    }}
-                    className="group block border-dashed border-b border-primary/10 py-5 first:pt-0 last:border-b-0 last:pb-0 hover:opacity-80 transition-opacity sm:py-6"
-                  >
-                    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
-                      <div className="flex-1">
-                        <h3 className="text-base sm:text-lg font-semibold leading-snug text-primary group-hover:text-primary/80 transition-colors">
-                          Automated Linux Deployment of LANBox — a File Sharing Platform
-                        </h3>
-                        <p className="hidden mt-1 text-sm leading-relaxed text-secondary sm:block">
-                          Docker-based LAN file sharing with Linux deployment, GHCR images,
-                          firewall configuration, and automated installation
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-4 mt-1 sm:mt-0 sm:shrink-0">
-                        <span className="text-xs font-medium text-primary group-hover:text-primary/80 transition-colors sm:text-sm">
-                          Read more →
-                        </span>
-                      </div>
-                    </div>
-                  </Link>
-
-                  <Link
-                    prefetch
-                    href={{
-                      pathname: "/case-study",
-                      query: { title: "From Code to Containers: Chronicle Homelab Deployment" },
-                    }}
-                    className="group block border-dashed border-b border-primary/10 py-5 first:pt-0 last:border-b-0 last:pb-0 hover:opacity-80 transition-opacity sm:py-6"
-                  >
-                    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
-                      <div className="flex-1">
-                        <h3 className="text-base sm:text-lg font-semibold leading-snug text-primary group-hover:text-primary/80 transition-colors">
-                          From Code to Containers: Chronicle Homelab Deployment
-                        </h3>
-                        <p className="hidden mt-1 text-sm leading-relaxed text-secondary sm:block">
-                          Containerization, CI/CD, Docker networking, Nginx, GHCR, Tailscale, Cloudflare and homelab deployment
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-4 mt-1 sm:mt-0 sm:shrink-0">
-                        <span className="text-xs font-medium text-primary group-hover:text-primary/80 transition-colors sm:text-sm">
-                          Read more →
-                        </span>
-                      </div>
-                    </div>
                   </Link>
                 </div>
               </div>

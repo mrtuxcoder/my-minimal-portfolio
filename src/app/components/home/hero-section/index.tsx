@@ -158,6 +158,15 @@ const HeroSection = () => {
                                     <Download aria-hidden="true" size={16} strokeWidth={2} />
                                     <span>Resume</span>
                                 </a>
+                                <a
+                                    href="https://notes.guganraj.me"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Notes & Writing"
+                                    className="inline-flex h-8 items-center justify-center gap-1.5 rounded-md border border-primary/10 px-2.5 py-1.5 text-xs font-medium text-primary hover:bg-primary/5 sm:h-9 sm:px-3 sm:text-sm"
+                                >
+                                    <span>Notes &amp; Writing ↗</span>
+                                </a>
                             </div>
                         </div>
                     </div>
