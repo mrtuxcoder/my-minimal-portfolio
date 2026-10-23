@@ -226,14 +226,6 @@ export const metadata: Metadata = {
 
     shortcut: "/images/favicon/favicon.ico",
   },
-
-  manifest: "/images/favicon/site.webmanifest",
-
-  appleWebApp: {
-    capable: true,
-    title: "Guganraj Portfolio",
-    statusBarStyle: "black-translucent",
-  },
 };
 
 export const viewport: Viewport = {
