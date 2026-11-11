@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import Header from "./components/layout/header";
 import Footer from "./components/layout/footer";
+import LatestNoteCapsule from "./components/layout/latest-note-capsule";
 
 const siteUrl = "https://guganraj.site";
 const openGraphImageUrl = `${siteUrl}/images/favicon/OG.png`;
@@ -255,6 +256,8 @@ export default function RootLayout({
         <main>{children}</main>
 
         <Footer />
+
+        <LatestNoteCapsule />
       </body>
     </html>
   );
