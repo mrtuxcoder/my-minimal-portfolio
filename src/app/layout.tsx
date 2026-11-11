@@ -6,7 +6,7 @@ import Header from "./components/layout/header";
 import Footer from "./components/layout/footer";
 import LatestNoteCapsule from "./components/layout/latest-note-capsule";
 
-const siteUrl = "https://guganraj.site";
+const siteUrl = "https://www.guganraj.me";
 const openGraphImageUrl = `${siteUrl}/images/favicon/OG.png`;
 const profileImageUrl = `${siteUrl}/images/guganraj-rengaraju.jpeg`;
 
