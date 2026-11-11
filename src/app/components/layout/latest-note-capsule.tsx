@@ -161,31 +161,34 @@ export default function LatestNoteCapsule() {
           handleDismiss();
         }
       }}
-      className="fixed top-3 sm:top-4 left-1/2 -translate-x-1/2 z-50 max-w-[calc(100vw-2rem)] sm:max-w-[500px] pointer-events-none"
+      className="fixed top-3 sm:top-4 left-1/2 -translate-x-1/2 z-50 w-max max-w-[calc(100vw-3.25rem)] sm:max-w-[520px] pointer-events-none"
     >
       <div
-        className={`pointer-events-auto inline-flex items-center rounded-full border border-primary/15 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md p-1.5 shadow-[0_10px_30px_rgba(28,33,43,0.14)] ${
+        className={`pointer-events-auto flex w-full items-center rounded-full border border-primary/15 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md p-1 sm:p-1.5 shadow-[0_10px_30px_rgba(28,33,43,0.14)] ${
           isLifting ? "animate-note-capsule-lift" : "animate-note-capsule-drop"
         }`}
       >
         <div
-          className="relative flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/5 text-primary"
+          className="relative flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-full bg-primary/5 text-primary"
           aria-hidden="true"
         >
-          <Bell className="h-3.5 w-3.5" strokeWidth={2} />
-          <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-neutral-900" />
+          <Bell className="h-3 w-3 sm:h-3.5 sm:w-3.5" strokeWidth={2} />
+          <span className="absolute top-0.5 right-0.5 sm:top-1 sm:right-1 h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-neutral-900" />
         </div>
 
         <div
-          className={`grid transition-[grid-template-columns,opacity,margin] duration-[320ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
+          className={`grid min-w-0 transition-[grid-template-columns,opacity,margin] duration-[320ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
             isExpanded
-              ? "grid-cols-[1fr] opacity-100 ml-2 mr-1"
+              ? "grid-cols-[1fr] opacity-100 ml-1.5 mr-0.5 sm:ml-2 sm:mr-1"
               : "grid-cols-[0fr] opacity-0 ml-0 mr-0 pointer-events-none"
           }`}
         >
-          <div className="min-w-0 overflow-hidden flex items-center gap-2 sm:gap-2.5">
-            <span className="shrink-0 rounded-full bg-primary/5 px-2 py-0.5 text-[11px] font-medium tracking-wide text-primary/80 whitespace-nowrap">
-              {note.label}
+          <div className="min-w-0 overflow-hidden flex items-center gap-1.5 sm:gap-2.5">
+            <span className="shrink-0 rounded-full bg-primary/5 px-1.5 py-0.5 sm:px-2 text-[10px] sm:text-[11px] font-medium tracking-wide text-primary/80 whitespace-nowrap">
+              <span className="sm:hidden">
+                {note.category === "case-study" ? "Case Study" : "Blog"}
+              </span>
+              <span className="hidden sm:inline">{note.label}</span>
             </span>
 
             <a
@@ -194,17 +197,17 @@ export default function LatestNoteCapsule() {
               rel="noopener noreferrer"
               title={note.title}
               tabIndex={isExpanded ? 0 : -1}
-              className="group min-w-0 max-w-[140px] xs:max-w-[190px] sm:max-w-[240px] flex items-center gap-1 text-xs sm:text-sm font-medium text-primary hover:text-primary/80 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary/30 rounded-sm"
+              className="group min-w-0 flex-1 flex items-center gap-0.5 sm:gap-1 text-[11px] sm:text-sm font-medium text-primary hover:text-primary/80 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary/30 rounded-sm"
             >
               <span className="truncate">{note.title}</span>
               <ArrowUpRight
                 aria-hidden="true"
-                className="h-3.5 w-3.5 shrink-0 text-secondary transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none"
+                className="h-3 w-3 sm:h-3.5 sm:w-3.5 shrink-0 text-secondary transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none"
               />
             </a>
 
             <span
-              className="h-3.5 w-px shrink-0 bg-primary/15"
+              className="h-3 sm:h-3.5 w-px shrink-0 bg-primary/15"
               aria-hidden="true"
             />
 
@@ -213,9 +216,9 @@ export default function LatestNoteCapsule() {
               onClick={handleDismiss}
               tabIndex={isExpanded ? 0 : -1}
               aria-label="Dismiss notification"
-              className="shrink-0 inline-flex h-6 w-6 items-center justify-center rounded-full text-secondary hover:text-primary hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary/30 transition-colors cursor-pointer"
+              className="shrink-0 inline-flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full text-secondary hover:text-primary hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary/30 transition-colors cursor-pointer"
             >
-              <X aria-hidden="true" className="h-3.5 w-3.5" />
+              <X aria-hidden="true" className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
             </button>
           </div>
         </div>
