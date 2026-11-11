@@ -12,7 +12,11 @@ const CACHE_HEADERS = {
   "Cache-Control": "public, s-maxage=300, stale-while-revalidate=3600",
 };
 
-const UPSTREAM_TIMEOUT_MS = 4000;
+const NO_STORE_HEADERS = {
+  "Cache-Control": "no-store",
+};
+
+const UPSTREAM_TIMEOUT_MS = 7000;
 
 async function fetchFromSearchJson(): Promise<LatestNote | null> {
   try {
@@ -46,5 +50,8 @@ async function fetchFromRssXml(): Promise<LatestNote | null> {
 
 export const GET = async () => {
   const note = (await fetchFromSearchJson()) ?? (await fetchFromRssXml());
-  return NextResponse.json({ note }, { headers: CACHE_HEADERS });
+  return NextResponse.json(
+    { note },
+    { headers: note ? CACHE_HEADERS : NO_STORE_HEADERS }
+  );
 };

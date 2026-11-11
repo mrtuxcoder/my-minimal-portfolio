@@ -6,7 +6,7 @@ import type { LatestNote } from "@/lib/notes-feed";
 
 const DISMISSED_STORAGE_KEY = "portfolio_dismissed_note_id";
 const RECHECK_INTERVAL_MS = 5 * 60 * 1000;
-const EXIT_ANIMATION_MS = 200;
+const EXIT_ANIMATION_MS = 220;
 
 function readDismissedId(): string | null {
   try {
@@ -26,55 +26,45 @@ function writeDismissedId(id: string): void {
 
 export default function LatestNoteCapsule() {
   const [note, setNote] = useState<LatestNote | null>(null);
-  const [shown, setShown] = useState(false);
+  const [closing, setClosing] = useState(false);
 
   const lastCheckedAtRef = useRef<number>(0);
   const hideTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const rafRef = useRef<number | null>(null);
 
-  const clearTimers = useCallback(() => {
+  const clearHideTimer = useCallback(() => {
     if (hideTimerRef.current !== null) {
       clearTimeout(hideTimerRef.current);
       hideTimerRef.current = null;
     }
-    if (rafRef.current !== null) {
-      cancelAnimationFrame(rafRef.current);
-      rafRef.current = null;
-    }
   }, []);
 
-  const checkLatestNote = useCallback(async (signal?: AbortSignal) => {
-    lastCheckedAtRef.current = Date.now();
-    try {
-      const res = await fetch("/api/latest-note", {
-        cache: "no-store",
-        signal,
-      });
-      if (!res.ok) return;
-      const data = (await res.json()) as { note?: LatestNote | null };
-      const latest = data.note ?? null;
+  const checkLatestNote = useCallback(
+    async (signal?: AbortSignal) => {
+      lastCheckedAtRef.current = Date.now();
+      try {
+        const res = await fetch("/api/latest-note", {
+          cache: "no-store",
+          signal,
+        });
+        if (!res.ok) return;
+        const data = (await res.json()) as { note?: LatestNote | null };
+        const latest = data.note ?? null;
 
-      if (!latest) {
-        setShown(false);
-        setNote(null);
-        return;
+        if (!latest || readDismissedId() === latest.id) {
+          setNote(null);
+          setClosing(false);
+          return;
+        }
+
+        clearHideTimer();
+        setClosing(false);
+        setNote(latest);
+      } catch {
+        // Fail silently if aborted or offline
       }
-
-      if (readDismissedId() === latest.id) {
-        setShown(false);
-        setNote(null);
-        return;
-      }
-
-      clearTimers();
-      setNote(latest);
-      rafRef.current = requestAnimationFrame(() => {
-        setShown(true);
-      });
-    } catch {
-      // Fail silently if aborted or offline
-    }
-  }, [clearTimers]);
+    },
+    [clearHideTimer]
+  );
 
   useEffect(() => {
     const controller = new AbortController();
@@ -90,7 +80,7 @@ export default function LatestNoteCapsule() {
       if (event.key !== DISMISSED_STORAGE_KEY) return;
       setNote((current) => {
         if (current && event.newValue === current.id) {
-          setShown(false);
+          setClosing(false);
           return null;
         }
         return current;
@@ -102,17 +92,16 @@ export default function LatestNoteCapsule() {
 
     return () => {
       controller.abort();
-      clearTimers();
+      clearHideTimer();
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       window.removeEventListener("storage", handleStorage);
     };
-  }, [checkLatestNote, clearTimers]);
+  }, [checkLatestNote, clearHideTimer]);
 
   const handleDismiss = useCallback(() => {
-    if (!note) return;
+    if (!note || closing) return;
     writeDismissedId(note.id);
-    clearTimers();
-    setShown(false);
+    clearHideTimer();
 
     const prefersReducedMotion =
       typeof window !== "undefined" &&
@@ -123,10 +112,12 @@ export default function LatestNoteCapsule() {
       return;
     }
 
+    setClosing(true);
     hideTimerRef.current = setTimeout(() => {
       setNote(null);
+      setClosing(false);
     }, EXIT_ANIMATION_MS);
-  }, [note, clearTimers]);
+  }, [note, closing, clearHideTimer]);
 
   if (!note) return null;
 
@@ -139,11 +130,11 @@ export default function LatestNoteCapsule() {
           handleDismiss();
         }
       }}
-      className="fixed bottom-4 inset-x-4 sm:inset-x-auto sm:bottom-6 sm:right-6 z-50 flex justify-center sm:justify-end pointer-events-none"
+      className="fixed top-3 sm:top-4 left-1/2 -translate-x-1/2 z-50 w-max max-w-[calc(100vw-2rem)] sm:max-w-[480px] pointer-events-none"
     >
       <div
-        className={`pointer-events-auto flex items-center gap-2 sm:gap-2.5 max-w-full sm:max-w-[440px] rounded-full border border-primary/15 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md px-3 py-1.5 sm:px-3.5 sm:py-2 shadow-lg shadow-primary/5 transition-all duration-200 ease-out motion-reduce:transition-none ${
-          shown ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+        className={`pointer-events-auto flex items-center gap-2 sm:gap-2.5 w-full rounded-full border border-primary/15 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md px-3 py-1.5 sm:px-3.5 sm:py-2 shadow-[0_10px_30px_rgba(28,33,43,0.12)] ${
+          closing ? "animate-note-capsule-exit" : "animate-note-capsule-enter"
         }`}
       >
         <span
@@ -151,7 +142,7 @@ export default function LatestNoteCapsule() {
           aria-hidden="true"
         />
 
-        <span className="shrink-0 rounded-full bg-primary/5 px-2 py-0.5 text-[11px] font-medium tracking-wide text-primary/75 whitespace-nowrap">
+        <span className="shrink-0 rounded-full bg-primary/5 px-2 py-0.5 text-[11px] font-medium tracking-wide text-primary/80 whitespace-nowrap">
           {note.label}
         </span>
 
@@ -170,7 +161,7 @@ export default function LatestNoteCapsule() {
         </a>
 
         <span
-          className="h-3.5 w-px shrink-0 bg-primary/10"
+          className="h-3.5 w-px shrink-0 bg-primary/15"
           aria-hidden="true"
         />
 
