@@ -7,11 +7,8 @@ import { useEffect, useState } from "react";
 type FeaturedProject = {
   title: string;
   description: string;
-  roles: string[];
-  highlights: string[];
-  deployment: string[];
-  caseStudyTitle: string;
   image: string;
+  caseStudyUrl: string;
 };
 
 type AdditionalProject = {
@@ -22,95 +19,28 @@ type AdditionalProject = {
   liveUrl?: string;
 };
 
-const defaultFeaturedProjects: FeaturedProject[] = [
-  {
-    title: "Guidra",
-    description:
-      "An AI-powered learning platform that turns topics into structured learning paths. Features multi-model AI generation, progress tracking, and recall workflows.",
-    roles: [
-      "React",
-      "Material UI",
-      "Node.js",
-      "Express.js",
-      "MongoDB",
-      "Docker",
-      "Azure VM",
-    ],
-    highlights: [
-      "Structured learning pipeline with lessons, examples, practice, quizzes, and mind maps",
-      "Multi-model AI generation using Gemini, Groq LLaMA, and HuggingFace",
-      "Content caching, version access, and controlled regeneration for consistent learning",
-      "Progress tracking, Recall Mode, custom topics, and study-focused workflows",
-    ],
-    deployment: [
-      "Dockerized backend deployed on an Azure Linux VM",
-      "Nginx reverse proxy configured with SSL",
-      "PM2 process management for production backend",
-      "Frontend deployed through Vercel",
-    ],
-    caseStudyTitle: "End-to-End Deployment of Guidra Backend on Azure VM",
-    image: "/images/feature-work/guidra-cover.png",
-  },
-  {
-    title: "Chronicle",
-    description:
-      "A self-hosted publishing platform built with Docker Compose. Automates image publishing and deployment with GitHub Actions, GHCR, and private networking.",
-    roles: [
-      "React",
-      "Node.js",
-      "Express.js",
-      "MongoDB",
-      "Docker",
-      "GitHub Actions",
-      "Cloudflare Tunnel",
-    ],
-    highlights: [
-      "Full-stack publishing platform with admin publishing and public reading",
-      "Containerized React, Node.js, and MongoDB using Docker Compose",
-      "Automated Docker image builds and deployment through GitHub Actions and GHCR",
-      "Publicly exposed through Cloudflare Tunnel from a self-hosted Linux homelab",
-    ],
-    deployment: [
-      "Dockerized services deployed on a Linux homelab",
-      "Nginx reverse proxy with internal Docker networking",
-      "Tailscale used for private server access and deployment",
-      "Cloudflare Tunnel with cloudflared provides public HTTPS access",
-    ],
-    caseStudyTitle: "From Code to Containers: Chronicle Homelab Deployment",
-    image: "/images/feature-work/chronicle-cover.png",
-  },
-];
-
-const defaultAdditionalProjects: AdditionalProject[] = [
-  {
-    id: 1,
-    title: "LANBox",
-    description: "A self-hosted private cloud for your local network.",
-    repoUrl: "https://github.com/mrtuxcoder/LANBox",
-  },
-  {
-    id: 2,
-    title: "Linux Automation Toolkit",
-    description: "Practical Bash automation scripts for system administration, monitoring, and infrastructure workflows",
-    repoUrl: "https://github.com/mrtuxcoder/my-scripts",
-  },
-];
-
 const FeaturedWork = () => {
-  const [featureWork, setFeatureWork] = useState<FeaturedProject[]>(defaultFeaturedProjects);
-  const [additionalProjects, setAdditionalProjects] = useState<AdditionalProject[]>(defaultAdditionalProjects);
+  const [featureWork, setFeatureWork] = useState<FeaturedProject[]>([]);
+  const [additionalProjects, setAdditionalProjects] = useState<AdditionalProject[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("/api/featured-work", { cache: "no-store" });
-        if (!res.ok) throw new Error("Failed to fetch");
-        const data: { featureWork?: FeaturedProject[]; additionalProjects?: AdditionalProject[] } = await res.json();
-        if (data.featureWork && data.featureWork.length > 0) {
-          setFeatureWork(data.featureWork);
+        const response = await fetch("/api/featured-work", { cache: "no-store" });
+        if (!response.ok) {
+          throw new Error(`Featured work request failed: ${response.status}`);
         }
-        setAdditionalProjects(data.additionalProjects ?? defaultAdditionalProjects);
-      } catch { }
+
+        const data: {
+          featureWork?: FeaturedProject[];
+          additionalProjects?: AdditionalProject[];
+        } = await response.json();
+
+        setFeatureWork(data.featureWork ?? []);
+        setAdditionalProjects(data.additionalProjects ?? []);
+      } catch (error) {
+        console.error("Failed to load featured work", error);
+      }
     };
 
     fetchData();
@@ -134,19 +64,10 @@ const FeaturedWork = () => {
           <div className="border-t border-primary/10">
             <div className="max-w-5xl mx-auto px-4 sm:px-7 py-9 md:py-10">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-                {featureWork?.map((project, index) => {
+                {featureWork.map((project, index) => {
                   const titleLower = project.title.toLowerCase();
                   const isGuidra = titleLower.includes("guidra") || index === 0;
                   const isChronicle = titleLower.includes("chronicle") || index === 1;
-                  const isLanBox = titleLower.includes("lanbox");
-
-                  const caseStudyUrl = isGuidra
-                    ? "https://notes.guganraj.me/case-study/guidra"
-                    : isChronicle
-                    ? "https://notes.guganraj.me/case-study/chronicle"
-                    : isLanBox
-                    ? "https://notes.guganraj.me/case-study/lanbox"
-                    : "https://notes.guganraj.me";
 
                   return (
                     <div
@@ -178,7 +99,7 @@ const FeaturedWork = () => {
                       {/* Clear Actions: Case study & Visit site / GitHub */}
                       <div className="pt-3.5 mt-4 border-t border-primary/10 flex items-center justify-between gap-3">
                         <a
-                          href={caseStudyUrl}
+                          href={project.caseStudyUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-foreground/85 hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded px-1 py-1"

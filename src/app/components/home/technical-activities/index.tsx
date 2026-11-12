@@ -5,11 +5,43 @@ import { Activity, ChevronDown } from "lucide-react";
 interface TechnicalActivityItem {
     role: string;
     organization: string;
-    bulletPoints: string[];
-    links?: string[];
+    bulletPoints?: string[];
+    repositories?: {
+        name: string;
+        pullRequests: {
+            number: number;
+            url: string;
+        }[];
+    }[];
 }
 
 const technicalActivitiesData: TechnicalActivityItem[] = [
+    {
+        role: "Open Source Contributions",
+        organization: "GitHub",
+        repositories: [
+            {
+                name: "Switch",
+                pullRequests: [
+                    { number: 1505, url: "https://github.com/sandbox-quantum/switch/pull/1505" },
+                ],
+            },
+            {
+                name: "zenmix",
+                pullRequests: [
+                    { number: 39, url: "https://github.com/se7engoodfellas/zenmix/pull/39" },
+                    { number: 38, url: "https://github.com/se7engoodfellas/zenmix/pull/38" },
+                    { number: 21, url: "https://github.com/se7engoodfellas/zenmix/pull/21" },
+                ],
+            },
+            {
+                name: "Study-Notion LMS",
+                pullRequests: [
+                    { number: 6, url: "https://github.com/BoddepallyVenkatesh06/Study-Notion-LMS/pull/6" },
+                ],
+            },
+        ],
+    },
     {
         role: "Student Coordinator – Debugging Competition",
         organization: "TECHIES 8.0",
@@ -19,33 +51,6 @@ const technicalActivitiesData: TechnicalActivityItem[] = [
             "Assisted faculty during competition execution",
             "Guided participants on accessing and running programs",
             "Helped monitor lab environment and quiz evaluation",
-        ],
-    },
-    {
-        role: "Open Source Contribution",
-        organization: "zenmix (GitHub)",
-        bulletPoints: [
-            "Submitted multiple pull requests focused on UI improvements and theming",
-            "Worked on light/dark mode behavior and visual consistency",
-            "Collaborated with the maintainer through code reviews and feedback",
-            "Had several contributions merged into the main codebase",
-        ],
-        links: [
-            "https://github.com/se7engoodfellas/zenmix/pull/39",
-            "https://github.com/se7engoodfellas/zenmix/pull/38",
-            "https://github.com/se7engoodfellas/zenmix/pull/21",
-        ],
-    },
-    {
-        role: "Open Source Contribution",
-        organization: "Study-Notion LMS (GitHub)",
-        bulletPoints: [
-            "Identified and fixed documentation issues in an open-source LMS project",
-            "Created and submitted a pull request that was successfully merged",
-            "Gained hands-on experience with GitHub workflows (forking, branching, PR)",
-        ],
-        links: [
-            "https://github.com/BoddepallyVenkatesh06/Study-Notion-LMS/pull/6",
         ],
     },
 ];
@@ -108,40 +113,48 @@ const TechnicalActivities = () => {
 
                                         {isOpen && (
                                             <div id={accordionId} className="pt-5 sm:pl-6">
-                                                <ul className="space-y-2.5">
-                                                    {item.bulletPoints.map((point, pointIndex) => (
-                                                        <li
-                                                            key={pointIndex}
-                                                            className="flex items-start gap-2.5 text-sm leading-relaxed text-secondary sm:text-base"
-                                                        >
-                                                            <span
-                                                                aria-hidden="true"
-                                                                className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/60"
-                                                            />
-                                                            <span>{point}</span>
-                                                        </li>
-                                                    ))}
-                                                </ul>
+                                                {item.bulletPoints && item.bulletPoints.length > 0 && (
+                                                    <ul className="space-y-2.5">
+                                                        {item.bulletPoints.map((point, pointIndex) => (
+                                                            <li
+                                                                key={pointIndex}
+                                                                className="flex items-start gap-2.5 text-sm leading-relaxed text-secondary sm:text-base"
+                                                            >
+                                                                <span
+                                                                    aria-hidden="true"
+                                                                    className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/60"
+                                                                />
+                                                                <span>{point}</span>
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                )}
 
-                                                {item.links && item.links.length > 0 && (
-                                                    <div className="mt-4 flex flex-col gap-2">
-                                                        <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                                                            <span className="w-1.5 h-1.5 rounded-full bg-gray-500" />
-                                                            <span className="font-medium">Pull Requests:</span>
-                                                        </div>
-                                                        <div className="flex flex-wrap gap-3">
-                                                            {item.links.map((link, linkIndex) => (
-                                                                <a
-                                                                    key={linkIndex}
-                                                                    href={link}
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    className="inline-flex items-center gap-1.5 rounded-full border border-primary/15 bg-transparent px-3 py-1 text-xs font-medium text-primary hover:bg-primary/5"
-                                                                >
-                                                                    <span>PR #{linkIndex + 1}</span>
-                                                                </a>
-                                                            ))}
-                                                        </div>
+                                                {item.repositories && item.repositories.length > 0 && (
+                                                    <div className="flex flex-col gap-2.5">
+                                                        {item.repositories.map((repository) => (
+                                                            <div
+                                                                key={repository.name}
+                                                                className="flex items-center justify-between gap-4 border-b border-primary/10 pb-2.5 last:border-b-0 last:pb-0"
+                                                            >
+                                                                <span className="text-sm font-medium text-secondary sm:text-base">
+                                                                    {repository.name}
+                                                                </span>
+                                                                <div className="flex shrink-0 flex-wrap justify-end gap-2">
+                                                                    {repository.pullRequests.map((pullRequest) => (
+                                                                        <a
+                                                                            key={pullRequest.number}
+                                                                            href={pullRequest.url}
+                                                                            target="_blank"
+                                                                            rel="noopener noreferrer"
+                                                                            className="inline-flex items-center rounded-full border border-primary/15 bg-transparent px-3 py-1 text-xs font-medium text-primary hover:bg-primary/5"
+                                                                        >
+                                                                            PR #{pullRequest.number}
+                                                                        </a>
+                                                                    ))}
+                                                                </div>
+                                                            </div>
+                                                        ))}
                                                     </div>
                                                 )}
                                             </div>
