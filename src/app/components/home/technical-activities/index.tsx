@@ -21,6 +21,13 @@ const technicalActivitiesData: TechnicalActivityItem[] = [
         organization: "GitHub",
         repositories: [
             {
+                name: "MeshKit",
+                pullRequests: [
+                    { number: 1167, url: "https://github.com/meshery/meshkit/pull/1167" },
+                    { number: 1168, url: "https://github.com/meshery/meshkit/pull/1168" },
+                ],
+            },
+            {
                 name: "Switch",
                 pullRequests: [
                     { number: 1505, url: "https://github.com/sandbox-quantum/switch/pull/1505" },
