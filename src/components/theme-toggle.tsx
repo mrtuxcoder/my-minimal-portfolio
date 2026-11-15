@@ -1,37 +1,24 @@
 "use client";
 
-import { useTheme } from "next-themes";
-import { useEffect, useState, useRef } from "react";
-import { Moon, Sun } from "lucide-react";
+import React, { useRef } from "react";
 
 export function ThemeToggle({ className = "" }: { className?: string }) {
-  const { setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  const isTransitioningRef = useRef(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const btnRef = useRef<HTMLButtonElement>(null);
 
   const handleToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (isTransitioningRef.current) return;
+    const isDark = document.documentElement.classList.contains("dark");
+    const nextTheme = isDark ? "light" : "dark";
 
-    const isCurrentlyDark = document.documentElement.classList.contains("dark");
-    const nextTheme = isCurrentlyDark ? "light" : "dark";
-
-    const applyTheme = () => {
+    function applyTheme() {
       if (nextTheme === "dark") {
         document.documentElement.classList.add("dark");
       } else {
         document.documentElement.classList.remove("dark");
       }
-
       try {
         localStorage.setItem("theme", nextTheme);
-      } catch {}
-
-      setTheme(nextTheme);
-    };
+      } catch (err) {}
+    }
 
     // If View Transitions API is not supported or user prefers reduced motion
     if (
@@ -44,9 +31,6 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
       return;
     }
 
-    isTransitioningRef.current = true;
-
-    // Get click coordinates (or fallback to button center)
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX || rect.left + rect.width / 2;
     const y = e.clientY || rect.top + rect.height / 2;
@@ -57,50 +41,68 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
     );
 
     try {
-      const transition = (document as any).startViewTransition(() => {
-        applyTheme();
-      });
-
+      const transition = (document as any).startViewTransition(applyTheme);
       transition.ready
         .then(() => {
-          const clipPath = [
-            `circle(0px at ${x}px ${y}px)`,
-            `circle(${endRadius}px at ${x}px ${y}px)`,
-          ];
-
           document.documentElement.animate(
             {
-              clipPath: clipPath,
+              clipPath: [
+                `circle(0px at ${x}px ${y}px)`,
+                `circle(${endRadius}px at ${x}px ${y}px)`,
+              ],
             },
             {
-              duration: 450,
+              duration: 400,
               easing: "cubic-bezier(0.4, 0, 0.2, 1)",
               pseudoElement: "::view-transition-new(root)",
             } as any
           );
         })
-        .catch(() => {
-          // Fallback if animation fails
-        });
-
-      transition.finished.finally(() => {
-        isTransitioningRef.current = false;
-      });
-    } catch {
+        .catch(() => {});
+    } catch (err) {
       applyTheme();
-      isTransitioningRef.current = false;
     }
   };
 
   return (
     <button
       type="button"
+      ref={btnRef}
       onClick={handleToggle}
       aria-label="Toggle theme"
       className={`group relative flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-card text-secondary hover:bg-muted/80 hover:text-primary transition-colors cursor-pointer select-none ${className}`}
     >
-      <Sun className="h-4 w-4 hidden dark:block transition-transform hover:rotate-45 text-amber-400" />
-      <Moon className="h-4 w-4 block dark:hidden transition-transform hover:-rotate-12 text-slate-700" />
+      {/* Sun icon (shown in dark mode) */}
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-4 w-4 hidden dark:block transition-transform hover:rotate-45 text-amber-400"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+
+      {/* Moon icon (shown in light mode) */}
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-4 w-4 block dark:hidden transition-transform hover:-rotate-12 text-slate-700"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
       <span className="sr-only">Toggle theme</span>
     </button>
   );
