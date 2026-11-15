@@ -1,53 +1,23 @@
 "use client";
-import { useState } from "react";
-import { Activity, ChevronDown } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Activity, ChevronDown, ExternalLink } from "lucide-react";
+import {
+    fallbackRepositories,
+    type RepositoryGroup,
+} from "@/lib/github-prs";
 
 interface TechnicalActivityItem {
     role: string;
     organization: string;
     bulletPoints?: string[];
-    repositories?: {
-        name: string;
-        pullRequests: {
-            number: number;
-            url: string;
-        }[];
-    }[];
+    isGithubPrs?: boolean;
 }
 
-const technicalActivitiesData: TechnicalActivityItem[] = [
+const activitiesMeta: TechnicalActivityItem[] = [
     {
         role: "Open Source Contributions",
         organization: "GitHub",
-        repositories: [
-            {
-                name: "MeshKit",
-                pullRequests: [
-                    { number: 1167, url: "https://github.com/meshery/meshkit/pull/1167" },
-                    { number: 1168, url: "https://github.com/meshery/meshkit/pull/1168" },
-                ],
-            },
-            {
-                name: "Switch",
-                pullRequests: [
-                    { number: 1505, url: "https://github.com/sandbox-quantum/switch/pull/1505" },
-                ],
-            },
-            {
-                name: "zenmix",
-                pullRequests: [
-                    { number: 39, url: "https://github.com/se7engoodfellas/zenmix/pull/39" },
-                    { number: 38, url: "https://github.com/se7engoodfellas/zenmix/pull/38" },
-                    { number: 21, url: "https://github.com/se7engoodfellas/zenmix/pull/21" },
-                ],
-            },
-            {
-                name: "Study-Notion LMS",
-                pullRequests: [
-                    { number: 6, url: "https://github.com/BoddepallyVenkatesh06/Study-Notion-LMS/pull/6" },
-                ],
-            },
-        ],
+        isGithubPrs: true,
     },
     {
         role: "Student Coordinator – Debugging Competition",
@@ -64,6 +34,28 @@ const technicalActivitiesData: TechnicalActivityItem[] = [
 
 const TechnicalActivities = () => {
     const [openIndex, setOpenIndex] = useState<number | null>(0);
+    const [repositories, setRepositories] = useState<RepositoryGroup[]>(fallbackRepositories);
+
+    useEffect(() => {
+        let isMounted = true;
+        fetch("/api/github-prs")
+            .then((res) => {
+                if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+                return res.json();
+            })
+            .then((data) => {
+                if (isMounted && data?.repositories && Array.isArray(data.repositories)) {
+                    setRepositories(data.repositories);
+                }
+            })
+            .catch((err) => {
+                console.warn("[github-prs] Failed to refresh live PRs, using fallback", err);
+            });
+
+        return () => {
+            isMounted = false;
+        };
+    }, []);
 
     return (
         <section>
@@ -80,7 +72,7 @@ const TechnicalActivities = () => {
 
                     <div className="border-t border-primary/10">
                         <div className="flex flex-col max-w-5xl mx-auto px-4 sm:px-7 py-9 md:py-10">
-                            {technicalActivitiesData.map((item, index) => {
+                            {activitiesMeta.map((item, index) => {
                                 const isOpen = openIndex === index;
                                 const accordionId = `technical-activity-panel-${index}`;
 
@@ -91,7 +83,7 @@ const TechnicalActivities = () => {
                                     >
                                         <button
                                             type="button"
-                                            className="group w-full text-left"
+                                            className="group w-full text-left cursor-pointer"
                                             onClick={() => setOpenIndex(isOpen ? null : index)}
                                             aria-expanded={isOpen}
                                             aria-controls={accordionId}
@@ -137,26 +129,46 @@ const TechnicalActivities = () => {
                                                     </ul>
                                                 )}
 
-                                                {item.repositories && item.repositories.length > 0 && (
-                                                    <div className="flex flex-col gap-2.5">
-                                                        {item.repositories.map((repository) => (
-                                                            <div
-                                                                key={repository.name}
-                                                                className="flex items-center justify-between gap-4 border-b border-primary/10 pb-2.5 last:border-b-0 last:pb-0"
-                                                            >
-                                                                <span className="text-sm font-medium text-secondary sm:text-base">
-                                                                    {repository.name}
-                                                                </span>
-                                                                <div className="flex shrink-0 flex-wrap justify-end gap-2">
+                                                {item.isGithubPrs && (
+                                                    <div className="space-y-5">
+                                                        {repositories.map((repository) => (
+                                                            <div key={repository.name} className="space-y-1.5">
+                                                                <div className="flex items-center gap-2 text-sm text-primary">
+                                                                    <span
+                                                                        aria-hidden="true"
+                                                                        className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary/60"
+                                                                    />
+                                                                    <a
+                                                                        href={repository.repoUrl}
+                                                                        target="_blank"
+                                                                        rel="noopener noreferrer"
+                                                                        className="font-medium hover:underline underline-offset-4"
+                                                                    >
+                                                                        {repository.name}
+                                                                    </a>
+                                                                    <span className="text-xs text-secondary/60">
+                                                                        · {repository.pullRequests.length}{" "}
+                                                                        {repository.pullRequests.length === 1 ? "PR" : "PRs"}
+                                                                    </span>
+                                                                </div>
+
+                                                                <div className="space-y-1 pl-3.5 sm:pl-4">
                                                                     {repository.pullRequests.map((pullRequest) => (
                                                                         <a
                                                                             key={pullRequest.number}
                                                                             href={pullRequest.url}
                                                                             target="_blank"
                                                                             rel="noopener noreferrer"
-                                                                            className="inline-flex items-center rounded-full border border-primary/15 bg-transparent px-3 py-1 text-xs font-medium text-primary hover:bg-primary/5"
+                                                                            title={pullRequest.title}
+                                                                            className="group flex items-baseline gap-2 py-0.5 text-xs sm:text-sm text-secondary hover:text-primary transition-colors max-w-full"
                                                                         >
-                                                                            PR #{pullRequest.number}
+                                                                            <span className="shrink-0 font-mono text-[11px] sm:text-xs text-primary/70 group-hover:text-primary">
+                                                                                #{pullRequest.number}
+                                                                            </span>
+                                                                            <span className="truncate group-hover:underline underline-offset-2">
+                                                                                {pullRequest.title}
+                                                                            </span>
+                                                                            <ExternalLink className="h-3 w-3 shrink-0 text-secondary/40 opacity-0 group-hover:opacity-100 transition-opacity" />
                                                                         </a>
                                                                     ))}
                                                                 </div>
