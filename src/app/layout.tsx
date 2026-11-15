@@ -2,9 +2,8 @@ import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 
 import "./globals.css";
-import Header from "./components/layout/header";
+import { ThemeProvider } from "@/components/theme-provider";
 import Footer from "./components/layout/footer";
-import LatestNoteCapsule from "./components/layout/latest-note-capsule";
 
 const siteUrl = "https://www.guganraj.me";
 const openGraphImageUrl = `${siteUrl}/images/favicon/OG.png`;
@@ -241,23 +240,41 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
-        <Script
-          id="person-structured-data"
-          type="application/ld+json"
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          id="theme-initializer"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(personStructuredData),
+            __html: `
+              (function() {
+                try {
+                  var t = localStorage.getItem('theme');
+                  var isDark = t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                  if (isDark) {
+                    document.documentElement.classList.add('dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                  }
+                } catch (e) {}
+              })();
+            `,
           }}
         />
+      </head>
+      <body className="min-h-screen bg-background text-foreground antialiased selection:bg-primary/10">
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <Script
+            id="person-structured-data"
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(personStructuredData),
+            }}
+          />
 
-        <Header />
+          {children}
 
-        <main>{children}</main>
-
-        <Footer />
-
-        <LatestNoteCapsule />
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
