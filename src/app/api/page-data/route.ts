@@ -5,7 +5,7 @@ const experienceData = [
 
     {
     "icon": "/images/icon/tailwind-icon.svg",
-    "role": "Technical Instructor (Part-time)",
+    "role": "Technical Instructor",
     "location": "Remote, India",
     "organization": "JADEL INFO TECH",
     "startYear": "Mar 2026",
