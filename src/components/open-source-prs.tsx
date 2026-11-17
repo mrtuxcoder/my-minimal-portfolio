@@ -4,32 +4,80 @@ import { useEffect, useMemo, useState } from "react";
 import { GitPullRequest, ExternalLink } from "lucide-react";
 import {
   fallbackRepositories,
+  parseGitHubIssuesToRepositories,
   type RepositoryGroup,
 } from "@/lib/github-prs";
 
-export function OpenSourcePRs() {
+interface OpenSourcePRsProps {
+  initialRepositories?: RepositoryGroup[];
+  initialTotalCount?: number;
+}
+
+export function OpenSourcePRs({
+  initialRepositories = fallbackRepositories,
+  initialTotalCount,
+}: OpenSourcePRsProps) {
   const [repositories, setRepositories] =
-    useState<RepositoryGroup[]>(fallbackRepositories);
+    useState<RepositoryGroup[]>(initialRepositories);
+  const [totalCount, setTotalCount] = useState<number | undefined>(
+    initialTotalCount
+  );
 
   useEffect(() => {
     let isMounted = true;
-    fetch("/api/github-prs")
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP error ${res.status}`);
-        return res.json();
-      })
-      .then((data) => {
-        if (
-          isMounted &&
-          data?.repositories &&
-          Array.isArray(data.repositories)
-        ) {
-          setRepositories(data.repositories);
+
+    async function refreshPRs() {
+      try {
+        // 1. Fetch from internal API with cache: 'no-store' to bypass browser caching
+        const res = await fetch("/api/github-prs", { cache: "no-store" });
+        if (res.ok) {
+          const data = await res.json();
+          if (
+            isMounted &&
+            data?.repositories &&
+            Array.isArray(data.repositories) &&
+            data.repositories.length > 0
+          ) {
+            if (data.source === "live") {
+              setRepositories(data.repositories);
+              if (typeof data.totalCount === "number") {
+                setTotalCount(data.totalCount);
+              }
+              return;
+            }
+          }
         }
-      })
-      .catch((err) =>
-        console.warn("[github-prs] Using fallback PR data", err)
-      );
+
+        // 2. If internal API returned fallback or failed (e.g. server IP rate limited by GitHub),
+        // try direct client-side fetch using user's browser IP
+        const clientRes = await fetch(
+          "https://api.github.com/search/issues?q=is:pr+is:merged+author:mrtuxcoder+-user:mrtuxcoder&sort=updated&order=desc&per_page=100",
+          {
+            headers: {
+              Accept: "application/vnd.github.v3+json",
+              "User-Agent": "mrtuxcoder-portfolio",
+            },
+            cache: "no-store",
+          }
+        );
+
+        if (clientRes.ok) {
+          const clientData = await clientRes.json();
+          if (Array.isArray(clientData.items)) {
+            const parsed = parseGitHubIssuesToRepositories(clientData.items);
+            if (isMounted && parsed.repositories.length > 0) {
+              setRepositories(parsed.repositories);
+              setTotalCount(parsed.totalCount);
+              return;
+            }
+          }
+        }
+      } catch (err) {
+        console.warn("[github-prs] Failed to refresh live PRs, using pre-rendered data", err);
+      }
+    }
+
+    refreshPRs();
 
     return () => {
       isMounted = false;
@@ -37,11 +85,14 @@ export function OpenSourcePRs() {
   }, []);
 
   const totalPrs = useMemo(() => {
+    if (typeof totalCount === "number" && totalCount > 0) {
+      return totalCount;
+    }
     return repositories.reduce(
       (sum, repo) => sum + repo.pullRequests.length,
       0
     );
-  }, [repositories]);
+  }, [repositories, totalCount]);
 
   // Always show exactly the recent 6 PRs
   const recentRepositories = useMemo(() => {
